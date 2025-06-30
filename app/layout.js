@@ -20,7 +20,7 @@ export const metadata = {
         siteName: "Ramy and Shazia's Wedding Site",
         images: [
             {
-                url: "https://ramyabdulazziz.dev/PREVIEW.png", 
+                url: "https://ramyandshazia.com/PREVIEW.png", 
                 width: 800,
                 height: 600, 
                 alt: "", 
