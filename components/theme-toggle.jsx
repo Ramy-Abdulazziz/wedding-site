@@ -8,22 +8,14 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const ThemeToggle = () => {
-    const { theme, setTheme, resolvedTheme } = useTheme();
-    const [isDark, setIsDark] = useState(false);
+    const { setTheme, resolvedTheme } = useTheme();
+    const isDark = resolvedTheme === "dark";
 
-    useEffect(() => {
-        const checkResolved = () => {
-            if (resolvedTheme) {
-                setIsDark(resolvedTheme === "dark");
-            }
-        };
-
-        checkResolved();
-    }, [resolvedTheme]);
-
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+    if (!mounted) return null;
     const toggleTheme = () => {
-        setTheme(theme === "dark" ? "light" : "dark");
-        setIsDark((currDarkVal) => !currDarkVal);
+        setTheme(isDark ? "light" : "dark");
     };
 
     return (
