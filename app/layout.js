@@ -13,6 +13,22 @@ const tajawal = Tajawal({
 export const metadata = {
     title: "Ramy and Shazia's Wedding",
     description: "Ramy and Shazia's wedding website",
+        openGraph: {
+        title: "Ramy and Shazia's Wedding Site",
+        description: "You're Invited to Ramy and Shazia's Wedding",
+        url: "https://ramyandshazia.com",
+        siteName: "Ramy and Shazia's Wedding Site",
+        images: [
+            {
+                url: "https://ramyabdulazziz.dev/PREVIEW.png", 
+                width: 800,
+                height: 600, 
+                alt: "", 
+            },
+        ],
+        locale: "en_US", 
+        type: "website", 
+    },
 };
 
 export default function RootLayout({ children }) {
