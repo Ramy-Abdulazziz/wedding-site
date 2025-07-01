@@ -43,7 +43,7 @@ export default function Rsvp() {
             </section>
             <section className={cn("xl:ml-20")}>
                 <motion.div
-                    className={cn("container mx-auto pl-5 sm:pl-7")}
+                    className={cn("container mx-auto pl-5 sm:pl-7 pt-5")}
                     variants={textContainer}
                     initial="hidden"
                     whileInView="show"
