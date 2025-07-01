@@ -54,7 +54,7 @@ const Header = () => {
                     <Count year={2025} month={10} days={26} down={false} />
                 </div>
             </div>
-            <div className={cn("flex justify justify-self-center")}>
+            <div className={cn("flex  justify-center w-full")}>
                 <Dialog>
                     <form onSubmit={() => handleSubmit()}>
                         <DialogTrigger asChild>
