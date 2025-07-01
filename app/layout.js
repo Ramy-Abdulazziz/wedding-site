@@ -2,7 +2,6 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Tajawal } from "next/font/google";
 import ThemeProvider from "@/components/theme-provider";
-import TopoBack from "@/components/top-back";
 const tajawal = Tajawal({
     weight: "400",
     subsets: ["arabic"],
