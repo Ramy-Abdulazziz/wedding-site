@@ -40,7 +40,7 @@ const Header = () => {
                 <div className={cn("flex justify-center object-scale-down")}>
                     <h1
                         className={cn(
-                            "text-sm mt-10 mb-5 sm:text-lg md:text-xl lg:text-xl xl:text-2xl text-nowrap"
+                            "text-sm mt-10 mb-2 sm:text-lg md:text-xl lg:text-xl xl:text-2xl text-nowrap"
                         )}
                     >
                         November 26th, 2025
@@ -48,23 +48,24 @@ const Header = () => {
                 </div>
                 <div
                     className={cn(
-                        "text-sm sm:text-lg md:text-xl lg:text-xl xl:text-2xl flex justify-center object-scale-down mb-10 "
+                        "text-sm sm:text-lg md:text-xl lg:text-xl xl:text-2xl flex justify-center object-scale-down mb-8 "
                     )}
                 >
-                    <Count year={2025} month={10} days={26} down={false} />
+                    <Count year={2025} month={10} days={26} down={true} />
                 </div>
             </div>
+
             <div className={cn("flex  justify-center w-full")}>
                 <Dialog>
                     <form onSubmit={() => handleSubmit()}>
                         <DialogTrigger asChild>
                             <Button
-                                variant={"secondary"}
+                                variant={"outline"}
                                 className={cn(
-                                    "mt-3 lg:text-lg xl:text-lg 2xl:text-xl"
+                                    "mt-3 lg:text-lg xl:text-lg 2xl:text-xl w-20p"
                                 )}
                             >
-                                Get Access
+                                Get Access & RSVP
                             </Button>
                         </DialogTrigger>
                         <DialogContent>
@@ -97,6 +98,9 @@ const Header = () => {
                         </DialogContent>
                     </form>
                 </Dialog>
+            </div>
+            <div className="mt-12 flex justify-center">
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent"></div>
             </div>
         </>
     );
