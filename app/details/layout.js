@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 
-export default function RsvpLayout({ children }) {
+export default function detailsLayout({ children }) {
     return (
         <section>
             <Nav />

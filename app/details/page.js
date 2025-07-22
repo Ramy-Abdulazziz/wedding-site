@@ -31,7 +31,7 @@ const textItem = {
     },
 };
 
-export default function Rsvp() {
+export default function Details() {
     return (
         <div className={cn('pb-[50vh]')}>
             <section

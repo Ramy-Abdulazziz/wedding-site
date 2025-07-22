@@ -1,3 +1,5 @@
+"use client"
+
 import ArabicNames from "@/components/ArabicNames";
 import Count from "@/components/Count";
 import Image from "next/image";
