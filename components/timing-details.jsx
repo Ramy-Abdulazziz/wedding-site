@@ -1,4 +1,6 @@
-import { motion } from "motion/react";
+"use client";
+
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils";
 import Count from "@/components/Count";
 import Link from "next/link";

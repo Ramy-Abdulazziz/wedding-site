@@ -1,4 +1,6 @@
-import * as motion from "framer-motion/client";
+"use client";
+
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils";
 import { Tajawal } from "next/font/google";
 

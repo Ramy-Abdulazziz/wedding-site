@@ -1,12 +1,13 @@
 "use client";
 
 import FloatingInvite from "@/components/FloatingInvite";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import TimingDetails from "@/components/timing-details";
 import RsvpDetails from "@/components/rsvp-details";
 import FaqDetails from "@/components/faq-details";
+
 
 const textContainer = {
     hidden: { opacity: 0 },
@@ -31,9 +32,9 @@ const textItem = {
     },
 };
 
-export default function Rsvp() {
+export default function DetailsContent() {
     return (
-        <div className={cn('pb-[50vh]')}>
+        <div className={cn("pb-[50vh]")}>
             <section
                 className={cn(
                     "relative h-screen flex overflow-hidden justify-center justify-items-center-safe items-center mt-10"

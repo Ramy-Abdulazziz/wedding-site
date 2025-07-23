@@ -1,11 +1,19 @@
-"use client";
-
 import Header from "@/components/header";
 import { cn } from "@/lib/utils";
-import * as React from "react";
 import ThemeToggle from "@/components/theme-toggle";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+export default async function Home() {
+    
+    const supabase = await createClient();
+    const {
+        data: { session },
+    } = await supabase.auth.getUser();
 
-export default function Home() {
+    if (session) {
+        redirect("/details");
+    }
+
     return (
         <>
             <div
