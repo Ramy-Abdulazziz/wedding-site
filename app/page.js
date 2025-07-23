@@ -4,13 +4,12 @@ import ThemeToggle from "@/components/theme-toggle";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 export default async function Home() {
-    
     const supabase = await createClient();
     const {
-        data: { session },
+        data: { user },
     } = await supabase.auth.getUser();
 
-    if (session) {
+    if (user) {
         redirect("/details");
     }
 
