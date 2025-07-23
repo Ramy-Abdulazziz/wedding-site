@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import ArabicNames from "@/components/ArabicNames";
 import Count from "@/components/Count";
@@ -18,13 +18,30 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { sendMagicLink } from "@/app/auth/actions";
 const Header = () => {
-    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = () => {
-        router.push("/rsvp", { scroll: false });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        console.log("sending");
+        setLoading(true);
+        setMessage("Checking guest list...");
+
+        const result = await sendMagicLink(email);
+        if (result?.error) {
+            setMessage(result.error);
+        } else {
+            setMessage("✅ Magic link sent! Check your email.");
+        }
+
+        setLoading(false);
     };
+
     return (
         <>
             <div className=" relative w-full mx-auto justify-center items-center text-center">
@@ -59,18 +76,18 @@ const Header = () => {
 
             <div className={cn("flex  justify-center w-full")}>
                 <Dialog>
-                    <form onSubmit={() => handleSubmit()}>
-                        <DialogTrigger asChild>
-                            <Button
-                                variant={"outline"}
-                                className={cn(
-                                    "mt-3 lg:text-lg xl:text-lg 2xl:text-xl w-20p"
-                                )}
-                            >
-                                Get Access & RSVP
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent>
+                    <DialogTrigger asChild>
+                        <Button
+                            variant={"outline"}
+                            className={cn(
+                                "mt-3 lg:text-lg xl:text-lg 2xl:text-xl w-20p"
+                            )}
+                        >
+                            Get Access & RSVP
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <form onSubmit={handleSubmit}>
                             <DialogHeader>
                                 <DialogTitle> Get Access and RSVP</DialogTitle>
                                 <DialogDescription>
@@ -79,26 +96,36 @@ const Header = () => {
                                     and a link to enter will be emailed to you
                                 </DialogDescription>
                             </DialogHeader>
-                            <div className="grid gap-4">
+                            <div className="grid gap-4 mt-5">
                                 <div className="grid gap-3">
                                     <Label htmlFor="name-1">Email</Label>
-                                    <Input id="email" name="email" />
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
+                                    />
                                 </div>
+                                {message && (
+                                    <p className="text-sm text-center text-muted-foreground">
+                                        {message}
+                                    </p>
+                                )}
                             </div>
-                            <DialogFooter>
+                            <DialogFooter className={cn('mt-5')}>
                                 <DialogClose asChild>
                                     <Button type="button" variant="outline">
                                         Close
                                     </Button>
                                 </DialogClose>
-                                <DialogClose asChild>
-                                    <Button asChild variant="secondary">
-                                        <Link href="/rsvp"> Submit</Link>
-                                    </Button>
-                                </DialogClose>
+                                <Button type="submit" variant="secondary" disabled={loading}>
+                                    {loading ? "Sending..." : "Send Magic Link"}
+                                </Button>
                             </DialogFooter>
-                        </DialogContent>
-                    </form>
+                        </form>
+                    </DialogContent>
                 </Dialog>
             </div>
             <div className="mt-12 flex justify-center">

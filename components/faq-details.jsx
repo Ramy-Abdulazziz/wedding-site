@@ -1,5 +1,8 @@
+"use client";
+
+
 import { textContainer, textItem } from "@/lib/variants";
-import { motion } from "motion/react";
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils";
 import Faq from "@/components/Faq";
 

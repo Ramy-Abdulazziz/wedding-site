@@ -1,89 +1,13 @@
-"use client";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+import DetailsContent from "@/components/DetailsContent";
 
-import FloatingInvite from "@/components/FloatingInvite";
-import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
-import TimingDetails from "@/components/timing-details";
-import RsvpDetails from "@/components/rsvp-details";
-import FaqDetails from "@/components/faq-details";
+export default async function Details() {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.getUser();
 
-const textContainer = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            duration: 1,
-            staggerChildren: 0.25,
-        },
-    },
-};
-
-const textItem = {
-    hidden: { opacity: 0, y: 5 },
-    show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 1,
-            ease: "easeOut",
-        },
-    },
-};
-
-export default function Details() {
-    return (
-        <div className={cn('pb-[50vh]')}>
-            <section
-                className={cn(
-                    "relative h-screen flex overflow-hidden justify-center justify-items-center-safe items-center mt-10"
-                )}
-            >
-                <FloatingInvite />
-            </section>
-            <section className={cn("xl:ml-20")}>
-                <motion.div
-                    className={cn("container mx-auto pl-5 sm:pl-7 pt-5")}
-                    variants={textContainer}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
-                >
-                    <TimingDetails />
-                </motion.div>
-            </section>
-            <Separator
-                className={cn(
-                    "flex justify-self-center max-w-[90%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
-                )}
-            />
-            <section className={cn("xl:ml-20")}>
-                <motion.div
-                    className={cn("container mx-auto pl-5 sm:pl-7 mb-10 mt-5")}
-                    variants={textContainer}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
-                >
-                    <RsvpDetails />
-                </motion.div>
-            </section>
-            <Separator
-                className={cn(
-                    "flex justify-self-center max-w-[90%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
-                )}
-            />
-            <section className={cn("xl:ml-20")}>
-                <motion.div
-                    className={cn("container mx-auto pl-5 sm:pl-7 mb-10 mt-5")}
-                    variants={textContainer}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
-                >
-                    <FaqDetails />
-                </motion.div>
-            </section>
-        </div>
-    );
+    if (error || !data?.user) {
+        redirect("/");
+    }
+    return <DetailsContent />;
 }

@@ -1,5 +1,4 @@
 import { updateSession } from '@/utils/supabase/middleware'
-import { NextResponse } from 'next/server';
 
 export async function middleware(req) {
   return await updateSession(req);
@@ -7,6 +6,6 @@ export async function middleware(req) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|api|$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|auth/confirm).*)',
   ],
 };

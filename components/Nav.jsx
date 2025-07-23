@@ -27,7 +27,6 @@ import {
     NavigationMenuViewport,
     navigationMenuLinkStyle,
 } from "@/components/ui/navigation-menu";
-import * as React from "react";
 import { MenuIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";

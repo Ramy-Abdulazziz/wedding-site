@@ -1,9 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 
-export async function updateSession(req) {
+export async function updateSession(request) {
     let supabaseResponse = NextResponse.next({
-        req,
+        request,
     });
 
     const supabase = createServerClient(
@@ -12,14 +12,14 @@ export async function updateSession(req) {
         {
             cookies: {
                 getAll() {
-                    return req.cookies.getAll();
+                    return request.cookies.getAll();
                 },
                 setAll(cookiesToSet) {
                     cookiesToSet.forEach(({ name, value, options }) =>
-                        req.cookies.set(name, value)
+                        request.cookies.set(name, value)
                     );
                     supabaseResponse = NextResponse.next({
-                        req,
+                        request,
                     });
                     cookiesToSet.forEach(({ name, value, options }) =>
                         supabaseResponse.cookies.set(name, value, options)
@@ -36,33 +36,33 @@ export async function updateSession(req) {
     // IMPORTANT: DO NOT REMOVE auth.getUser()
 
     const {
-        data: { session },
+        data: { user },
     } = await supabase.auth.getUser();
 
-    const pathname = req.nextUrl.pathname;
+    const pathname = request.nextUrl.pathname;
 
     // Allow homepage through
-    if (pathname === "/") return res;
+    if (pathname === "/") return supabaseResponse;
 
     // If not logged in, redirect to home
-    if (!session) {
-        const url = req.nextUrl.clone();
+    if (!user) {
+        const url = request.nextUrl.clone();
         url.pathname = "/";
         return NextResponse.redirect(url);
     }
 
     // Check if user is in guests table
-    const { data: guest } = await supabase
-        .from("guests")
-        .select("id")
-        .eq("id", session.user.id)
-        .single();
+    // const { data: guest } = await supabase
+    //     .from("guests")
+    //     .select("id")
+    //     .eq("id", session.user.id)
+    //     .single();
 
-    if (!guest) {
-        const url = req.nextUrl.clone();
-        url.pathname = "/";
-        return NextResponse.redirect(url);
-    }
+    // if (!guest) {
+    //     const url = request.nextUrl.clone();
+    //     url.pathname = "/";
+    //     return NextResponse.redirect(url);
+    // }
 
     return supabaseResponse;
 }
