@@ -74,7 +74,7 @@ export default function DetailsContent() {
                     "flex justify-self-center max-w-[90%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
                 )}
             />
-            <section className={cn("xl:ml-20")}>
+            <section className={cn("xl:ml-20 mr-6 md:mr-7 xl:mr-26")}>
                 <motion.div
                     className={cn("container mx-auto pl-5 sm:pl-7 mb-10 mt-5")}
                     variants={textContainer}

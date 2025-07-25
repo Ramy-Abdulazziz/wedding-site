@@ -2,6 +2,7 @@ import ArabicNames from "@/components/ArabicNames";
 import Count from "@/components/Count";
 import { cn } from "@/lib/utils";
 import DialogEmailInput from "@/components/DialogEmailInput";
+
 const Header = () => {
     return (
         <>
