@@ -6,7 +6,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const token_hash = searchParams.get("token_hash");
     const type = searchParams.get("type");
-    console.log(searchParams); 
+    console.log(searchParams);
     const next = searchParams.get("next") ?? "/";
 
     if (token_hash && type) {
@@ -19,11 +19,9 @@ export async function GET(request) {
             token_hash,
         });
 
-        console.log("OTP verification result:", data, error, next);
-
         if (!error) {
             // redirect user to specified redirect URL or root of app
-            redirect('/details');
+            redirect("/details");
         }
     }
 
