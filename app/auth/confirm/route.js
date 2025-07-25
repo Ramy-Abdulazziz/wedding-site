@@ -6,7 +6,6 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const token_hash = searchParams.get("token_hash");
     const type = searchParams.get("type");
-    console.log(searchParams);
     const next = searchParams.get("next") ?? "/";
 
     if (token_hash && type) {
