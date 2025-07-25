@@ -1,47 +1,8 @@
-"use client";
-
 import ArabicNames from "@/components/ArabicNames";
 import Count from "@/components/Count";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { useState } from "react";
-import { sendMagicLink } from "@/app/auth/actions";
+import DialogEmailInput from "@/components/DialogEmailInput";
 const Header = () => {
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState(null);
-    const [loading, setLoading] = useState(false);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        console.log("sending");
-        setLoading(true);
-        setMessage("Checking guest list...");
-
-        const result = await sendMagicLink(email);
-        if (result?.error) {
-            setMessage(result.error);
-        } else {
-            setMessage("✅ Magic link sent! Check your email.");
-        }
-
-        setLoading(false);
-    };
-
     return (
         <>
             <div className=" relative w-full mx-auto justify-center items-center text-center">
@@ -75,62 +36,7 @@ const Header = () => {
             </div>
 
             <div className={cn("flex  justify-center w-full")}>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button
-                            variant={"outline"}
-                            className={cn(
-                                "mt-3 lg:text-lg xl:text-lg 2xl:text-xl w-20p"
-                            )}
-                        >
-                            Get Access & RSVP
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <form onSubmit={handleSubmit}>
-                            <DialogHeader>
-                                <DialogTitle> Get Access and RSVP</DialogTitle>
-                                <DialogDescription>
-                                    We are limiting access to only invited
-                                    guests please enter your email to get access
-                                    and a link to enter will be emailed to you
-                                </DialogDescription>
-                            </DialogHeader>
-                            <div className="grid gap-4 mt-5">
-                                <div className="grid gap-3">
-                                    <Label htmlFor="name-1">Email</Label>
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        value={email}
-                                        onChange={(e) =>
-                                            setEmail(e.target.value)
-                                        }
-                                    />
-                                </div>
-                                {message && (
-                                    <p className="text-sm text-center text-muted-foreground">
-                                        {message}
-                                    </p>
-                                )}
-                            </div>
-                            <DialogFooter className={cn("mt-5")}>
-                                <DialogClose asChild>
-                                    <Button type="button" variant="outline">
-                                        Close
-                                    </Button>
-                                </DialogClose>
-                                <Button
-                                    type="submit"
-                                    variant="secondary"
-                                    disabled={loading}
-                                >
-                                    {loading ? "Sending..." : "Send Magic Link"}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </DialogContent>
-                </Dialog>
+                <DialogEmailInput />
             </div>
             <div className="mt-12 flex justify-center">
                 <div className="w-24 h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent"></div>

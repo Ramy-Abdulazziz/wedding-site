@@ -1,6 +1,7 @@
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Tajawal } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import ThemeProvider from "@/components/theme-provider";
 const tajawal = Tajawal({
     weight: "400",
@@ -43,9 +44,8 @@ export default function RootLayout({ children }) {
                     disableTransitionOnChange
                 >
                     <main className={cn("relative z-20")}>
-                        {" "}
-                    {/* <TopoBack/> */}
                         <div className="min-h-screen bg-gradient-to-b from-slate-100 to-zinc-100 dark:from-zinc-900 dark:to-background">
+                            <Toaster />
                             {children}
                         </div>
                     </main>
