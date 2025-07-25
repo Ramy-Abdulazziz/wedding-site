@@ -52,17 +52,17 @@ export async function updateSession(request) {
     }
 
     // Check if user is in guests table
-    // const { data: guest } = await supabase
-    //     .from("guests")
-    //     .select("id")
-    //     .eq("id", session.user.id)
-    //     .single();
+    const { data: guest } = await supabase
+        .from("guests")
+        .select("id")
+        .eq("id", user.id)
+        .single();
 
-    // if (!guest) {
-    //     const url = request.nextUrl.clone();
-    //     url.pathname = "/";
-    //     return NextResponse.redirect(url);
-    // }
+    if (!guest) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/";
+        return NextResponse.redirect(url);
+    }
 
     return supabaseResponse;
 }

@@ -114,13 +114,17 @@ const Header = () => {
                                     </p>
                                 )}
                             </div>
-                            <DialogFooter className={cn('mt-5')}>
+                            <DialogFooter className={cn("mt-5")}>
                                 <DialogClose asChild>
                                     <Button type="button" variant="outline">
                                         Close
                                     </Button>
                                 </DialogClose>
-                                <Button type="submit" variant="secondary" disabled={loading}>
+                                <Button
+                                    type="submit"
+                                    variant="secondary"
+                                    disabled={loading}
+                                >
                                     {loading ? "Sending..." : "Send Magic Link"}
                                 </Button>
                             </DialogFooter>
