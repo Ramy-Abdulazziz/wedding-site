@@ -7,7 +7,7 @@ import {
 
 const Faq = () => {
     return (
-        <Accordion type="single" collapsible className="w-full ">
+        <Accordion type="single" collapsible className="w-full mr-6 md:mr-7 xl:mr-26">
             <AccordionItem value="item-1">
                 <AccordionTrigger>
                     Will My Dietary Restrictions Be Accommodated?
