@@ -76,7 +76,7 @@ export default function DetailsContent() {
             />
             <section className={cn("xl:ml-20 ")}>
                 <motion.div
-                    className={cn("container mx-auto pl-5 pr-5 sm:pr-0 md:pr-0 lg:pr-0 xl:pr-0 2xl:pr-0 sm:pl-7 mb-10 mt-5")}
+                    className={cn("container mx-auto pl-5 pr-5 sm:pr-0 md:pr-0 lg:pr-0 xl:pr-0 2xl:pr-0sm:pl-7 mb-10 mt-5")}
                     variants={textContainer}
                     initial="hidden"
                     whileInView="show"

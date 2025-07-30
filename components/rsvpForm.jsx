@@ -1,0 +1,290 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import RsvpInstructionsDialog from "@/components/rsvpInstructionsDialog";
+import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Input } from "@/components/ui/input";
+
+import {
+    Form,
+    FormField,
+    FormItem,
+    FormControl,
+    FormLabel,
+    FormDescription,
+} from "@/components/ui/form";
+import { Switch } from "./ui/switch";
+import {
+    Card,
+    CardHeader,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardTitle,
+} from "./ui/card";
+import { updateRsvps } from "@/app/rsvp/_lib/actions";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { X, Plus } from "lucide-react";
+
+const genSchema = (guestData) => {
+    const guestSchema = z.object({
+        namedGuests: z.object(
+            Object.fromEntries(
+                guestData.map((guest) => [
+                    guest.id,
+                    z.boolean().default(false).optional(),
+                ])
+            )
+        ),
+        plusOnes: z.array(
+            z.object({
+                name: z.string().min(1, { message: "name is required" }),
+            })
+        ),
+    });
+
+    return guestSchema;
+};
+
+const RsvpForm = ({ initialData }) => {
+    const [step, setStep] = useState(0);
+    const { guest, guests, plusOnes, rsvps, group } = initialData;
+
+    const form = useForm({
+        resolver: zodResolver(genSchema(guests)),
+        defaultValues: {
+            namedGuests: guests.reduce((acc, guest) => {
+                const rsvp = rsvps.find((r) => r.guest_id === guest.id);
+                acc[guest.id] = rsvp.attending;
+                return acc;
+            }, {}),
+
+            plusOnes: plusOnes.map((plusOneGuest) => {
+                const rsvp = rsvps.find((r) => r.guest_id === plusOneGuest.id);
+                return {
+                    name: plusOneGuest.name,
+                };
+            }),
+        },
+    });
+
+    const { fields, append, remove } = useFieldArray({
+        control: form.control,
+        name: "plusOnes",
+    });
+
+    const handleNext = async () => {
+        const isValid = await form.trigger("namedGuests");
+        if (isValid) setStep(1);
+    };
+
+    const onSubmit = async (data) => {
+        const rsvpArray = Object.entries(data.namedGuests).map(
+            ([guestId, isAttending]) => ({
+                guest_id: guestId,
+                attending: isAttending,
+                group_id: guest.group_id,
+            })
+        );
+
+        const plusOnesRsvpArray = data.plusOnes.map((item) => ({
+            name: item.name.trim(),
+            groupId: guest.group_id,
+            is_plus_one: true,
+        }));
+
+        const updateRsvp = await updateRsvps(
+            rsvpArray,
+            plusOnesRsvpArray,
+            guest.group_id
+        );
+        if (updateRsvp?.error) {
+            toast.error(updateRsvp.error);
+        } else {
+            toast.success("Successfully updated rsvp info");
+        }
+    };
+
+    return (
+        <>
+            <RsvpInstructionsDialog />
+            <Card className={cn("max-w-xl max-auto")}>
+                <CardHeader>
+                    <CardTitle>
+                        <div> Welcome {guest.name} </div>
+                    </CardTitle>
+                    <CardDescription>
+                        {step === 0
+                            ? "Rsvp for all members of your group"
+                            : `Add your plus ones (${group.plus_ones - fields.length} remaining)`}
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)}>
+                            {step == 0 && (
+                                <div className={cn("")}>
+                                    {guests.map((guest) => (
+                                        <div
+                                            key={guest.id}
+                                            className={cn("mb-10")}
+                                        >
+                                            <FormField
+                                                control={form.control}
+                                                name={`namedGuests.${guest.id}`}
+                                                render={({ field }) => (
+                                                    <FormItem
+                                                        className={cn(
+                                                            "flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm"
+                                                        )}
+                                                    >
+                                                        <div className="space-y-0.5">
+                                                            <FormLabel>
+                                                                {`RSVP for ${guest.name}`}
+                                                            </FormLabel>
+                                                            <FormDescription>
+                                                                {`Is ${guest.name} attending?`}
+                                                            </FormDescription>
+                                                        </div>
+                                                        <div
+                                                            className={cn(
+                                                                "flex flex-row justify-right space-x-2"
+                                                            )}
+                                                        >
+                                                            <FormControl>
+                                                                <Switch
+                                                                    checked={
+                                                                        field.value
+                                                                    }
+                                                                    onCheckedChange={
+                                                                        field.onChange
+                                                                    }
+                                                                />
+                                                            </FormControl>
+                                                            <Label>
+                                                                attending
+                                                            </Label>
+                                                        </div>
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                            {step === 1 && (
+                                <div>
+                                    <div className={cn("space-y-4")}>
+                                        {fields.map((field, index) => (
+                                            <div
+                                                key={field.id}
+                                                className={cn(
+                                                    "flex items-center mb-7 space-x-2 p-3 border rounded-lg"
+                                                )}
+                                            >
+                                                <FormField
+                                                    control={form.control}
+                                                    name={`plusOnes.${index}.name`}
+                                                    render={({
+                                                        field,
+                                                        fieldState,
+                                                    }) => (
+                                                        <FormItem
+                                                            className={cn(
+                                                                "flex-grow"
+                                                            )}
+                                                        >
+                                                            <FormControl>
+                                                                <Input
+                                                                    placeholder={`Name`}
+                                                                    {...field}
+                                                                />
+                                                            </FormControl>
+                                                            {fieldState.error && (
+                                                                <FormDescription
+                                                                    className={cn(
+                                                                        "text-red-500"
+                                                                    )}
+                                                                >
+                                                                    {
+                                                                        fieldState
+                                                                            .error
+                                                                            .message
+                                                                    }
+                                                                </FormDescription>
+                                                            )}
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    onClick={() =>
+                                                        remove(index)
+                                                    }
+                                                >
+                                                    <X className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {step === 1 && (
+                                        <>
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                className={cn("mt-2 ml-4 mb-4")}
+                                                disabled={
+                                                    fields.length >=
+                                                    group.plus_ones
+                                                }
+                                                onClick={() =>
+                                                    append({ name: "" })
+                                                }
+                                            >
+                                                <Plus />
+                                            </Button>
+                                        </>
+                                    )}
+                                </div>
+                            )}
+                            {step == 1 && <div className={cn("")}></div>}
+                            {step >= 1 && (
+                                <Button
+                                    type="button"
+                                    onClick={() => setStep((step) => step - 1)}
+                                >
+                                    Previous
+                                </Button>
+                            )}
+                            {(step === 1 || group.plus_ones === 0) && (
+                                <Button
+                                    type="submit"
+                                    variant="secondary"
+                                    disabled={form.formState.isSubmitting}
+                                >
+                                    Submit
+                                </Button>
+                            )}
+                            {step === 0 && group.plus_ones > 0 && (
+                                <Button type="button" onClick={handleNext}>
+                                    {" "}
+                                    Next
+                                </Button>
+                            )}
+                        </form>
+                    </Form>
+                </CardContent>
+            </Card>
+        </>
+    );
+};
+
+export default RsvpForm;
