@@ -11,7 +11,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import { cancelRsvp } from "@/app/rsvp/_lib/actions";
+import { cancelRsvp } from "@/app/(protected)/rsvp/_lib/actions";
 
 const RsvpInstructionsDialog = () => {
     const [open, setOpen] = useState(true);

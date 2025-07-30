@@ -5,19 +5,22 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { sleep } from "@/utils/sleep";
 export default async function Home() {
-
-    await sleep(10000); 
     const supabase = await createClient();
     const {
         data: { user },
     } = await supabase.auth.getUser();
 
     if (user) {
-        console.log(user);
-        console.log("redirect 2");
-        redirect("/details");
-    }
+        const { data: guest } = await supabase
+            .from("guests")
+            .select("id")
+            .eq("id", user.id)
+            .single();
 
+        if (guest) {
+            redirect("/details");
+        }
+    }
     return (
         <>
             <div

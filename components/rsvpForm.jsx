@@ -31,7 +31,7 @@ import {
     CardDescription,
     CardTitle,
 } from "./ui/card";
-import { updateRsvps } from "@/app/rsvp/_lib/actions";
+import { updateRsvps } from "@/app/(protected)/rsvp/_lib/actions";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { X, Plus } from "lucide-react";

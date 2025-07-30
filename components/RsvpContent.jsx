@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import RsvpForm from "@/components/rsvpForm";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { loadRsvpData } from "@/app/rsvp/_lib/actions";
+import { loadRsvpData } from "@/app/(protected)/rsvp/_lib/actions";
 import { toast } from "sonner";
 import { Skeleton } from "./ui/skeleton";
 const textContainer = {

@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 
-export default function detailsLayout({ children }) {
+export default function protectedLayout({ children }) {
     return (
         <section>
             <Nav />
