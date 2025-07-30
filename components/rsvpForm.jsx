@@ -65,7 +65,7 @@ const RsvpForm = ({ initialData }) => {
         defaultValues: {
             namedGuests: guests.reduce((acc, guest) => {
                 const rsvp = rsvps.find((r) => r.guest_id === guest.id);
-                acc[guest.id] = rsvp.attending;
+                acc[guest.id] = rsvp ? rsvp.attending : false;
                 return acc;
             }, {}),
 
