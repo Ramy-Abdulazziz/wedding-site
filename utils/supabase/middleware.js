@@ -63,5 +63,18 @@ export async function updateSession(request) {
         return NextResponse.redirect(url);
     }
 
+    if (pathname === "/rsvp/thanks") {
+        const rsvpCookie = request.cookies.get("rsvp_submitted");
+
+        if (!rsvpCookie || rsvpCookie.value !== "true") {
+            const url = request.nextUrl.clone();
+            url.pathname = "/rsvp";
+            return NextResponse.redirect(url);
+        }
+
+        const response = NextResponse.next();
+        response.cookies.delete("rsvp_submitted");
+        return response;
+    }
     return supabaseResponse;
 }

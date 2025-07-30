@@ -2,7 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { v4 as uuidv4 } from "uuid";
+import { cookies } from "next/headers";
 
 const getCurrentUser = async () => {
     const supabase = await createClient();
@@ -149,7 +149,6 @@ const updateRsvpGuests = async (rsvpInfo, plusOnesRsvpInfo) => {
         .upsert(guestsToUpdate, { onConflict: "guest_id" })
         .select();
 
-
     if (error) {
         console.error(error);
         return { error: "Unable to update RSVP info. Please try Again" };
@@ -170,6 +169,12 @@ const updateRsvps = async (namedGuests, plusOnes, groupId) => {
         console.error(error);
         return { error: "Unable to update RSVP info. Please try Again" };
     }
+
+    cookies().set("rsvp_submitted", "true", {
+        path: "/",
+        httpOnly: true, // More secure, client-side JS can't access it
+        maxAge: 60, // Expires after 60 seconds
+    });
 
     return { sucess: true };
 };
