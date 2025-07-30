@@ -142,7 +142,7 @@ const RsvpForm = ({ initialData }) => {
                                             variant="secondary"
                                             size="sm"
                                             className={cn(
-                                                "rounded-2xl dark:shadow-white/25 hover:shadow-lg order-first"
+                                                "rounded-full dark:hover:shadow-white/25 hover:shadow-lg order-first"
                                             )}
                                             disabled={
                                                 fields.length >= group.plus_ones
@@ -151,7 +151,7 @@ const RsvpForm = ({ initialData }) => {
                                         >
                                             <Plus
                                                 className={cn(
-                                                    "text-sky-500 dark:text-purple-500"
+                                                    "text-sky-500 dark:text-sky-700"
                                                 )}
                                             />
                                         </Button>
@@ -232,7 +232,11 @@ const RsvpForm = ({ initialData }) => {
                             )}
                             {step === 1 && (
                                 <div>
-                                    <div className={cn("relative z-10 space-y-4")}>
+                                    <div
+                                        className={cn(
+                                            "relative z-10 space-y-4"
+                                        )}
+                                    >
                                         {fields.map((field, index) => (
                                             <div
                                                 key={field.id}
@@ -254,6 +258,9 @@ const RsvpForm = ({ initialData }) => {
                                                         >
                                                             <FormControl>
                                                                 <Input
+                                                                    className={cn(
+                                                                        "dark:shadow-white/25 hover:shadow-lg"
+                                                                    )}
                                                                     placeholder={`Name`}
                                                                     {...field}
                                                                 />
@@ -278,13 +285,16 @@ const RsvpForm = ({ initialData }) => {
                                                     <TooltipTrigger asChild>
                                                         <Button
                                                             type="button"
-                                                            variant="ghost"
+                                                            variant="secondary"
                                                             size="icon"
+                                                            className={cn(
+                                                                "rounded-xl dark:hover:shadow-white/25 hover:shadow-lg "
+                                                            )}
                                                             onClick={() =>
                                                                 remove(index)
                                                             }
                                                         >
-                                                            <X className="h-4 w-4 text-red-500" />
+                                                            <X className="h-4 w-4 text-red-500 dark:text-rose-700 " />
                                                         </Button>
                                                     </TooltipTrigger>
                                                     <TooltipContent>
