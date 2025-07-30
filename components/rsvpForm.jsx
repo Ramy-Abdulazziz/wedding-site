@@ -232,12 +232,12 @@ const RsvpForm = ({ initialData }) => {
                             )}
                             {step === 1 && (
                                 <div>
-                                    <div className={cn("space-y-4")}>
+                                    <div className={cn("relative z-20 space-y-4")}>
                                         {fields.map((field, index) => (
                                             <div
                                                 key={field.id}
                                                 className={cn(
-                                                    "flex relative z-20 items-center mb-7 space-x-2 p-3 rounded-lg"
+                                                    "flex items-center mb-7 space-x-2 p-3 rounded-lg"
                                                 )}
                                             >
                                                 <FormField
