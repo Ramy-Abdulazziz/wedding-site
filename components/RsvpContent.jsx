@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { loadRsvpData } from "@/app/rsvp/_lib/actions";
 import { toast } from "sonner";
-
+import { Skeleton } from "./ui/skeleton";
 const textContainer = {
     hidden: { opacity: 0 },
     show: {
@@ -41,6 +41,16 @@ const RsvpContent = () => {
 
         populateRsvpInfo();
     }, []);
+
+    if (loading) {
+        return (
+            <Skeleton
+                className={cn(
+                    "mx-auto h-[500px] mt-35 max-w-[85%] lg:max-w-[75%] xl:max-w-[50%] 2xl:max-w-[50%] pb-[5vh] rounded-xl"
+                )}
+            />
+        );
+    }
     return (
         !loading && (
             <div className={cn("")}>

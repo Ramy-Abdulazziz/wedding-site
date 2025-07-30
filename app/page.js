@@ -3,7 +3,10 @@ import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/theme-toggle";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import { sleep } from "@/utils/sleep";
 export default async function Home() {
+
+    await sleep(10000); 
     const supabase = await createClient();
     const {
         data: { user },

@@ -1,5 +1,5 @@
 "use client";
-
+import { Loader2Icon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -149,7 +149,11 @@ const RsvpForm = ({ initialData }) => {
                                             }
                                             onClick={() => append({ name: "" })}
                                         >
-                                            <Plus />
+                                            <Plus
+                                                className={cn(
+                                                    "text-sky-500 dark:text-purple-500"
+                                                )}
+                                            />
                                         </Button>
                                     </TooltipTrigger>
                                     <TooltipContent>
@@ -280,7 +284,7 @@ const RsvpForm = ({ initialData }) => {
                                                                 remove(index)
                                                             }
                                                         >
-                                                            <X className="h-4 w-4" />
+                                                            <X className="h-4 w-4 text-red-500" />
                                                         </Button>
                                                     </TooltipTrigger>
                                                     <TooltipContent>
@@ -309,12 +313,20 @@ const RsvpForm = ({ initialData }) => {
                                         disabled={form.formState.isSubmitting}
                                         className={cn("order-1")}
                                     >
-                                        Submit
+                                        {form.formState.isSubmitting && (
+                                            <Loader2Icon
+                                                className={cn("animate-spin")}
+                                            />
+                                        )}
+                                        {form.formState.isSubmitting
+                                            ? "Submitting"
+                                            : "Submit"}
                                     </Button>
                                 )}
                                 {step >= 1 && (
                                     <Button
                                         type="button"
+                                        disabled={form.formState.isSubmitting}
                                         onClick={() =>
                                             setStep((step) => step - 1)
                                         }
@@ -328,6 +340,7 @@ const RsvpForm = ({ initialData }) => {
                                     <Button
                                         type="button"
                                         className={cn("order-2")}
+                                        disabled={form.formState.isSubmitting}
                                         onClick={handleNext}
                                     >
                                         {" "}
