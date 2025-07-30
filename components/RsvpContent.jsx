@@ -43,10 +43,10 @@ const RsvpContent = () => {
     }, []);
     return (
         !loading && (
-            <div className={cn("pb-[50vh]")}>
-                <section className={cn("mx-auto")}>
+            <div className={cn("")}>
+                <section className={cn("mx-auto pb-[5vh]")}>
                     <motion.div
-                        className={cn("container mx-auto pl-5")}
+                        className={cn("container mx-auto")}
                         variants={textContainer}
                         initial="hidden"
                         whileInView="show"

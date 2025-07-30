@@ -8,6 +8,11 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import {
     Form,
@@ -113,12 +118,48 @@ const RsvpForm = ({ initialData }) => {
     return (
         <>
             <RsvpInstructionsDialog />
-            <Card className={cn("max-w-xl max-auto")}>
+            <Card
+                className={cn(
+                    "flex flex-shrink max-w-[85%] lg:max-w-[75%] xl:max-w-[50%] 2xl:max-w-[50%] mx-auto mt-20 md:mt-35 lg:mt-35 xl:mt-35 2xl:mt-50 shadow-2xl/50 inset-shadow-xs dark:inset-shadow-gray-500 dark:shadow-2xl/50 dark:shadow-white/25"
+                )}
+            >
                 <CardHeader>
-                    <CardTitle>
-                        <div> Welcome {guest.name} </div>
+                    <CardTitle className={cn("text-xl")}>
+                        <div
+                            className={cn(
+                                step === 1
+                                    ? "flex flex-row-reverse justify-between"
+                                    : "flex flex-row-"
+                            )}
+                        >
+                            {" "}
+                            <span>Welcome {guest.name} </span>
+                            {step === 1 && (
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button
+                                            type="button"
+                                            variant="secondary"
+                                            size="sm"
+                                            className={cn(
+                                                "rounded-2xl dark:shadow-white/25 hover:shadow-lg order-first"
+                                            )}
+                                            disabled={
+                                                fields.length >= group.plus_ones
+                                            }
+                                            onClick={() => append({ name: "" })}
+                                        >
+                                            <Plus />
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Add a plus one</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            )}
+                        </div>
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription className={cn("text-md")}>
                         {step === 0
                             ? "Rsvp for all members of your group"
                             : `Add your plus ones (${group.plus_ones - fields.length} remaining)`}
@@ -140,20 +181,28 @@ const RsvpForm = ({ initialData }) => {
                                                 render={({ field }) => (
                                                     <FormItem
                                                         className={cn(
-                                                            "flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm"
+                                                            "flex flex-row items-center justify-between rounded-lg border p-5 shadow-md dark:shadow-2xl"
                                                         )}
                                                     >
                                                         <div className="space-y-0.5">
-                                                            <FormLabel>
+                                                            <FormLabel
+                                                                className={cn(
+                                                                    "text-md"
+                                                                )}
+                                                            >
                                                                 {`RSVP for ${guest.name}`}
                                                             </FormLabel>
-                                                            <FormDescription>
+                                                            <FormDescription
+                                                                className={cn(
+                                                                    "text-md"
+                                                                )}
+                                                            >
                                                                 {`Is ${guest.name} attending?`}
                                                             </FormDescription>
                                                         </div>
                                                         <div
                                                             className={cn(
-                                                                "flex flex-row justify-right space-x-2"
+                                                                "flex flex-shrink flex-row justify-right space-x-2"
                                                             )}
                                                         >
                                                             <FormControl>
@@ -184,7 +233,7 @@ const RsvpForm = ({ initialData }) => {
                                             <div
                                                 key={field.id}
                                                 className={cn(
-                                                    "flex items-center mb-7 space-x-2 p-3 border rounded-lg"
+                                                    "flex items-center mb-7 space-x-2 p-3 rounded-lg"
                                                 )}
                                             >
                                                 <FormField
@@ -221,64 +270,71 @@ const RsvpForm = ({ initialData }) => {
                                                         </FormItem>
                                                     )}
                                                 />
-                                                <Button
-                                                    type="button"
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    onClick={() =>
-                                                        remove(index)
-                                                    }
-                                                >
-                                                    <X className="h-4 w-4" />
-                                                </Button>
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <Button
+                                                            type="button"
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            onClick={() =>
+                                                                remove(index)
+                                                            }
+                                                        >
+                                                            <X className="h-4 w-4" />
+                                                        </Button>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        Remove this person
+                                                    </TooltipContent>
+                                                </Tooltip>
                                             </div>
                                         ))}
                                     </div>
-                                    {step === 1 && (
-                                        <>
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                                size="sm"
-                                                className={cn("mt-2 ml-4 mb-4")}
-                                                disabled={
-                                                    fields.length >=
-                                                    group.plus_ones
-                                                }
-                                                onClick={() =>
-                                                    append({ name: "" })
-                                                }
-                                            >
-                                                <Plus />
-                                            </Button>
-                                        </>
-                                    )}
+                                    <div
+                                        className={cn(
+                                            "flex flex-row-reverse mb-10"
+                                        )}
+                                    ></div>
                                 </div>
                             )}
-                            {step == 1 && <div className={cn("")}></div>}
-                            {step >= 1 && (
-                                <Button
-                                    type="button"
-                                    onClick={() => setStep((step) => step - 1)}
-                                >
-                                    Previous
-                                </Button>
-                            )}
-                            {(step === 1 || group.plus_ones === 0) && (
-                                <Button
-                                    type="submit"
-                                    variant="secondary"
-                                    disabled={form.formState.isSubmitting}
-                                >
-                                    Submit
-                                </Button>
-                            )}
-                            {step === 0 && group.plus_ones > 0 && (
-                                <Button type="button" onClick={handleNext}>
-                                    {" "}
-                                    Next
-                                </Button>
-                            )}
+                            <div
+                                className={cn(
+                                    "flex flex-row-reverse justify-between w-full "
+                                )}
+                            >
+                                {(step === 1 || group.plus_ones === 0) && (
+                                    <Button
+                                        type="submit"
+                                        variant="secondary"
+                                        disabled={form.formState.isSubmitting}
+                                        className={cn("order-1")}
+                                    >
+                                        Submit
+                                    </Button>
+                                )}
+                                {step >= 1 && (
+                                    <Button
+                                        type="button"
+                                        onClick={() =>
+                                            setStep((step) => step - 1)
+                                        }
+                                        className={cn("order-2")}
+                                    >
+                                        Previous
+                                    </Button>
+                                )}
+
+                                {step === 0 && group.plus_ones > 0 && (
+                                    <Button
+                                        type="button"
+                                        className={cn("order-2")}
+                                        onClick={handleNext}
+                                    >
+                                        {" "}
+                                        Next
+                                    </Button>
+                                )}
+                            </div>
                         </form>
                     </Form>
                 </CardContent>
