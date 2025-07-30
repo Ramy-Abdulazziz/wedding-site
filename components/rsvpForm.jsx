@@ -237,7 +237,7 @@ const RsvpForm = ({ initialData }) => {
                                             <div
                                                 key={field.id}
                                                 className={cn(
-                                                    "flex items-center mb-7 space-x-2 p-3 rounded-lg"
+                                                    "flex relative z-20 items-center mb-7 space-x-2 p-3 rounded-lg"
                                                 )}
                                             >
                                                 <FormField

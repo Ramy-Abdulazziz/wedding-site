@@ -149,7 +149,6 @@ const updateRsvpGuests = async (rsvpInfo, plusOnesRsvpInfo) => {
         .upsert(guestsToUpdate, { onConflict: "guest_id" })
         .select();
 
-    console.log(data);
 
     if (error) {
         console.error(error);
@@ -161,9 +160,6 @@ const updateRsvpGuests = async (rsvpInfo, plusOnesRsvpInfo) => {
 
 const updateRsvps = async (namedGuests, plusOnes, groupId) => {
     const supabase = await createClient();
-    console.log("named", namedGuests);
-    console.log("plus", plusOnes);
-    console.log("id",groupId);
     const { error } = await supabase.rpc("submit_full_rsvp", {
         named_guests_data: namedGuests,
         plus_ones_data: plusOnes,
