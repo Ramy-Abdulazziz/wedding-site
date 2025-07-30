@@ -7,8 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import TimingDetails from "@/components/timing-details";
 import RsvpDetails from "@/components/rsvp-details";
 import FaqDetails from "@/components/faq-details";
-
-
+import { useEffect } from "react";
 const textContainer = {
     hidden: { opacity: 0 },
     show: {
@@ -33,6 +32,21 @@ const textItem = {
 };
 
 export default function DetailsContent() {
+    useEffect(() => {
+        const hash = window.location.hash;
+
+        if (hash) {
+            const timer = setTimeout(() => {
+                const element = document.querySelector(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                }
+            }, 100); 
+
+            return () => clearTimeout(timer);
+        }
+    }, []);
+
     return (
         <div className={cn("pb-[50vh]")}>
             <section
@@ -55,7 +69,7 @@ export default function DetailsContent() {
             </section>
             <Separator
                 className={cn(
-                    "flex justify-self-center max-w-[90%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
+                    "flex justify-self-center max-w-[94%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
                 )}
             />
             <section className={cn("xl:ml-20")}>
@@ -71,12 +85,14 @@ export default function DetailsContent() {
             </section>
             <Separator
                 className={cn(
-                    "flex justify-self-center max-w-[90%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
+                    "flex justify-self-center max-w-[94%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
                 )}
             />
-            <section className={cn("xl:ml-20")}>
+            <section className={cn("xl:ml-20 ")}>
                 <motion.div
-                    className={cn("container mx-auto pl-5 sm:pl-7 mb-10 mt-5")}
+                    className={cn(
+                        "container mx-auto pl-5 pr-5 sm:pr-0 md:pr-0 lg:pr-0 xl:pr-0 2xl:pr-0sm:pl-7 mb-10 mt-5"
+                    )}
                     variants={textContainer}
                     initial="hidden"
                     whileInView="show"

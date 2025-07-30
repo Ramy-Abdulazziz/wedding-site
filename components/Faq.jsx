@@ -7,22 +7,18 @@ import {
 
 const Faq = () => {
     return (
-        <Accordion
-            type="single"
-            collapsible
-            className="w-full"
-        >
+        <Accordion type="single" collapsible className="w-full mr-6 md:mr-7 xl:mr-26">
             <AccordionItem value="item-1">
                 <AccordionTrigger>
-                    Will My Dietary Restrictions Be Accomadated?
+                    Will My Dietary Restrictions Be Accommodated?
                 </AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-4 text-balance">
                     <p>
                         All food at the reception will be fully Halal. There
-                        will also be Vegan/Vegetarian options.
+                        will also be vegan and vegetarian options.
                     </p>
                     <p>
-                        Unfourtunately we will not be able to accomadate any
+                        Unfortunately, we will not be able to accommodate any
                         other dietary restrictions as we are using a set menu.
                     </p>
                 </AccordionContent>
@@ -67,7 +63,7 @@ const Faq = () => {
             </AccordionItem>
             <AccordionItem value="item-5">
                 <AccordionTrigger>
-                    Can I get an aditional plus one?
+                    Can I get an additional plus one?
                 </AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-4 text-balance">
                     <p>No.</p>

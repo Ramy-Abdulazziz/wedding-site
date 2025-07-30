@@ -40,7 +40,6 @@ export async function updateSession(request) {
     } = await supabase.auth.getUser();
 
     const pathname = request.nextUrl.pathname;
-
     // Allow homepage through
     if (pathname === "/") return supabaseResponse;
 

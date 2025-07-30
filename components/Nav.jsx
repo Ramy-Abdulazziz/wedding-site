@@ -51,7 +51,7 @@ const Nav = () => {
                             asChild
                             className={cn(navigationMenuLinkStyle())}
                         >
-                            <Link href="#rsvp">RSVP</Link>
+                            <Link href="/rsvp">RSVP</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -59,7 +59,7 @@ const Nav = () => {
                             asChild
                             className={cn(navigationMenuLinkStyle())}
                         >
-                            <Link href="#when">Details</Link>
+                            <Link href="/details#when">Details</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -70,7 +70,7 @@ const Nav = () => {
                                 "pointer-events-none text-gray-500"
                             )}
                         >
-                            <Link href="#rsvp">Registry</Link>
+                            <Link href="/details#rsvp">Registry</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -78,7 +78,7 @@ const Nav = () => {
                             asChild
                             className={cn(navigationMenuLinkStyle())}
                         >
-                            <Link href="#faq">FAQ</Link>
+                            <Link href="/details#faq">FAQ</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -89,7 +89,7 @@ const Nav = () => {
                                 "pointer-events-none text-gray-500"
                             )}
                         >
-                            <Link href="#travel">Travel</Link>
+                            <Link href="/details#travel">Travel</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
@@ -122,7 +122,7 @@ const Nav = () => {
                                     </p>
                                     <SheetClose asChild>
                                         <Link
-                                            href="#when"
+                                            href="/details#when"
                                             className={cn("text-2xl")}
                                         >
                                             When
@@ -130,7 +130,7 @@ const Nav = () => {
                                     </SheetClose>
                                     <SheetClose asChild>
                                         <Link
-                                            href="#where"
+                                            href="/details#where"
                                             className={cn("text-2xl")}
                                         >
                                             Where
@@ -138,7 +138,7 @@ const Nav = () => {
                                     </SheetClose>
                                     <SheetClose asChild>
                                         <Link
-                                            href="#faq"
+                                            href="/details#faq"
                                             className={cn("text-2xl")}
                                         >
                                             FAQ
@@ -146,7 +146,7 @@ const Nav = () => {
                                     </SheetClose>
                                     <SheetClose asChild>
                                         <Link
-                                            href="#faq"
+                                            href="/details#faq"
                                             className={cn(
                                                 "text-2xl pointer-events-none text-gray-500"
                                             )}

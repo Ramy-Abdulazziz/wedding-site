@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/theme-toggle";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import { sleep } from "@/utils/sleep";
 export default async function Home() {
     const supabase = await createClient();
     const {
@@ -10,9 +11,16 @@ export default async function Home() {
     } = await supabase.auth.getUser();
 
     if (user) {
-        redirect("/details");
-    }
+        const { data: guest } = await supabase
+            .from("guests")
+            .select("id")
+            .eq("id", user.id)
+            .single();
 
+        if (guest) {
+            redirect("/details");
+        }
+    }
     return (
         <>
             <div
