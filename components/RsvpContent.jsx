@@ -7,16 +7,8 @@ import { useState, useEffect } from "react";
 import { loadRsvpData } from "@/app/(protected)/rsvp/_lib/actions";
 import { toast } from "sonner";
 import { Skeleton } from "./ui/skeleton";
-const textContainer = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            duration: 1,
-            staggerChildren: 0.25,
-        },
-    },
-};
+import { textContainer } from "@/lib/variants";
+
 
 const RsvpContent = () => {
     const [initialData, setInitialData] = useState(null);

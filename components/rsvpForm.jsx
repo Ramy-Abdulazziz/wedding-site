@@ -35,6 +35,7 @@ import { updateRsvps } from "@/app/(protected)/rsvp/_lib/actions";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { X, Plus } from "lucide-react";
+import { redirect } from "next/navigation";
 
 const genSchema = (guestData) => {
     const guestSchema = z.object({
@@ -112,6 +113,7 @@ const RsvpForm = ({ initialData }) => {
             toast.error(updateRsvp.error);
         } else {
             toast.success("Successfully updated rsvp info");
+            redirect("/rsvp/thanks");
         }
     };
 
