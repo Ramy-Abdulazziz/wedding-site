@@ -170,7 +170,7 @@ const updateRsvps = async (namedGuests, plusOnes, groupId) => {
         return { error: "Unable to update RSVP info. Please try Again" };
     }
 
-    cookies().set("rsvp_submitted", "true", {
+    await cookies().set("rsvp_submitted", "true", {
         path: "/",
         httpOnly: true, // More secure, client-side JS can't access it
         maxAge: 60, // Expires after 60 seconds
