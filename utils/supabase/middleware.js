@@ -64,7 +64,7 @@ export async function updateSession(request) {
     }
 
     if (pathname === "/rsvp/thanks") {
-        const rsvpCookie = request.cookies.get("rsvp_submitted");
+        const rsvpCookie = await request.cookies.get("rsvp_submitted");
 
         if (!rsvpCookie || rsvpCookie.value !== "true") {
             const url = request.nextUrl.clone();
