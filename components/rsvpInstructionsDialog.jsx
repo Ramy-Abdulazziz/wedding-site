@@ -21,12 +21,10 @@ const RsvpInstructionsDialog = () => {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>RSVP Form Instructions</DialogTitle>
-                    <DialogDescription className={cn("text-lg")}>
-                            You will be able to RSVP for all members of your
-                            group - if you are allocated any plus ones, you will
-                            also be able to RSVP for them as well. The RSVP will
-                            remain open untill the RSVP deadline. You may change
-                            your RSVP as often as you like untill such time.
+                    <DialogDescription className={cn("text-lg text-justify mt-2")}>
+                            RSVP for all members of your group - and then for any plus ones you have available. 
+                            The RSVP form will remain open untill the deadline. You may change your responses as often
+                            as you like untill such time, by resubmitting the form.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className={cn("mt-5")}>
