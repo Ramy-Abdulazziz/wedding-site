@@ -49,7 +49,20 @@ const genSchema = (guestData) => {
         ),
         plusOnes: z.array(
             z.object({
-                name: z.string().min(1, { message: "name is required" }),
+                name: z
+                    .string()
+                    .min(1, { message: "name is required" })
+                    .refine(
+                        (name) =>
+                            name.split(" ").filter((word) => word).length >= 2,
+                        {
+                            message: "Please enter both a first and last name.",
+                        }
+                    )
+                    .refine((name) => /^[a-zA-Z-' ]+$/.test(name), {
+                        message:
+                            "Name can only contain letters, hyphens, and apostrophes.",
+                    }),
             })
         ),
     });
