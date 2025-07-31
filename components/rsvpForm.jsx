@@ -13,7 +13,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-
+import { Progress } from "@/components/ui/progress";
 import {
     Form,
     FormField,
@@ -59,6 +59,8 @@ const genSchema = (guestData) => {
 
 const RsvpForm = ({ initialData }) => {
     const [step, setStep] = useState(0);
+    const [progress, setProgress] = useState(50);
+
     const { guest, guests, plusOnes, rsvps, group } = initialData;
 
     const form = useForm({
@@ -86,10 +88,19 @@ const RsvpForm = ({ initialData }) => {
 
     const handleNext = async () => {
         const isValid = await form.trigger("namedGuests");
-        if (isValid) setStep(1);
+        if (isValid) {
+            setStep((s) => s + 1);
+            setProgress(100);
+        }
+    };
+
+    const handlePrev = async () => {
+        setStep((step) => step - 1);
+        setProgress(50);
     };
 
     const onSubmit = async (data) => {
+        setProgress(100);
         const rsvpArray = Object.entries(data.namedGuests).map(
             ([guestId, isAttending]) => ({
                 guest_id: guestId,
@@ -126,6 +137,13 @@ const RsvpForm = ({ initialData }) => {
                 )}
             >
                 <CardHeader>
+                    <div>
+                        <h3>Step {step + 1} of 2</h3>
+                        <Progress
+                            value={progress}
+                            className={cn("mb-7 mt-2")}
+                        />
+                    </div>
                     <CardTitle className={cn("text-xl")}>
                         <div
                             className={cn(
@@ -339,9 +357,7 @@ const RsvpForm = ({ initialData }) => {
                                     <Button
                                         type="button"
                                         disabled={form.formState.isSubmitting}
-                                        onClick={() =>
-                                            setStep((step) => step - 1)
-                                        }
+                                        onClick={handlePrev}
                                         className={cn("order-2")}
                                     >
                                         Previous
