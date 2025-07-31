@@ -3,6 +3,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { Resend } from "resend";
+import { RsvpConfEmail } from "@/emails/rsvpConfEmail";
 
 const getCurrentUser = async () => {
     const supabase = await createClient();
@@ -173,10 +175,80 @@ const updateRsvps = async (namedGuests, plusOnes, groupId) => {
     await cookies().set("rsvp_submitted", "true", {
         path: "/",
         httpOnly: true, // More secure, client-side JS can't access it
-        maxAge: 60, // Expires after 60 seconds
+        maxAge: 120, // Expires after 60 seconds
     });
 
     return { sucess: true };
+};
+
+const sendRsvpConfEmail = async (namedGuests, plusOnes, guestName, email) => {
+    const sanitizedEmail = email.trim().toLowerCase();
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const { data, error: sendError } = await resend.emails.send({
+        from: "Ramy and Shazia <noreply@notifications.ramyandshazia.com>",
+        to: sanitizedEmail,
+        subject: "Your RSVP confirmation email",
+        react: (
+            <RsvpConfEmail
+                namedGuests={namedGuests}
+                plusOneGuests={plusOnes}
+                name={guestName}
+            />
+        ),
+    });
+
+    if (sendError) {
+        console.error("error sending email ", sendError);
+        return {
+            error: "❌ Failed to send confirmation email. Your responses were still recorded.",
+        };
+    }
+
+    return { succes: true };
+};
+
+const submitRsvpAndSendEmail = async (namedGuests, plusOnes, guestInfo) => {
+    const supabase = await createClient();
+
+    const { error: dbError } = await supabase.rpc("submit_full_rsvp", {
+        named_guests_data: namedGuests,
+        plus_ones_data: plusOnes,
+        p_group_id: guestInfo.groupId,
+    });
+
+    if (dbError) {
+        console.error("Database Error:", dbError);
+        return { error: "Unable to update RSVP info. Please try again." };
+    }
+    await cookies().set("rsvp_submitted", "true", {
+        path: "/",
+        httpOnly: true, // More secure, client-side JS can't access it
+        maxAge: 120, // Expires after 60 seconds
+    });
+    const sanitizedEmail = guestInfo.email.trim().toLowerCase();
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const { data, error: sendError } = await resend.emails.send({
+        from: "Ramy and Shazia <noreply@notifications.ramyandshazia.com>",
+        to: sanitizedEmail,
+        subject: "Your RSVP confirmation email",
+        react: (
+            <RsvpConfEmail
+                namedGuests={namedGuests}
+                plusOneGuests={plusOnes}
+                name={guestInfo.name}
+            />
+        ),
+    });
+
+    if (sendError) {
+        console.error("error sending email ", sendError);
+        return {
+            success: true,
+            error: "❌ Failed to send confirmation email. Your responses were still recorded.",
+        };
+    }
+
+    return { success: true, error: null };
 };
 
 const cancelRsvp = () => {
@@ -194,4 +266,6 @@ export {
     updateRsvpGuests,
     getGroupInfo,
     updateRsvps,
+    sendRsvpConfEmail,
+    submitRsvpAndSendEmail,
 };

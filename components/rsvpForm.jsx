@@ -31,7 +31,11 @@ import {
     CardDescription,
     CardTitle,
 } from "./ui/card";
-import { updateRsvps } from "@/app/(protected)/rsvp/_lib/actions";
+import {
+    sendRsvpConfEmail,
+    updateRsvps,
+    submitRsvpAndSendEmail,
+} from "@/app/(protected)/rsvp/_lib/actions";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { X, Plus } from "lucide-react";
@@ -113,12 +117,12 @@ const RsvpForm = ({ initialData }) => {
     };
 
     const onSubmit = async (data) => {
-        setProgress(100);
         const rsvpArray = Object.entries(data.namedGuests).map(
             ([guestId, isAttending]) => ({
                 guest_id: guestId,
                 attending: isAttending,
                 group_id: guest.group_id,
+                name: guests.find((g) => g.id === guestId).name,
             })
         );
 
@@ -128,16 +132,21 @@ const RsvpForm = ({ initialData }) => {
             is_plus_one: true,
         }));
 
-        const updateRsvp = await updateRsvps(
+        const result = await submitRsvpAndSendEmail(
             rsvpArray,
             plusOnesRsvpArray,
-            guest.group_id
+            { groupId: guest.group_id, name: guest.name, email: guest.email }
         );
-        if (updateRsvp?.error) {
-            toast.error(updateRsvp.error);
-        } else {
-            toast.success("Successfully updated rsvp info");
+
+        if (result.success) {
+            if (result.error) {
+                toast.warning(result.error);
+            } else {
+                toast.success("Successfully updated rsvp info");
+            }
             redirect("/rsvp/thanks");
+        } else {
+            toast.error(result.error);
         }
     };
 
