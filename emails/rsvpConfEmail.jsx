@@ -49,7 +49,7 @@ export const RsvpConfEmail = ({ namedGuests, plusOneGuests, name }) => {
 
                         <Text className="text-[14px] text-black leading-[24px]">
                             We are so happy to have you join us on our special
-                            day. Your RSVP submission is listed below. as a
+                            day. Your RSVP submission is listed below. As a
                             reminder - you may update your RSVP as often as you
                             like until the RSVP deadline. Thank you again, and
                             we look forward to celebrating with you!

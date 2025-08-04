@@ -268,4 +268,5 @@ export {
     updateRsvps,
     sendRsvpConfEmail,
     submitRsvpAndSendEmail,
+    getGuestById
 };

@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
+import { authConfig } from "@/auth.config";
 
 export async function updateSession(request) {
     let supabaseResponse = NextResponse.next({
@@ -39,33 +40,32 @@ export async function updateSession(request) {
         data: { user },
     } = await supabase.auth.getUser();
 
-    const pathname = request.nextUrl.pathname;
-    // Allow homepage through
-    if (pathname === "/") return supabaseResponse;
-
-    // If not logged in, redirect to home
     if (!user) {
         const url = request.nextUrl.clone();
         url.pathname = "/";
         return NextResponse.redirect(url);
     }
 
-    // Check if user is in guests table
     const { data: guest } = await supabase
         .from("guests")
         .select("id")
         .eq("id", user.id)
         .single();
 
-    if (!guest) {
+    const verifiedUser = user && guest;
+    if (!verifiedUser) {
         const url = request.nextUrl.clone();
         url.pathname = "/";
         return NextResponse.redirect(url);
     }
 
-    if (pathname === "/rsvp/thanks") {
+    const pathname = request.nextUrl.pathname;
+    if (pathname === "/") {
+        const url = request.nextUrl.clone();
+        url.pathname = "/details";
+        return NextResponse.redirect(url);
+    } else if (pathname === "/rsvp/thanks") {
         const rsvpCookie = await request.cookies.get("rsvp_submitted");
-
         if (!rsvpCookie || rsvpCookie.value !== "true") {
             const url = request.nextUrl.clone();
             url.pathname = "/rsvp";
@@ -76,5 +76,6 @@ export async function updateSession(request) {
         response.cookies.delete("rsvp_submitted");
         return response;
     }
+
     return supabaseResponse;
 }

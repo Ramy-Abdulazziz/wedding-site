@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
-    console.log(request.url);
     const token_hash = searchParams.get("token_hash");
     const type = searchParams.get("type");
     const next = searchParams.get("next") ?? "/";
@@ -21,10 +20,10 @@ export async function GET(request) {
 
         if (!error) {
             // redirect user to specified redirect URL or root of app
-            redirect("/details");
+            redirect(`${next}`);
         }
     }
 
     // redirect the user to an error page with some instructions
-    redirect("/error");
+    
 }
