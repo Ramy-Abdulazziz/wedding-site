@@ -9,7 +9,7 @@ export async function GET(request) {
     const next = searchParams.get("next") ?? "/";
 
     if (token_hash && type) {
-        const cookieStore = cookies();
+        const cookieStore = await cookies();
 
         const supabase = await createClient(cookieStore);
 
