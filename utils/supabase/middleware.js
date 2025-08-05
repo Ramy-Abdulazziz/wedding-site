@@ -1,5 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
+import { authConfig } from "@/auth.config";
+import { redirect } from "next/dist/server/api-utils";
 
 export async function updateSession(request) {
     let supabaseResponse = NextResponse.next({
@@ -39,42 +41,39 @@ export async function updateSession(request) {
         data: { user },
     } = await supabase.auth.getUser();
 
-    const pathname = request.nextUrl.pathname;
-    // Allow homepage through
-    if (pathname === "/") return supabaseResponse;
-
-    // If not logged in, redirect to home
-    if (!user) {
-        const url = request.nextUrl.clone();
-        url.pathname = "/";
-        return NextResponse.redirect(url);
-    }
-
-    // Check if user is in guests table
     const { data: guest } = await supabase
         .from("guests")
         .select("id")
         .eq("id", user.id)
         .single();
 
-    if (!guest) {
+    const verifiedUser = user && guest;
+    const pathname = request.nextUrl.pathname;
+    if (!verifiedUser && pathname !== authConfig.unAuthedHomeRoute) {
         const url = request.nextUrl.clone();
-        url.pathname = "/";
+        url.pathname = authConfig.unAuthedHomeRoute;
         return NextResponse.redirect(url);
+    } else if (!verifiedUser && pathname === authConfig.unAuthedHomeRoute) {
+        return supabaseResponse;
     }
 
-    if (pathname === "/rsvp/thanks") {
-        const rsvpCookie = await request.cookies.get("rsvp_submitted");
-
-        if (!rsvpCookie || rsvpCookie.value !== "true") {
+    if (authConfig.unAuthedHomeRoute === pathname) {
+        const url = request.nextUrl.clone();
+        url.pathname = authConfig.authedHomeRoute;
+        return NextResponse.redirect(url);
+    } else if (authConfig.ticketedRoute.includes(pathname)) {
+        const ticketName = pathname.split("/")[1];
+        const ticket = await request.cookies.get(`${ticketName}_submitted`);
+        if (!ticket || ticket.value !== "true") {
             const url = request.nextUrl.clone();
-            url.pathname = "/rsvp";
+            url.pathname = `/${ticketName}`;
             return NextResponse.redirect(url);
         }
 
         const response = NextResponse.next();
-        response.cookies.delete("rsvp_submitted");
+        response.cookies.delete(`${ticketName}_submitted`);
         return response;
     }
+
     return supabaseResponse;
 }

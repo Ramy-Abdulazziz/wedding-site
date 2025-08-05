@@ -23,7 +23,6 @@ export async function sendMagicLink(email) {
     );
 
     if (guestError || !guests || guests.length === 0) {
-        console.log(guestError);
         return { success: true };
     }
 
@@ -43,7 +42,6 @@ export async function sendMagicLink(email) {
             type: "magiclink",
             email: sanitizedEmail,
         });
-    console.log(linkData);
 
     if (linkError) {
         console.error("Error generating magic link:", linkError);
@@ -58,7 +56,6 @@ export async function sendMagicLink(email) {
     verificationUrl.searchParams.set("next", "/details");
 
     const magicLink = verificationUrl.toString();
-    console.log(magicLink);
     const resend = new Resend(process.env.RESEND_API_KEY);
     const name = guests[0].name;
     const { data, error: sendError } = await resend.emails.send({
@@ -70,7 +67,7 @@ export async function sendMagicLink(email) {
 
     if (sendError) {
         console.error("error sending email ", sendError);
-        return { error: "❌ Failed to create magic link. Please try again." };
+        return { error: "❌ Failed to send magic link. Please try again." };
     }
 
     return { success: true };

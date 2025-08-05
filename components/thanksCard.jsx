@@ -59,28 +59,6 @@ const ThanksCard = () => {
                     </div>
                 </div>
             </CardContent>
-            <CardFooter>
-                {/* <div
-                    className={cn(
-                        "flex flex-row-reverse justify-between w-full "
-                    )}
-                >
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => redirect("/details")}
-                    >
-                        Home
-                    </Button>
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => redirect("/rsvp")}
-                    >
-                        Resubmit
-                    </Button>
-                </div> */}
-            </CardFooter>
         </Card>
     );
 };
