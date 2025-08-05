@@ -41,6 +41,15 @@ export async function updateSession(request) {
         data: { user },
     } = await supabase.auth.getUser();
 
+    const pathname = request.nextUrl.pathname;
+    if (!user && pathname !== authConfig.unAuthedHomeRoute) {
+        const url = request.nextUrl.clone();
+        url.pathname = authConfig.unAuthedHomeRoute;
+        return NextResponse.redirect(url);
+    } else if (!user && pathname === authConfig.unAuthedHomeRoute) {
+        return supabaseResponse;
+    }
+
     const { data: guest } = await supabase
         .from("guests")
         .select("id")
@@ -48,7 +57,6 @@ export async function updateSession(request) {
         .single();
 
     const verifiedUser = user && guest;
-    const pathname = request.nextUrl.pathname;
     if (!verifiedUser && pathname !== authConfig.unAuthedHomeRoute) {
         const url = request.nextUrl.clone();
         url.pathname = authConfig.unAuthedHomeRoute;
