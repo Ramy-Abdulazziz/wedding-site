@@ -39,29 +39,34 @@ export async function updateSession(request) {
 
     const {
         data: { user },
+        error: userError,
     } = await supabase.auth.getUser();
 
     const pathname = request.nextUrl.pathname;
-    if (!user && pathname !== authConfig.unAuthedHomeRoute) {
-        const url = request.nextUrl.clone();
-        url.pathname = authConfig.unAuthedHomeRoute;
-        return NextResponse.redirect(url);
-    } else if (!user && pathname === authConfig.unAuthedHomeRoute) {
+    if (!user || userError) {
+        if (pathname !== authConfig.unAuthedHomeRoute) {
+            const url = request.nextUrl.clone();
+            url.pathname = authConfig.unAuthedHomeRoute;
+            return NextResponse.redirect(url);
+        }
+
         return supabaseResponse;
     }
 
-    const { data: guest } = await supabase
+    const { data: guest, error: guestError } = await supabase
         .from("guests")
         .select("id")
         .eq("id", user.id)
         .single();
 
-    const verifiedUser = user && guest;
-    if (!verifiedUser && pathname !== authConfig.unAuthedHomeRoute) {
-        const url = request.nextUrl.clone();
-        url.pathname = authConfig.unAuthedHomeRoute;
-        return NextResponse.redirect(url);
-    } else if (!verifiedUser && pathname === authConfig.unAuthedHomeRoute) {
+    const verifiedUser = user && guest && !guestError && !userError;
+
+    if (!verifiedUser) {
+        if (pathname !== authConfig.unAuthedHomeRoute) {
+            const url = request.nextUrl.clone();
+            url.pathname = authConfig.unAuthedHomeRoute;
+            return NextResponse.redirect(url);
+        }
         return supabaseResponse;
     }
 
@@ -69,7 +74,9 @@ export async function updateSession(request) {
         const url = request.nextUrl.clone();
         url.pathname = authConfig.authedHomeRoute;
         return NextResponse.redirect(url);
-    } else if (authConfig.ticketedRoute.includes(pathname)) {
+    }
+
+    if (authConfig.ticketedRoute.includes(pathname)) {
         const ticketName = pathname.split("/")[1];
         const ticket = await request.cookies.get(`${ticketName}_submitted`);
         if (!ticket || ticket.value !== "true") {
