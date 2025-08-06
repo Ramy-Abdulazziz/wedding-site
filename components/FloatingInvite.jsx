@@ -1,8 +1,7 @@
 "use client";
 
-
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 const FloatingInvite = () => {
@@ -18,10 +17,13 @@ const FloatingInvite = () => {
             <Image
                 src="/weddingInvite.jpg"
                 layout="responsive"
+                priority={true}
                 width={3}
                 height={4}
                 alt="Picture of wedding invitation"
-                className={cn("border-solid shadow-2xl/50 dark:shadow-2xl dark:shadow-white inset-shadow-xs dark:inset-shadow-gray-500")}
+                className={cn(
+                    "border-solid shadow-2xl/50 dark:shadow-2xl dark:shadow-white inset-shadow-xs dark:inset-shadow-gray-500"
+                )}
             />
         </motion.div>
     );

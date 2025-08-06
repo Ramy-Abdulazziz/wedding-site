@@ -8,28 +8,7 @@ import TimingDetails from "@/components/timing-details";
 import RsvpDetails from "@/components/rsvp-details";
 import FaqDetails from "@/components/faq-details";
 import { useEffect } from "react";
-const textContainer = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            duration: 1,
-            staggerChildren: 0.25,
-        },
-    },
-};
-
-const textItem = {
-    hidden: { opacity: 0, y: 5 },
-    show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 1,
-            ease: "easeOut",
-        },
-    },
-};
+import { textContainer } from "@/lib/variants";
 
 export default function DetailsContent() {
     useEffect(() => {
@@ -41,7 +20,7 @@ export default function DetailsContent() {
                 if (element) {
                     element.scrollIntoView({ behavior: "smooth" });
                 }
-            }, 100); 
+            }, 100);
 
             return () => clearTimeout(timer);
         }
