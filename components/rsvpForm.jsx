@@ -208,7 +208,9 @@ const RsvpForm = ({ initialData }) => {
                     <CardDescription className={cn("text-md")}>
                         {step === 0
                             ? "Rsvp for all members of your group"
-                            : `Add your plus ones (${group.plus_ones - fields.length} remaining)`}
+                            : group.plus_ones > 0
+                              ? `Add your plus ones (${group.plus_ones - fields.length} remaining)`
+                              : ""}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -345,6 +347,15 @@ const RsvpForm = ({ initialData }) => {
                                                 </Tooltip>
                                             </div>
                                         ))}
+                                        {group.plus_ones === 0 && (
+                                            <div
+                                                className={cn(
+                                                    "w-full flex justify-center"
+                                                )}
+                                            >
+                                                You have no plus ones available
+                                            </div>
+                                        )}
                                     </div>
                                     <div
                                         className={cn(
@@ -358,7 +369,7 @@ const RsvpForm = ({ initialData }) => {
                                     "flex flex-row-reverse justify-between w-full "
                                 )}
                             >
-                                {(step === 1 || group.plus_ones === 0) && (
+                                {step === 1 && (
                                     <Button
                                         type="submit"
                                         variant="secondary"
@@ -386,7 +397,7 @@ const RsvpForm = ({ initialData }) => {
                                     </Button>
                                 )}
 
-                                {step === 0 && group.plus_ones > 0 && (
+                                {step === 0 && (
                                     <Button
                                         type="button"
                                         className={cn("order-2")}
