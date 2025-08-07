@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
                     disableTransitionOnChange
                 >
                     <main className={cn("relative z-20")}>
-                        <div className="min-h-screen bg-gradient-to-b from-slate-100 to-zinc-100 dark:from-zinc-900 dark:to-background">
+                        <div className="min-h-screen bg-gradient-to-b from-slate-100 to-zinc-100 dark:from-zinc-900 dark:to-background ">
                             <Toaster />
                             {children}
                         </div>

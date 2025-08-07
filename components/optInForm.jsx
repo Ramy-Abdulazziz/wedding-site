@@ -65,7 +65,6 @@ const OptInForm = () => {
 
         form.reset();
         toast.info("Your submission has successfully been recorded!");
-
         redirect("/");
     };
 
