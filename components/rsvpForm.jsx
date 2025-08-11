@@ -37,7 +37,7 @@ import {
     submitRsvpAndSendEmail,
 } from "@/app/(protected)/rsvp/_lib/actions";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useState, useMemo, useReducer, useCallback } from "react";
 import { X, Plus } from "lucide-react";
 import { redirect } from "next/navigation";
 
@@ -74,28 +74,42 @@ const genSchema = (guestData) => {
     return guestSchema;
 };
 
+const initialStepProgress = { step: 0, progress: 50 };
+const stepReducer = (state, action) => {
+    switch (action.type) {
+        case "NEXT_STEP":
+            return { step: 1, progress: 100 };
+        case "PREV_STEP":
+            return { step: 0, progress: 50 };
+        default:
+            return state;
+    }
+};
+
 const RsvpForm = ({ initialData }) => {
-    const [step, setStep] = useState(0);
-    const [progress, setProgress] = useState(50);
+    const [formStep, dispatch] = useReducer(stepReducer, initialStepProgress);
 
     const { guest, guests, plusOnes, rsvps, group } = initialData;
 
-    const form = useForm({
-        resolver: zodResolver(genSchema(guests)),
-        defaultValues: {
-            namedGuests: guests.reduce((acc, guest) => {
-                const rsvp = rsvps.find((r) => r.guest_id === guest.id);
-                acc[guest.id] = rsvp ? rsvp.attending : false;
-                return acc;
-            }, {}),
+    const schema = useMemo(() => genSchema(guests), [guests]);
+    const defaultFormValues = useMemo(() => ({
+        namedGuests: guests.reduce((acc, guest) => {
+            const rsvp = rsvps.find((r) => r.guest_id === guest.id);
+            acc[guest.id] = rsvp ? rsvp.attending : false;
+            return acc;
+        }, {}),
 
-            plusOnes: plusOnes.map((plusOneGuest) => {
-                const rsvp = rsvps.find((r) => r.guest_id === plusOneGuest.id);
-                return {
-                    name: plusOneGuest.name,
-                };
-            }),
-        },
+        plusOnes: plusOnes.map((plusOneGuest) => {
+            const rsvp = rsvps.find((r) => r.guest_id === plusOneGuest.id);
+            return {
+                name: plusOneGuest.name,
+            };
+        }),
+    }));
+
+    const form = useForm({
+        resolver: zodResolver(schema),
+        defaultValues: defaultFormValues,
     });
 
     const { fields, append, remove } = useFieldArray({
@@ -103,52 +117,57 @@ const RsvpForm = ({ initialData }) => {
         name: "plusOnes",
     });
 
-    const handleNext = async () => {
+    const handleNext = useCallback(async () => {
         const isValid = await form.trigger("namedGuests");
         if (isValid) {
-            setStep((s) => s + 1);
-            setProgress(100);
+            dispatch({ type: "NEXT_STEP" });
         }
-    };
+    }, [form, dispatch]);
 
-    const handlePrev = async () => {
-        setStep((step) => step - 1);
-        setProgress(50);
-    };
+    const handlePrev = useCallback(async () => {
+        dispatch({ type: "PREV_STEP" });
+    }, [dispatch]);
 
-    const onSubmit = async (data) => {
-        const rsvpArray = Object.entries(data.namedGuests).map(
-            ([guestId, isAttending]) => ({
-                guest_id: guestId,
-                attending: isAttending,
-                group_id: guest.group_id,
-                name: guests.find((g) => g.id === guestId).name,
-            })
-        );
+    const onSubmit = useCallback(
+        async (data) => {
+            const rsvpArray = Object.entries(data.namedGuests).map(
+                ([guestId, isAttending]) => ({
+                    guest_id: guestId,
+                    attending: isAttending,
+                    group_id: guest.group_id,
+                    name: guests.find((g) => g.id === guestId).name,
+                })
+            );
 
-        const plusOnesRsvpArray = data.plusOnes.map((item) => ({
-            name: item.name.trim(),
-            groupId: guest.group_id,
-            is_plus_one: true,
-        }));
+            const plusOnesRsvpArray = data.plusOnes.map((item) => ({
+                name: item.name.trim(),
+                groupId: guest.group_id,
+                is_plus_one: true,
+            }));
 
-        const result = await submitRsvpAndSendEmail(
-            rsvpArray,
-            plusOnesRsvpArray,
-            { groupId: guest.group_id, name: guest.name, email: guest.email }
-        );
+            const result = await submitRsvpAndSendEmail(
+                rsvpArray,
+                plusOnesRsvpArray,
+                {
+                    groupId: guest.group_id,
+                    name: guest.name,
+                    email: guest.email,
+                }
+            );
 
-        if (result.success) {
-            if (result.error) {
-                toast.warning(result.error);
+            if (result.success) {
+                if (result.error) {
+                    toast.warning(result.error);
+                } else {
+                    toast.success("Successfully updated rsvp info");
+                }
+                redirect("/rsvp/thanks");
             } else {
-                toast.success("Successfully updated rsvp info");
+                toast.error(result.error);
             }
-            redirect("/rsvp/thanks");
-        } else {
-            toast.error(result.error);
-        }
-    };
+        },
+        [guest, guests, submitRsvpAndSendEmail]
+    );
 
     return (
         <>
@@ -160,23 +179,23 @@ const RsvpForm = ({ initialData }) => {
             >
                 <CardHeader>
                     <div>
-                        <h3>Step {step + 1} of 2</h3>
+                        <h3>Step {formStep.step + 1} of 2</h3>
                         <Progress
-                            value={progress}
+                            value={formStep.progress}
                             className={cn("mb-7 mt-2")}
                         />
                     </div>
                     <CardTitle className={cn("text-xl")}>
                         <div
                             className={cn(
-                                step === 1
+                                formStep.step === 1
                                     ? "flex flex-row-reverse justify-between"
                                     : "flex flex-row-"
                             )}
                         >
                             {" "}
                             <span>Welcome {guest.name} </span>
-                            {step === 1 && (
+                            {formStep.step === 1 && (
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <Button
@@ -206,7 +225,7 @@ const RsvpForm = ({ initialData }) => {
                         </div>
                     </CardTitle>
                     <CardDescription className={cn("text-md")}>
-                        {step === 0
+                        {formStep.step === 0
                             ? "Rsvp for all members of your group"
                             : group.plus_ones > 0
                               ? `Add your plus ones (${group.plus_ones - fields.length} remaining)`
@@ -216,7 +235,7 @@ const RsvpForm = ({ initialData }) => {
                 <CardContent>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
-                            {step == 0 && (
+                            {formStep.step == 0 && (
                                 <div className={cn("")}>
                                     {guests.map((guest) => (
                                         <div
@@ -274,7 +293,7 @@ const RsvpForm = ({ initialData }) => {
                                     ))}
                                 </div>
                             )}
-                            {step === 1 && (
+                            {formStep.step === 1 && (
                                 <div>
                                     <div
                                         className={cn(
@@ -369,7 +388,7 @@ const RsvpForm = ({ initialData }) => {
                                     "flex flex-row-reverse justify-between w-full "
                                 )}
                             >
-                                {step === 1 && (
+                                {formStep.step === 1 && (
                                     <Button
                                         type="submit"
                                         variant="secondary"
@@ -386,7 +405,7 @@ const RsvpForm = ({ initialData }) => {
                                             : "Submit"}
                                     </Button>
                                 )}
-                                {step >= 1 && (
+                                {formStep.step >= 1 && (
                                     <Button
                                         type="button"
                                         disabled={form.formState.isSubmitting}
@@ -397,7 +416,7 @@ const RsvpForm = ({ initialData }) => {
                                     </Button>
                                 )}
 
-                                {step === 0 && (
+                                {formStep.step === 0 && (
                                     <Button
                                         type="button"
                                         className={cn("order-2")}
