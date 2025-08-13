@@ -28,6 +28,7 @@ import {
 } from "./ui/card";
 import handleConsentFormSubmit from "@/app/opt-in/_lib/actions";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 const schema = z.object({
     name: z.string().min(1, "Name is Required"),
     phone: z
@@ -42,6 +43,11 @@ const schema = z.object({
 
     consent: z.literal(true, {
         errorMap: () => ({ message: "Consent is required" }),
+    }),
+    terms: z.literal(true, {
+        errorMap: () => ({
+            message: "Please accept the Terms of Service and Privacy Policy",
+        }),
     }),
 });
 
@@ -169,7 +175,60 @@ const OptInForm = () => {
                                                 <FormLabel>
                                                     I consent to receive a one
                                                     time SMS message to the
-                                                    wedding of Ramy and Shazia
+                                                    wedding of Ramy and Shazia.
+                                                    Message and data rates may
+                                                    apply.{" "}
+                                                </FormLabel>
+                                            </div>
+                                            {fieldState.error && (
+                                                <FormDescription
+                                                    className={cn(
+                                                        "text-red-500"
+                                                    )}
+                                                >
+                                                    {fieldState.error.message}
+                                                </FormDescription>
+                                            )}
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name={"terms"}
+                                    render={({ field, fieldState }) => (
+                                        <FormItem>
+                                            <div
+                                                className={cn(
+                                                    "flex flex-row mt-5 space-x-2"
+                                                )}
+                                            >
+                                                <FormControl>
+                                                    <Checkbox
+                                                        checked={field.value}
+                                                        onCheckedChange={
+                                                            field.onChange
+                                                        }
+                                                    />
+                                                </FormControl>
+                                                <FormLabel>
+                                                    I agree to the{" "}
+                                                    <Link
+                                                        href="/opt-in/terms-of-service"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="underline hover:text-blue-600"
+                                                    >
+                                                        Terms of Service{" "}
+                                                    </Link>{" "}
+                                                    and{" "}
+                                                    <Link
+                                                        href="/opt-in/privacy-policy"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="underline hover:text-blue-600"
+                                                    >
+                                                        Privacy Policy
+                                                    </Link>
                                                 </FormLabel>
                                             </div>
                                             {fieldState.error && (
