@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 import { Tajawal } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import ThemeProvider from "@/components/theme-provider";
+import Footer from "@/components/footer";
+
 const tajawal = Tajawal({
     weight: "400",
     subsets: ["arabic"],
@@ -43,12 +45,12 @@ export default function RootLayout({ children }) {
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <main className={cn("relative z-20")}>
-                        <div className="min-h-screen bg-gradient-to-b from-slate-100 to-zinc-100 dark:from-zinc-900 dark:to-background">
-                            <Toaster />
-                            {children}
-                        </div>
-                    </main>
+                    <div className="relative flex min-h-screen flex-col">
+                        <main className="flex-1">{children}</main>
+                        <div className="absolute inset-0 -z-10 h-full w-full bg-gradient-to-b from-slate-100 to-zinc-100 dark:from-zinc-900 dark:to-background" />
+                        <Toaster />
+                        <Footer />
+                    </div>
                 </ThemeProvider>
             </body>
         </html>
