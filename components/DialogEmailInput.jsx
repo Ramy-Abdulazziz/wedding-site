@@ -126,7 +126,7 @@ const DialogEmailInput = () => {
         const textSuccess = await sendMagicLinkTextNoEmail(sanitizedPhone);
         if (textSuccess?.error) {
             toast.error("Error sending link", {
-                description: emailSuccess.error,
+                description: textSuccess.error,
                 position: "bottom-right",
             });
         } else {
