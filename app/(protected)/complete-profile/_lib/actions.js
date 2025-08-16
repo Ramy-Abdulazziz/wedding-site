@@ -1,9 +1,9 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { createClient as ccs } from "@supabase/supabase-js";
-import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+import { z } from "zod";
+
+const emailSchema = z.email();
 
 const getCurrentUser = async () => {
     const supabase = await createClient();
@@ -19,28 +19,18 @@ const getCurrentUser = async () => {
     return user;
 };
 
-const getGuestByPhone = async (phone) => {
-    const supabase = await createClient();
-    const { data, error } = await supabase
-        .from("guests")
-        .select("*")
-        .eq("phone", phone)
-        .single();
-
-    if (error) {
-        console.error(error);
-        throw new Error("Failed to find guest by phone", error);
+const updateGuestEmail = async (email) => {
+    const parseResult = emailSchema.safeParse(email);
+    if (!parseResult.success) {
+        return { error: "❌ Invalid email format." };
     }
 
-    return data;
-};
-
-const updateGuestEmail = async (email) => {
+    const sanitizedEmail = parseResult.data.trim().toLowerCase();
     const supabase = await createClient();
     const authedUser = await getCurrentUser();
     const { error } = await supabase.rpc("update_user_email", {
         user_id: authedUser.id,
-        new_email: email,
+        new_email: sanitizedEmail,
     });
 
     if (error) {

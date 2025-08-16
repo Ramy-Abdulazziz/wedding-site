@@ -106,15 +106,18 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     );
 
     let userEmail;
+    console.log(guest);
     if (
         guest.email !== null &&
+        guest.email !== '' &&
         !guest.email.includes(authConfig.noEmailPlaceHolder)
     ) {
-        userEmail = `${sanitizedPhone}@guest.ramyandshazia.com`;
-    } else {
         userEmail = guest.email;
+    } else {
+        userEmail = `${sanitizedPhone}@guest.ramyandshazia.com`;
     }
 
+    console.log("user email", userEmail);
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
             type: "magiclink",
