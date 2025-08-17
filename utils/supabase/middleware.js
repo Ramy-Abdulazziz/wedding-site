@@ -55,7 +55,7 @@ export async function updateSession(request) {
 
     const { data: guest, error: guestError } = await supabase
         .from("guests")
-        .select("id")
+        .select("id, email")
         .eq("id", user.id)
         .single();
 
@@ -74,6 +74,29 @@ export async function updateSession(request) {
         const url = request.nextUrl.clone();
         url.pathname = authConfig.authedHomeRoute;
         return NextResponse.redirect(url);
+    }
+
+    const userHasEmail =
+        user.email !== null &&
+        guest.email !== null &&
+        user.email === guest.email &&
+        !user.email.includes(authConfig.noEmailPlaceHolder) &&
+        !guest.email.includes(authConfig.noEmailPlaceHolder);
+
+    if (authConfig.emailOnlyRoutes.includes(pathname)) {
+        if (!userHasEmail) {
+            const url = request.nextUrl.clone();
+            url.pathname = authConfig.noEmailUpdateRoute;
+            return NextResponse.redirect(url);
+        }
+    }
+
+    if (authConfig.noEmailUpdateRoute === pathname) {
+        if (userHasEmail) {
+            const url = request.nextUrl.clone();
+            url.pathName = authConfig.authedHomeRoute;
+            return NextResponse.redirect(url);
+        }
     }
 
     if (authConfig.ticketedRoute.includes(pathname)) {

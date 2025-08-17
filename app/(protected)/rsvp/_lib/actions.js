@@ -117,7 +117,7 @@ const getGroupInfo = async (groupId) => {
 const loadRsvpData = async () => {
     try {
         const user = await getCurrentUser();
-        const guest = await getGuestByEmail(user.email);
+        const guest = await getGuestById(user.id);
         const groupGuests = await getGroupMembersGuests(
             guest.group_id,
             user.id
