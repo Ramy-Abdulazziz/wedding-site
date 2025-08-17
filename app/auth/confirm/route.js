@@ -13,6 +13,7 @@ export async function GET(request) {
     if (token_hash && type) {
         const cookieStore = await cookies();
         const supabase = await createClient(cookieStore);
+        console.log("looking for user");
         const { data: user, error: userError } = await supabase.auth.getUser();
 
         if (user && !userError) {
@@ -26,6 +27,8 @@ export async function GET(request) {
 
         if (!error) {
             // redirect user to specified redirect URL or root of app
+            console.log("redoirect for next");
+
             return redirect(`${next}`);
         } else {
             console.error("error authenticating magic link ", error);
