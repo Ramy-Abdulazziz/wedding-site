@@ -2,10 +2,11 @@ import ArabicNames from "@/components/ArabicNames";
 import Count from "@/components/Count";
 import { cn } from "@/lib/utils";
 import DialogEmailInput from "@/components/DialogEmailInput";
+
 const Header = () => {
     return (
         <>
-            <div className=" relative w-full mx-auto justify-center items-center text-center">        
+            <div className=" relative w-full mx-auto justify-center items-center text-center">
                 <div className={cn("flex justify-center")}>
                     <h1
                         className={cn(
@@ -15,6 +16,7 @@ const Header = () => {
                         You are invited to the wedding of
                     </h1>
                 </div>
+
                 <ArabicNames className={cn("text-white text-6xl")} />
                 <div className={cn("flex justify-center object-scale-down")}>
                     <h1
