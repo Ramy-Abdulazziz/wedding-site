@@ -45,12 +45,21 @@ export default function RootLayout({ children }) {
                     enableSystem
                     disableTransitionOnChange
                 >
+<<<<<<< HEAD
                     <div className="relative flex min-h-screen flex-col">
                         <main className="flex-1">{children}</main>
                         <div className="absolute inset-0 -z-10 h-full w-full bg-gradient-to-b from-slate-100 to-zinc-100 dark:from-zinc-900 dark:to-background" />
                         <Toaster />
                         <Footer />
                     </div>
+=======
+                    <main className={cn("relative z-20")}>
+                        <div className="min-h-screen bg-gradient-to-b from-slate-100 to-zinc-100 dark:from-zinc-900 dark:to-background ">
+                            <Toaster />
+                            {children}
+                        </div>
+                    </main>
+>>>>>>> 4c1936719c21666fde4fffbb8a79d4fa6ef687dd
                 </ThemeProvider>
             </body>
         </html>
