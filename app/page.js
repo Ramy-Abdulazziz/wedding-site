@@ -10,7 +10,7 @@ export default async function Home() {
                     "min-h-screen relative bg-[url(/floral-background-4.png)]"
                 )}
             >
-                <div className={cn('min-h-screen relative bg-gradient-to-b from-slate-100/55 to-zinc-100/75 dark:from-zinc-900/75 dark:to-background/85')}>
+                <div className={cn('min-h-screen relative bg-gradient-to-b from-slate-100/85 to-zinc-100/75 dark:from-zinc-900/75 dark:to-background/85')}>
                     <div
                         className={cn(
                             "sticky top-0 z-50 w-full h-full flex flex-row bg-background/85 shadow-md dark:shadow-white/25 dark:shadow-xl/50"
