@@ -42,7 +42,7 @@ const sendMagicLinkEmail = async (email) => {
 
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
-            type: "magiclink",
+            type: "recovery",
             email: sanitizedEmail,
         });
 
@@ -83,6 +83,10 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         console.error("Invalid phone number format");
         return { error: "❌ Phone number is not valid. Please try again" };
     }
+    console.log(phoneNumber.nationalNumber);
+    console.log(sanitizedPhone);
+    console.log("sanitizedPhone length:", sanitizedPhone.length);
+    console.log("nationalNumber length:", phoneNumber.nationalNumber.length);
     const supabase = await createClient();
     const { data: guests, error: guestError } = await supabase.rpc(
         "find_guest_by_phone",
@@ -90,6 +94,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     );
 
     if (guestError || !guests || guests.length === 0) {
+        console.error(guests);
         return { success: true };
     }
 
@@ -120,7 +125,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     console.log("user email", userEmail);
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
-            type: "invite",
+            type: "recovery",
             email: userEmail,
         });
 
