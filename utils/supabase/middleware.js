@@ -76,6 +76,7 @@ export async function updateSession(request) {
         return NextResponse.redirect(url);
     }
 
+    
     if (authConfig.ticketedRoute.includes(pathname)) {
         const ticketName = pathname.split("/")[1];
         const ticket = await request.cookies.get(`${ticketName}_submitted`);
