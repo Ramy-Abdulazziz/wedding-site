@@ -109,7 +109,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     console.log(guest);
     if (
         guest.email !== null &&
-        guest.email !== '' &&
+        guest.email !== "" &&
         !guest.email.includes(authConfig.noEmailPlaceHolder)
     ) {
         userEmail = guest.email;
@@ -120,7 +120,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     console.log("user email", userEmail);
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
-            type: "magiclink",
+            type: "invite",
             email: userEmail,
         });
 
