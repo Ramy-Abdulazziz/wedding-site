@@ -52,6 +52,7 @@ const sendMagicLinkEmail = async (email) => {
     }
     const { hashed_token, verification_type } = linkData.properties;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    console.log("RAW LINK DATA:", JSON.stringify(linkData, null, 2));
 
     const verificationUrl = new URL("/auth/confirm", siteUrl);
     verificationUrl.searchParams.set("token_hash", hashed_token);
@@ -87,14 +88,14 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     console.log(sanitizedPhone);
     console.log("sanitizedPhone length:", sanitizedPhone.length);
     console.log("nationalNumber length:", phoneNumber.nationalNumber.length);
-    console.log(sanitizedPhone === phoneNumber.nationalNumber); 
+    console.log(sanitizedPhone === phoneNumber.nationalNumber);
     const supabase = await createClient();
     const { data: guests, error: guestError } = await supabase.rpc(
         "find_guest_by_phone",
         { guest_phone: sanitizedPhone }
     );
 
-    console.log(guests); 
+    console.log(guests);
 
     if (guestError || !guests || guests.length === 0) {
         console.error(guests);
@@ -125,8 +126,6 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         userEmail = `${sanitizedPhone}@guest.ramyandshazia.com`;
     }
 
-
-
     console.log("user email", userEmail);
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
@@ -138,6 +137,8 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         console.error("Error generating magic link:", linkError);
         return { error: "❌ Failed to create magic link. Please try again." };
     }
+    console.log("RAW LINK DATA:", JSON.stringify(linkData, null, 2));
+
     const { hashed_token, verification_type } = linkData.properties;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -147,7 +148,6 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     verificationUrl.searchParams.set("next", "/details");
 
     const magicLink = verificationUrl.toString();
-
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const name = guests[0].name;
@@ -168,7 +168,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
             body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${magicLink}`,
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber.formatInternational(),
-            shorten_urls: false
+            shorten_urls: false,
         });
     } catch (textError) {
         console.error("Error sending text", textError);
