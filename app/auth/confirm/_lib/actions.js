@@ -87,11 +87,14 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     console.log(sanitizedPhone);
     console.log("sanitizedPhone length:", sanitizedPhone.length);
     console.log("nationalNumber length:", phoneNumber.nationalNumber.length);
+    console.log(sanitizedPhone === phoneNumber.nationalNumber); 
     const supabase = await createClient();
     const { data: guests, error: guestError } = await supabase.rpc(
         "find_guest_by_phone",
         { guest_phone: sanitizedPhone }
     );
+
+    console.log(guests); 
 
     if (guestError || !guests || guests.length === 0) {
         console.error(guests);
