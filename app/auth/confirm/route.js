@@ -28,8 +28,10 @@ export async function GET(request) {
             token_hash,
         });
         console.log("data", data);
+        console.log("error", error);
         if (!error) {
             // redirect user to specified redirect URL or root of app
+            console.log("redirecting to ", next);
             return redirect(`${next}`);
         } else {
             console.error("error authenticating magic link ", error);
