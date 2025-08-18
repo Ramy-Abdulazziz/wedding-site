@@ -125,6 +125,8 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         userEmail = `${sanitizedPhone}@guest.ramyandshazia.com`;
     }
 
+
+
     console.log("user email", userEmail);
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
@@ -145,6 +147,17 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     verificationUrl.searchParams.set("next", "/details");
 
     const magicLink = verificationUrl.toString();
+
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const name = guests[0].name;
+    const { data, error: sendError } = await resend.emails.send({
+        from: "Ramy and Shazia <noreply@notifications.ramyandshazia.com>",
+        to: "ramy.abdulazziz@gmail.com",
+        subject: "Your Invitation to Ramy & Shazia's Wedding",
+        react: <MagicLinkEmail magicLink={magicLink} name={name} />,
+    });
+
     const client = twilio(
         process.env.TWILIO_ACCOUNT_SID,
         process.env.TWILIO_AUTH_TOKEN
@@ -155,6 +168,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
             body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${magicLink}`,
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber.formatInternational(),
+            shorten_urls: false
         });
     } catch (textError) {
         console.error("Error sending text", textError);
