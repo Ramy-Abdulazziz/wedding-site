@@ -127,6 +127,8 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     }
 
     console.log("user email", userEmail);
+    await supabase.from("guests").select("id").eq("id", guest.id).single();
+
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
             type: "recovery",
