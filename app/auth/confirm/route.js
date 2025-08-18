@@ -18,6 +18,7 @@ export async function GET(request) {
         const supabase = await createClient(cookieStore);
         const { data: user, error: userError } = await supabase.auth.getUser();
 
+        console.log("user", user);
         if (user && !userError) {
             return redirect(authConfig.authedHomeRoute);
         }
@@ -26,7 +27,7 @@ export async function GET(request) {
             type,
             token_hash,
         });
-
+        console.log("data", data);
         if (!error) {
             // redirect user to specified redirect URL or root of app
             return redirect(`${next}`);
