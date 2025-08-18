@@ -149,7 +149,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     verificationUrl.searchParams.set("type", verification_type);
     verificationUrl.searchParams.set("next", "/details");
 
-    const magicLink = verificationUrl.toString();
+    const magicLink = `${siteUrl}/auth/confirm?token_hash=${hashed_token}&type=${verification_type}&next=${encodeURIComponent(next)}`;
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const name = guests[0].name;
