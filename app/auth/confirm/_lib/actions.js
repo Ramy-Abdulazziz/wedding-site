@@ -167,7 +167,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
 
     try {
         await client.messages.create({
-            body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${magicLink}`,
+            body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${hashed_token}`,
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber.formatInternational(),
             shorten_urls: false,
