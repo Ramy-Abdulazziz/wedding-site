@@ -149,7 +149,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     verificationUrl.searchParams.set("type", verification_type);
     verificationUrl.searchParams.set("next", "/details");
 
-    const magicLink = `${siteUrl}/auth/confirm?token_hash=${hashed_token}&type=${verification_type}&next=${encodeURIComponent(next)}`;
+    const magicLink = `${siteUrl}/auth/confirm?token_hash=${hashed_token}&type=${verification_type}&next=${encodeURIComponent("/details")}`;
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const name = guests[0].name;
@@ -167,7 +167,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
 
     try {
         await client.messages.create({
-            body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${hashed_token}`,
+            body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${magicLink}`,
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber.formatInternational(),
             shorten_urls: false,
