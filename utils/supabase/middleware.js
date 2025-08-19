@@ -99,9 +99,9 @@ export async function updateSession(request) {
 
     if (authConfig.noEmailUpdateRoute === pathname) {
         if (userHasEmail) {
-            console.log("red 1");
+            console.log("red 2");
             const url = request.nextUrl.clone();
-            url.pathName = authConfig.authedHomeRoute;
+            url.pathName = '/rsvp';
             return NextResponse.redirect(url);
         }
     }
