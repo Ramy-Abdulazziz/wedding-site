@@ -24,7 +24,7 @@ import {
     CardTitle,
 } from "./ui/card";
 import { useState, useMemo, useReducer, useCallback } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { updateGuestEmail } from "@/app/(protected)/complete-profile/_lib/actions";
 
 const schema = z.object({
@@ -33,6 +33,7 @@ const schema = z.object({
 
 const CompleteProfileForm = ({ initialData }) => {
     const { user } = initialData;
+    const router = useRouter();
 
     const form = useForm({
         resolver: zodResolver(schema),
@@ -46,12 +47,12 @@ const CompleteProfileForm = ({ initialData }) => {
 
             if (updated.success) {
                 toast.success("successfully updated your email!");
-                redirect("/details");
+                router.push("/rsvp");
             } else {
                 toast.error(updated.error);
             }
         },
-        [user, updateGuestEmail]
+        [updateGuestEmail]
     );
 
     return (
@@ -66,8 +67,8 @@ const CompleteProfileForm = ({ initialData }) => {
                 </CardTitle>
                 <CardDescription>
                     We need to collect your email so we can send you
-                    confirmations of your rsvp responses and important communications
-                    about updates!
+                    confirmations of your rsvp responses and important
+                    communications about updates!
                 </CardDescription>
             </CardHeader>
             <CardContent>

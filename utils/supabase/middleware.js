@@ -87,6 +87,7 @@ export async function updateSession(request) {
         !user.email.includes(authConfig.noEmailPlaceHolder) &&
         !guest.email.includes(authConfig.noEmailPlaceHolder);
 
+    console.log(userHasEmail);
     if (authConfig.emailOnlyRoutes.includes(pathname)) {
         if (!userHasEmail) {
             const url = request.nextUrl.clone();
@@ -98,7 +99,7 @@ export async function updateSession(request) {
     if (authConfig.noEmailUpdateRoute === pathname) {
         if (userHasEmail) {
             const url = request.nextUrl.clone();
-            url.pathName = authConfig.authedHomeRoute;
+            url.pathname = '/rsvp';
             return NextResponse.redirect(url);
         }
     }
