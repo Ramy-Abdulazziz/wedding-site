@@ -90,7 +90,6 @@ export async function updateSession(request) {
     console.log(userHasEmail);
     if (authConfig.emailOnlyRoutes.includes(pathname)) {
         if (!userHasEmail) {
-            console.log("red 1");
             const url = request.nextUrl.clone();
             url.pathname = authConfig.noEmailUpdateRoute;
             return NextResponse.redirect(url);
@@ -99,9 +98,8 @@ export async function updateSession(request) {
 
     if (authConfig.noEmailUpdateRoute === pathname) {
         if (userHasEmail) {
-            console.log("red 2");
             const url = request.nextUrl.clone();
-            url.pathName = '/rsvp';
+            url.pathname = '/rsvp';
             return NextResponse.redirect(url);
         }
     }
