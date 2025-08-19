@@ -46,7 +46,7 @@ const CompleteProfileForm = ({ initialData }) => {
 
             if (updated.success) {
                 toast.success("successfully updated your email!");
-                redirect("/details");
+                redirect("/rsvp");
             } else {
                 toast.error(updated.error);
             }
