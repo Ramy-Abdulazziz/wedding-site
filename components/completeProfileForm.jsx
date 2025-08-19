@@ -51,7 +51,7 @@ const CompleteProfileForm = ({ initialData }) => {
                 toast.error(updated.error);
             }
         },
-        [user, updateGuestEmail]
+        [updateGuestEmail]
     );
 
     return (

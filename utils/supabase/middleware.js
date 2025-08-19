@@ -87,9 +87,10 @@ export async function updateSession(request) {
         !user.email.includes(authConfig.noEmailPlaceHolder) &&
         !guest.email.includes(authConfig.noEmailPlaceHolder);
 
-    console.log(userHasEmail); 
+    console.log(userHasEmail);
     if (authConfig.emailOnlyRoutes.includes(pathname)) {
         if (!userHasEmail) {
+            console.log("red 1");
             const url = request.nextUrl.clone();
             url.pathname = authConfig.noEmailUpdateRoute;
             return NextResponse.redirect(url);
@@ -98,6 +99,7 @@ export async function updateSession(request) {
 
     if (authConfig.noEmailUpdateRoute === pathname) {
         if (userHasEmail) {
+            console.log("red 1");
             const url = request.nextUrl.clone();
             url.pathName = authConfig.authedHomeRoute;
             return NextResponse.redirect(url);
