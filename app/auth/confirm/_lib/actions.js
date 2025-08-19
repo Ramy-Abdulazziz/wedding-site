@@ -8,6 +8,9 @@ import { z } from "zod";
 import twilio from "twilio";
 import { authConfig } from "@/auth.config";
 import parsePhoneNumber from "libphonenumber-js";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { getFriendlyErrorCode } from "@/utils/authErrorCodes";
 
 const emailSchema = z.email();
 
@@ -53,12 +56,13 @@ const sendMagicLinkEmail = async (email) => {
     const { hashed_token, verification_type } = linkData.properties;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
-    const verificationUrl = new URL("/auth/confirm", siteUrl);
+    const verificationUrl = new URL("/auth/confirm/email", siteUrl);
     verificationUrl.searchParams.set("token_hash", hashed_token);
     verificationUrl.searchParams.set("type", verification_type);
     verificationUrl.searchParams.set("next", "/details");
 
     const magicLink = verificationUrl.toString();
+    console.log(magicLink); 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const name = guests[0].name;
     const { data, error: sendError } = await resend.emails.send({
@@ -86,10 +90,13 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     const supabase = await createClient();
     const { data: guests, error: guestError } = await supabase.rpc(
         "find_guest_by_phone",
-        { guest_phone: sanitizedPhone }
+        { guest_phone: phoneNumber.nationalNumber }
     );
 
+    console.log(guests);
+
     if (guestError || !guests || guests.length === 0) {
+        console.error(guests);
         return { success: true };
     }
 
@@ -106,10 +113,9 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     );
 
     let userEmail;
-    console.log(guest);
     if (
         guest.email !== null &&
-        guest.email !== '' &&
+        guest.email !== "" &&
         !guest.email.includes(authConfig.noEmailPlaceHolder)
     ) {
         userEmail = guest.email;
@@ -117,7 +123,6 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         userEmail = `${sanitizedPhone}@guest.ramyandshazia.com`;
     }
 
-    console.log("user email", userEmail);
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
             type: "magiclink",
@@ -128,6 +133,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         console.error("Error generating magic link:", linkError);
         return { error: "❌ Failed to create magic link. Please try again." };
     }
+
     const { hashed_token, verification_type } = linkData.properties;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -144,7 +150,7 @@ const sendMagicLinkTextNoEmail = async (phone) => {
 
     try {
         await client.messages.create({
-            body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${magicLink}`,
+            body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${magicLink} `,
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber.formatInternational(),
         });
@@ -158,4 +164,36 @@ const sendMagicLinkTextNoEmail = async (phone) => {
     return { success: true };
 };
 
-export { sendMagicLinkEmail, sendMagicLinkTextNoEmail };
+const verifyMagicLink = async (data) => {
+    const token_hash = data.get("token_hash");
+    const type = data.get("type");
+    const next = data.get("next");
+
+    console.log(data); 
+    if (token_hash && type) {
+        const cookieStore = await cookies();
+        const supabase = await createClient(cookieStore);
+        const { data, error } = await supabase.auth.verifyOtp({
+            type,
+            token_hash,
+        });
+
+        console.log("data", data);
+        console.log("error", error);
+
+        if (error) {
+            console.error("Error verifying magic link ", error);
+            const message = encodeURIComponent(
+                getFriendlyErrorCode(error.message)
+            );
+            redirect(`/auth/error?code=${message}`);
+        }
+
+        redirect(next);
+    }
+
+    redirect(
+        `/auth/error?code=${encodeURIComponent(getFriendlyErrorCode("default"))}`
+    );
+};
+export { sendMagicLinkEmail, sendMagicLinkTextNoEmail, verifyMagicLink };

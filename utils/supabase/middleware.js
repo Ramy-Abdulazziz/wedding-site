@@ -42,6 +42,7 @@ export async function updateSession(request) {
         error: userError,
     } = await supabase.auth.getUser();
 
+    console.log("user", user);
     const pathname = request.nextUrl.pathname;
     if (!user || userError) {
         if (pathname !== authConfig.unAuthedHomeRoute) {
@@ -59,9 +60,12 @@ export async function updateSession(request) {
         .eq("id", user.id)
         .single();
 
+    console.log("guest", guest);
+
     const verifiedUser = user && guest && !guestError && !userError;
 
     if (!verifiedUser) {
+        console.log("unauthed");
         if (pathname !== authConfig.unAuthedHomeRoute) {
             const url = request.nextUrl.clone();
             url.pathname = authConfig.unAuthedHomeRoute;
