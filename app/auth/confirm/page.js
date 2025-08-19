@@ -1,8 +1,26 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/theme-toggle";
 import AuthHeader from "@/components/AuthHeader";
+import { useEffect } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { redirect } from "next/navigation";
+import { authConfig } from "@/auth.config";
 
-export default async function AuthHome() {
+export default function AuthHome() {
+    useEffect(() => {
+        const redirectToAuthHome = async () => {
+            const supabase = createClient();
+            const { data: user, error: userError } =
+                await supabase.auth.getUser();
+            if (user && !userError) {
+                redirect(authConfig.authedHomeRoute);
+            }
+        };
+
+        redirectToAuthHome();
+    }, []);
     return (
         <>
             <div

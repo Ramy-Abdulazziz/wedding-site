@@ -86,8 +86,8 @@ export default function AuthSignIn({ token, type, next }) {
                             <Loader2Icon className={cn("animate-spin")} />
                         )}
                         {form.formState.isSubmitting
-                            ? "Getting You In"
-                            : "Access and RSVP"}
+                            ? "Signing you in"
+                            : "Get Access and RSVP"}
                     </Button>
                 </div>
             </form>
