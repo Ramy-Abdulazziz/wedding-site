@@ -87,7 +87,7 @@ export default function AuthSignIn({ token, type, next }) {
                         )}
                         {form.formState.isSubmitting
                             ? "Signing you in"
-                            : "Get Access and RSVP"}
+                            : "Log In and RSVP"}
                     </Button>
                 </div>
             </form>

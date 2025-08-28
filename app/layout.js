@@ -4,6 +4,8 @@ import { Tajawal } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import ThemeProvider from "@/components/theme-provider";
 import Footer from "@/components/footer";
+import { headers } from "next/headers";
+import PathNameWrapper from "@/components/PathNameWrapper";
 
 const tajawal = Tajawal({
     weight: "400",
@@ -31,7 +33,7 @@ export const metadata = {
     },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
     return (
         <html
             lang="en"
@@ -47,7 +49,7 @@ export default function RootLayout({ children }) {
                 >
                     <div className="relative flex min-h-screen flex-col">
                         <main className="flex-1">{children}</main>
-                        <div className="absolute inset-0 -z-10 h-full w-full bg-gradient-to-b from-slate-100 to-zinc-100 dark:from-zinc-900 dark:to-background" />
+                        <PathNameWrapper />
                         <Toaster />
                         <Footer />
                     </div>
