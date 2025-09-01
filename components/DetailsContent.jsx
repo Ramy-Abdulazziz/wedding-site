@@ -48,7 +48,7 @@ export default function DetailsContent() {
             </section>
             <Separator
                 className={cn(
-                    "flex justify-self-center max-w-[94%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
+                    "mx-auto max-w-[94%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
                 )}
             />
             <section className={cn("xl:ml-20")}>
@@ -64,7 +64,7 @@ export default function DetailsContent() {
             </section>
             <Separator
                 className={cn(
-                    "flex justify-self-center max-w-[94%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
+                    "mx-auto max-w-[94%] sm:max-w-[92%] md:max-w-[93%] lg:max-w-[95%] xl:max-w-[84%] 2xl:max-w-[86%]"
                 )}
             />
             <section className={cn("xl:ml-20 ")}>

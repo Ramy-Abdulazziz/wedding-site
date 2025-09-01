@@ -14,7 +14,11 @@ import { Separator } from "./ui/separator";
 
 const HotelBlockInfoCard = () => {
     return (
-        <Card className={cn("flex flex-col h-full shadow-2xl/50 inset-shadow-xs dark:inset-shadow-gray-500 dark:shadow-2xl/50 dark:shadow-white/25")}>
+        <Card
+            className={cn(
+                "flex flex-col h-full shadow-2xl/50 inset-shadow-xs dark:inset-shadow-gray-500 dark:shadow-2xl/50 dark:shadow-white/25"
+            )}
+        >
             <CardHeader className={cn("flex flex-row justify-between")}>
                 <CardTitle className={cn("text-2xl")}>
                     {" "}
@@ -44,13 +48,21 @@ const HotelBlockInfoCard = () => {
                             alt="picture of hotel"
                         />
                     </div>
-                    <div className={cn('-mb-1 xl:mb-5 xl-mt-5 xl:ml-5 2xl:mb-5 2xl:mt-5 2xl:ml-5 ')}>
+                    <div
+                        className={cn(
+                            "-mb-1 xl:mb-5 xl-mt-5 xl:ml-5 2xl:mb-5 2xl:mt-5 2xl:ml-5 "
+                        )}
+                    >
                         <Separator
                             orientation="vertical"
                             className={cn("h-full ml-5 mr-5 pb-0")}
                         />
                     </div>
-                    <div className={cn("container mx-auto flex flex-col h-full space-y-5 md:max-w-md lg:max-w-lg xl:max-w-xl md:mt-5 lg:mt-0 xl:mt-5 2xl:mt-5")}>
+                    <div
+                        className={cn(
+                            "container mx-auto flex flex-col h-full space-y-5 md:max-w-md lg:max-w-lg xl:max-w-xl md:mt-5 lg:mt-0 xl:mt-5 2xl:mt-5"
+                        )}
+                    >
                         <div
                             className={cn(
                                 "container mx-auto text-justify hyphens-auto text-sm lg:text-xl xl:text-xl 2xl:text-xl"
@@ -98,9 +110,7 @@ const HotelBlockInfoCard = () => {
                                         "text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl"
                                     )}
                                 >
-                                    <div>
-                                        215 Sunnyside Blvd, Plainview, NY 11803
-                                    </div>
+                                    215 Sunnyside Blvd, Plainview, NY 11803
                                 </p>
                             </div>
                         </div>
