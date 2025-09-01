@@ -20,16 +20,24 @@ const AlternateBookingCard = ({ hotelDetails }) => {
     const price = hotelDetails.price;
 
     return (
-        <Card className={cn('flex flex-col h-full hover:shadow-2xl/50 inset-shadow-xs dark:inset-shadow-gray-500 hover:dark:shadow-2xl/50 hover:dark:shadow-white/25')}>
-            <CardHeader className={cn("flex flex-row justify-between md:min-h-12 lg:min-h-12 xl:min-h-5 2xl:min-h-5")}>
-                <CardTitle>{name}</CardTitle>
-                <CardAction className={cn("text-green-500")}>
+        <Card
+            className={cn(
+                "flex flex-col h-full hover:shadow-2xl/50 inset-shadow-xs dark:inset-shadow-gray-500 hover:dark:shadow-2xl/50 hover:dark:shadow-white/25"
+            )}
+        >
+            <CardHeader
+                className={cn(
+                    "flex flex-row justify-between items-center gap-2 md:min-h-12 lg:min-h-12 xl:min-h-5 2xl:min-h-5"
+                )}
+            >
+                <CardTitle className={cn("")}>{name}</CardTitle>
+                <CardAction className={cn("text-green-500 shrink-0")}>
                     {price}
                 </CardAction>
             </CardHeader>
             <CardContent>
                 <div className={cn("flex flex-col space-y-5 ")}>
-                    <div className={cn('relative w-full aspect-[4/3]')}>
+                    <div className={cn("relative w-full aspect-[4/3]")}>
                         <Image
                             src={photoUrl}
                             fill={true}
