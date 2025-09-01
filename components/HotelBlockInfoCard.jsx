@@ -72,7 +72,7 @@ const HotelBlockInfoCard = () => {
                             using the link below (use Group Code: ABD). Rooms
                             are limited so we recommend booking as soon as
                             possible. Additional accommodations are listed
-                            below.
+                            below, but no hotel block has been set up for them.
                         </div>
                         <div id="when" className={cn("scroll-mt-24")}>
                             <p
