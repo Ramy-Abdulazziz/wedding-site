@@ -63,15 +63,22 @@ const Nav = () => {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <NavigationMenuLink
-                            asChild
-                            className={cn(
-                                navigationMenuLinkStyle(),
-                                "pointer-events-none text-gray-500"
-                            )}
-                        >
-                            <Link href="/details#rsvp">Registry</Link>
-                        </NavigationMenuLink>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <NavigationMenuLink
+                                    asChild
+                                    className={cn(
+                                        navigationMenuLinkStyle(),
+                                        "pointer-events-none text-gray-500"
+                                    )}
+                                >
+                                    <Link href="/details#rsvp">Registry</Link>
+                                </NavigationMenuLink>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Coming Soon!</p>
+                            </TooltipContent>
+                        </Tooltip>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <NavigationMenuLink
@@ -84,12 +91,9 @@ const Nav = () => {
                     <NavigationMenuItem>
                         <NavigationMenuLink
                             asChild
-                            className={cn(
-                                navigationMenuLinkStyle(),
-                                "pointer-events-none text-gray-500"
-                            )}
+                            className={cn(navigationMenuLinkStyle())}
                         >
-                            <Link href="/details#travel">Travel</Link>
+                            <Link href="/travel">Travel</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
@@ -106,7 +110,7 @@ const Nav = () => {
                     "flex sm:flex md:flex lg:hidden xl:hidden 2xl:hidden w-full justify-start pl-2 pt-2 pb-2"
                 )}
             >
-                <Sheet className={cn('')}>
+                <Sheet className={cn("")}>
                     <SheetTrigger>
                         <MenuIcon />
                     </SheetTrigger>
@@ -145,14 +149,21 @@ const Nav = () => {
                                         </Link>
                                     </SheetClose>
                                     <SheetClose asChild>
-                                        <Link
-                                            href="/details#faq"
-                                            className={cn(
-                                                "text-2xl pointer-events-none text-gray-500"
-                                            )}
-                                        >
-                                            Registry
-                                        </Link>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <Link
+                                                    href="/details#faq"
+                                                    className={cn(
+                                                        "text-2xl pointer-events-none text-gray-500"
+                                                    )}
+                                                >
+                                                    Registry
+                                                </Link>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Coming Soon!</p>
+                                            </TooltipContent>
+                                        </Tooltip>
                                     </SheetClose>
                                 </div>
                                 <div className={cn("flex flex-col mb-2")}>
@@ -172,12 +183,18 @@ const Nav = () => {
                                     </p>
                                     <SheetClose asChild>
                                         <Link
-                                            href="/rsvp"
-                                            className={cn(
-                                                "text-2xl pointer-events-none text-gray-500"
-                                            )}
+                                            href="/travel#hotelblock"
+                                            className={cn("text-2xl")}
                                         >
                                             Hotel Block
+                                        </Link>
+                                    </SheetClose>
+                                    <SheetClose asChild>
+                                        <Link
+                                            href="/travel#hotelblock"
+                                            className={cn("text-2xl")}
+                                        >
+                                            Alternate Hotels
                                         </Link>
                                     </SheetClose>
                                 </div>

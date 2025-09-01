@@ -29,6 +29,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.1",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.15.0",
     "libphonenumber-js": "^1.12.12",
     "lucide-react": "^0.511.0",
