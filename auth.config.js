@@ -1,6 +1,6 @@
 export const authConfig = {
     publicRoutes: ["/", "/auth/confirm", "/error"],
-    protectedRoutes: ["/details", "/rsvp", "/rsvp/thanks", "/complete-profile"],
+    protectedRoutes: ["/details", "/rsvp", "/rsvp/thanks", "/complete-profile", "/travel"],
     unAuthedHomeRoute: "/",
     authedHomeRoute: "/details",
     ticketedRoute: ["/rsvp/thanks"],
