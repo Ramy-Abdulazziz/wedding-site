@@ -86,10 +86,9 @@ const Nav = () => {
                             asChild
                             className={cn(
                                 navigationMenuLinkStyle(),
-                                "pointer-events-none text-gray-500"
                             )}
                         >
-                            <Link href="/details#travel">Travel</Link>
+                            <Link href="/travel">Travel</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
@@ -172,9 +171,9 @@ const Nav = () => {
                                     </p>
                                     <SheetClose asChild>
                                         <Link
-                                            href="/rsvp"
+                                            href="/travel#hotelblock"
                                             className={cn(
-                                                "text-2xl pointer-events-none text-gray-500"
+                                                "text-2xl text-gray-500"
                                             )}
                                         >
                                             Hotel Block
