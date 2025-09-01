@@ -16,6 +16,7 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import AlternateBookingCard from "./AlternateBookingCard";
+import HotelBlockInfoCard from "./HotelBlockInfoCard";
 
 export default function TravelContent() {
     const [hotelData, setHotelData] = useState(Object.values(alternateHotels));
@@ -39,13 +40,25 @@ export default function TravelContent() {
         <div className={cn("pb-[50vh]")}>
             <section>
                 <motion.div
-                    className={cn("container mx-auto pl-5 sm:pl-7 pt-5")}
+                    className={cn(
+                        "container mx-auto pl-5 pr-5 mb-10 sm:pl-7 pt-5"
+                    )}
                     variants={textContainer}
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true }}
                 >
-                    <BookingDetails />
+                    <motion.p
+                        id="hotelblock"
+                        className={cn(
+                            "text-2xl sm:text-3xl md:text-3xl xl:text-3xl mb-5 scroll-mt-24"
+                        )}
+                        variants={textItem}
+                    >
+                        {" "}
+                        Hotel Block
+                    </motion.p>
+                    <HotelBlockInfoCard />
                 </motion.div>
             </section>
             <Separator
@@ -78,16 +91,17 @@ export default function TravelContent() {
                             loop: true,
                         }}
                     >
-                        <div className={cn("")}>
-                            <CarouselContent className={cn("")}>
+                        <div className={cn("h-full")}>
+                            <CarouselContent className={cn("h-full")}>
                                 {hotelData.map((hotel, index) => (
                                     <CarouselItem
                                         key={index}
                                         className={cn(
-                                            "basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/3 2xl:1/3"
+                                            "basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/3 xl:basis-1/3 2xl:1/3 "
                                         )}
                                     >
                                         <AlternateBookingCard
+                                            className={cn("")}
                                             hotelDetails={hotel}
                                         />
                                     </CarouselItem>
