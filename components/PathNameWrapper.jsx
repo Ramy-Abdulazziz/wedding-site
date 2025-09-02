@@ -14,7 +14,7 @@ const PathNameWrapper = () => {
                     aria-hidden="true"
                 />
                 <div
-                    className="absolute -z-10 inset-0 bg-gradient-to-b from-black/40 to-zinc-100/45 dark:from-zinc-900/75 dark:to-background/85"
+                    className="fixed inset-0 -z-10 inset-0 bg-gradient-to-b from-black/40 to-zinc-100/45 dark:from-zinc-900/75 dark:to-background/85"
                     aria-hidden="true"
                 />
             </>
