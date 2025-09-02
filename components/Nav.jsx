@@ -51,7 +51,7 @@ const Nav = () => {
                             asChild
                             className={cn(navigationMenuLinkStyle())}
                         >
-                            <Link href="/rsvp">RSVP</Link>
+                            <Link href="/details#when">Details</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -59,7 +59,24 @@ const Nav = () => {
                             asChild
                             className={cn(navigationMenuLinkStyle())}
                         >
-                            <Link href="/details#when">Details</Link>
+                            <Link href="/details#rsvp">RSVP</Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            asChild
+                            className={cn(navigationMenuLinkStyle())}
+                        >
+                            <Link href="/details#faq">FAQ</Link>
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            asChild
+                            className={cn(navigationMenuLinkStyle())}
+                        >
+                            <Link href="/travel">Travel</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
@@ -79,22 +96,6 @@ const Nav = () => {
                                 <p>Coming Soon!</p>
                             </TooltipContent>
                         </Tooltip>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <NavigationMenuLink
-                            asChild
-                            className={cn(navigationMenuLinkStyle())}
-                        >
-                            <Link href="/details#faq">FAQ</Link>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <NavigationMenuLink
-                            asChild
-                            className={cn(navigationMenuLinkStyle())}
-                        >
-                            <Link href="/travel">Travel</Link>
-                        </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
@@ -168,6 +169,14 @@ const Nav = () => {
                                 </div>
                                 <div className={cn("flex flex-col mb-2")}>
                                     <p className={cn("text-gray-500")}>RSVP</p>
+                                    <SheetClose asChild>
+                                        <Link
+                                            href="/details#rsvp"
+                                            className={cn("text-2xl")}
+                                        >
+                                            Details
+                                        </Link>
+                                    </SheetClose>
                                     <SheetClose asChild>
                                         <Link
                                             href="/rsvp"

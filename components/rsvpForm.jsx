@@ -226,7 +226,7 @@ const RsvpForm = ({ initialData }) => {
                     </CardTitle>
                     <CardDescription className={cn("text-md")}>
                         {formStep.step === 0
-                            ? "Rsvp for all members of your group"
+                            ? "RSVP for all members of your group"
                             : group.plus_ones > 0
                               ? `Add your plus ones (${group.plus_ones - fields.length} remaining)`
                               : ""}

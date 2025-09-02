@@ -66,9 +66,9 @@ const CompleteProfileForm = ({ initialData }) => {
                     <span> We just need a bit more info</span>
                 </CardTitle>
                 <CardDescription>
-                    We need to collect your email so we can send you
-                    confirmations of your rsvp responses and important
-                    communications about updates!
+                    We need to collect your email address so we can send you a
+                    confirmation of your RSVP response and important updates
+                    about the wedding.
                 </CardDescription>
             </CardHeader>
             <CardContent>

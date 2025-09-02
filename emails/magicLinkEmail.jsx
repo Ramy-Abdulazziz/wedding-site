@@ -18,7 +18,7 @@ import {
 } from "@react-email/components";
 
 export const MagicLinkEmail = ({ magicLink, name }) => {
-    const previewText = `Your'e Invited to Ramy and Shazia's Wedding`;
+    const previewText = `You're Invited to Ramy and Shazia's Wedding`;
 
     return (
         <Html>
@@ -48,8 +48,8 @@ export const MagicLinkEmail = ({ magicLink, name }) => {
                         </Text>
 
                         <Text className="text-[14px] text-black leading-[24px]">
-                            Ramy and Shazia have invited you to their wedding.
-                            To access their wedding site click the button below
+                            Ramy and Shazia have invited you to their wedding!
+                            To access their wedding website click the button below.
                         </Text>
 
                         <Section className="mt-[32px] mb-[32px] text-center">

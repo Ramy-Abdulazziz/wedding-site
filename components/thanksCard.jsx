@@ -51,10 +51,10 @@ const ThanksCard = () => {
                         )}
                     >
                         <p>
-                            It means the world to us that you join us for our
-                            special day. We look forward to seeing you. For any
-                            issues with the RSVP process or form - please reach
-                            out to Ramy.
+                            Thank you for your response. You may update your
+                            RSVP at any time before the deadline. We are
+                            grateful for your response, and look forward to
+                            celebrating with you!
                         </p>
                     </div>
                 </div>
