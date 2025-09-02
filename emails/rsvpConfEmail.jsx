@@ -48,11 +48,11 @@ export const RsvpConfEmail = ({ namedGuests, plusOneGuests, name }) => {
                         </Text>
 
                         <Text className="text-[14px] text-black leading-[24px]">
-                            We are so happy to have you join us on our special
-                            day. Your RSVP submission is listed below. As a
-                            reminder - you may update your RSVP as often as you
-                            like until the RSVP deadline. Thank you again, and
-                            we look forward to celebrating with you!
+                            Thank you for your response! Your RSVP confirmation
+                            is listed below. You may update your RSVP at any
+                            time before the deadline. We are grateful for your
+                            response, and look forward to celebrating with
+                            you!
                         </Text>
 
                         <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
