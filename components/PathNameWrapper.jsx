@@ -4,17 +4,16 @@ import { usePathname } from "next/navigation";
 
 const PathNameWrapper = () => {
     const pathName = usePathname();
-    const needsFlorals = pathName === "/" || pathName === "/auth/confirm";
-    console.log(pathName);
-    if (needsFlorals) {
+    const needsBackgroundPhoto = pathName === "/" || pathName === "/auth/confirm";
+    if (needsBackgroundPhoto) {
         return (
             <>
                 <div
-                    className="absolute -z-20 min-h-screen inset-0 bg-[url('/floral-background-4.png')] bg-fixed"
+                    className="absolute -z-20 min-h-screen inset-0 bg-[url('/us_real.jpeg')] bg-cover bg-center bg-fixed"
                     aria-hidden="true"
                 />
                 <div
-                    className="absolute -z-10 inset-0 bg-gradient-to-b from-black/40 to-zinc-100/85 dark:from-zinc-900/75 dark:to-background/85"
+                    className="absolute -z-10 inset-0 bg-gradient-to-b from-black/40 to-zinc-100/45 dark:from-zinc-900/75 dark:to-background/85"
                     aria-hidden="true"
                 />
             </>
