@@ -6,6 +6,7 @@ import { Switch } from "./ui/switch";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Skeleton } from "./ui/skeleton";
 
 const ThemeToggle = () => {
     const { setTheme, resolvedTheme } = useTheme();
@@ -13,7 +14,9 @@ const ThemeToggle = () => {
 
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
-    if (!mounted) return null;
+    if (!mounted) {
+        return <Skeleton className={cn("h-5 w-10")} />;
+    }
     const toggleTheme = () => {
         setTheme(isDark ? "light" : "dark");
     };
