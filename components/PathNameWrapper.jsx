@@ -10,12 +10,11 @@ const PathNameWrapper = () => {
         return (
             <>
                 <div
-                    className="fixed left-0 top-0 -z-20 w-screen h-screen !h-[100svh] bg-[url('/us_real_center.jpeg')] sm:bg-[url('/us_real.jpeg')] md:bg-[url('/us_real.jpeg')] lg:bg-[url('/us_real.jpeg')] xl:bg-[url('/us_real.jpeg')] 2xl:bg-[url('/us_real.jpeg')] bg-cover bg-center  sm:bg-[position:45%_40%]       transform-gpu
-"
+                    className="fixed inset-0 w-full h-full -z-20 bg-[url('/us_real_center.jpeg')] sm:bg-[url('/us_real.jpeg')]  md:bg-[url('/us_real.jpeg')] lg:bg-[url('/us_real.jpeg')] xl:bg-[url('/us_real.jpeg')] 2xl:bg-[url('/us_real.jpeg')]  bg-cover bg-center sm:bg-[position:45%_40%] bg-fixed"
                     aria-hidden="true"
                 />
                 <div
-                    className="fixed left-0 top-0 -z-10 w-screen h-screen !h-[100svh] bg-gradient-to-b from-black/40 to-zinc-100/45 dark:from-zinc-900/75 dark:to-background/85 pointer-events-none transform-gpu"
+                    className="fixed inset-0 w-full h-full -z-10 -z-10 w-screen h-screen bg-gradient-to-b from-black/40 to-zinc-100/45 dark:from-zinc-900/75 dark:to-background/85 pointer-events-none bg-cover bg-center bg-fixed"
                     aria-hidden="true"
                 />
             </>
