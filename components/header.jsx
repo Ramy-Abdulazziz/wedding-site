@@ -18,7 +18,7 @@ const Header = () => {
             >
                 <Card
                     className={cn(
-                        "bg-background/40 backdrop-blur-xs shadow-2xl/50 inset-shadow-xs outline-double outline-zinc-300/25 dark:inset-shadow-gray-500 dark:shadow-3xl/50 dark:shadow-white/25"
+                        "bg-background/40 backdrop-blur-xs shadow-2xl/50 inset-shadow-xs border-none dark:inset-shadow-gray-500 dark:shadow-3xl/50 dark:shadow-white/25"
                     )}
                 >
                     <CardContent className={cn("")}>
