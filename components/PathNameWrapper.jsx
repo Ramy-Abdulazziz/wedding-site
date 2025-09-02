@@ -36,7 +36,7 @@ const PathNameWrapper = () => {
                         priority // Preloads the image since it's LCP (Largest Contentful Paint)
                     />
                 </div>
-                ٍ
+                
                 <div
                     className="fixed inset-0 w-screen h-screen -z-10 bg-gradient-to-b from-black/40 to-zinc-100/45 dark:from-zinc-900/75 dark:to-background/85 pointer-events-none"
                     aria-hidden="true"
