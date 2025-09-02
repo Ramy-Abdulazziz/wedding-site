@@ -61,9 +61,9 @@ const Faq = () => {
                 <AccordionContent className="flex flex-col gap-4 text-balance">
                     <p>
                         We are only able to accommodate the guests listed on
-                        your invitation
+                        your invitation.
                     </p>
-                    <p>We look forward ot seeing you there!</p>
+                    <p>We look forward to seeing you there!</p>
                 </AccordionContent>
             </AccordionItem>
         </Accordion>

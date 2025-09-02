@@ -144,7 +144,7 @@ const HotelBlockInfoCard = () => {
                 <Button
                     asChild
                     variant={"secondary"}
-                    className={cn("flex w-full")}
+                    className={cn("flex w-full -mt-10")}
                 >
                     <Link
                         href="https://www.ihg.com/holidayinn/hotels/us/en/find-hotels/select-roomrate?fromRedirect=true&qSrt=sBR&qDest=215%20Sunnyside%20Blvd,%20Plainview,%20NY%2011803,%20USA&qErm=false&qSlH=nycpv&qRms=1&qAdlt=1&qChld=0&qCiD=26&qCiMy=102025&qCoD=27&qCoMy=102025&qGrpCd=ABD&setPMCookies=true&qSHBrC=HI&qpMbw=0&qpMn=1&srb_u=1&qRmFltr="
