@@ -10,7 +10,7 @@ const PathNameWrapper = () => {
         return (
             <>
                 <div
-                    className="fixed inset-0 -z-20 bg-[url('/us_real_center.jpeg')] sm:bg-[url('/us_real.jpeg')] md:bg-[url('/us_real.jpeg')] lg:bg-[url('/us_real.jpeg')] xl:bg-[url('/us_real.jpeg')] 2xl:bg-[url('/us_real.jpeg')] bg-cover bg-center  bg-fixed  sm:bg-[position:45%_40%] "
+                    className="fixed inset-0 -z-20 bg-[url('/us_real_center.jpeg')] sm:bg-[url('/us_real.jpeg')] md:bg-[url('/us_real.jpeg')] lg:bg-[url('/us_real.jpeg')] xl:bg-[url('/us_real.jpeg')] 2xl:bg-[url('/us_real.jpeg')] bg-cover bg-center  sm:bg-[position:45%_40%] "
                     aria-hidden="true"
                 />
                 <div
