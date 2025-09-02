@@ -4,12 +4,13 @@ import { usePathname } from "next/navigation";
 
 const PathNameWrapper = () => {
     const pathName = usePathname();
-    const needsBackgroundPhoto = pathName === "/" || pathName === "/auth/confirm";
+    const needsBackgroundPhoto =
+        pathName === "/" || pathName === "/auth/confirm";
     if (needsBackgroundPhoto) {
         return (
             <>
                 <div
-                    className="absolute -z-20 min-h-screen inset-0 bg-[url('/us_real.jpeg')] bg-cover bg-center bg-fixed"
+                    className="absolute -z-20 min-h-screen inset-0 bg-[url('/us_real_center.jpeg')] sm:bg-[url('/us_real.jpeg')] md:bg-[url('/us_real.jpeg')] lg:bg-[url('/us_real.jpeg')] xl:bg-[url('/us_real.jpeg')] 2xl:bg-[url('/us_real.jpeg')] bg-cover bg-center  bg-fixed  sm:bg-[position:45%_40%] "
                     aria-hidden="true"
                 />
                 <div
