@@ -47,7 +47,7 @@ const ThanksCard = () => {
 
                     <div
                         className={cn(
-                            " mx-auto max-w-md flex justify-center mt-5 text-justify"
+                            " mx-auto max-w-md flex justify-center mt-5 ttext-justify hyphens-auto"
                         )}
                     >
                         <p>

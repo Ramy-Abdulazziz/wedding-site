@@ -200,7 +200,7 @@ const Nav = () => {
                                     </SheetClose>
                                     <SheetClose asChild>
                                         <Link
-                                            href="/travel#hotelblock"
+                                            href="/travel#alternateHotels"
                                             className={cn("text-2xl")}
                                         >
                                             Alternate Hotels

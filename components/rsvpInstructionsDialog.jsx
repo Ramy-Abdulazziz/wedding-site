@@ -22,7 +22,7 @@ const RsvpInstructionsDialog = () => {
                 <DialogHeader>
                     <DialogTitle>RSVP Form Instructions</DialogTitle>
                     <DialogDescription
-                        className={cn("text-lg text-justify mt-2")}
+                        className={cn("text-lg text-justify hyphens-auto mt-2")}
                     >
                         Please RSVP for all members of your party. The form will
                         remain open until the deadline, and you may update your
