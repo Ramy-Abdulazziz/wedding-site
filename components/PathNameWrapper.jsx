@@ -9,12 +9,22 @@ const PathNameWrapper = () => {
     if (needsBackgroundPhoto) {
         return (
             <>
-                <div
-                    className="fixed inset-0 w-full h-full -z-20 bg-[url('/us_real_center.jpeg')] sm:bg-[url('/us_real.jpeg')]  md:bg-[url('/us_real.jpeg')] lg:bg-[url('/us_real.jpeg')] xl:bg-[url('/us_real.jpeg')] 2xl:bg-[url('/us_real.jpeg')]  bg-cover bg-center sm:bg-[position:45%_40%] bg-fixed"
+                {/* <div
+                    className="fixed inset-0 w-screen h-screen -z-20 bg-cover bg-center bg-[url('/us_real_center.jpeg')] sm:bg-[url('/us_real.jpeg')] sm:bg-[position:45%_40%]"
                     aria-hidden="true"
+                /> */}
+                <Image
+                    src={"/us_real.jpeg"}
+                    alt="Background image of the couple"
+                    fill // Makes the image cover the parent element
+                    style={{ objectFit: "cover" }} // Behaves like bg-cover
+                    className="-z-20" // Places it in the background
+                    placeholder="blur" // Optional: shows a blurred version while loading
+                    quality={80} // Adjust quality for performance
+                    priority // Preloads the image since it's LCP (Largest Contentful Paint)
                 />
                 <div
-                    className="fixed inset-0 w-full h-full -z-10 -z-10 w-screen h-screen bg-gradient-to-b from-black/40 to-zinc-100/45 dark:from-zinc-900/75 dark:to-background/85 pointer-events-none bg-cover bg-center bg-fixed"
+                    className="fixed inset-0 w-screen h-screen -z-10 bg-gradient-to-b from-black/40 to-zinc-100/45 dark:from-zinc-900/75 dark:to-background/85 pointer-events-none"
                     aria-hidden="true"
                 />
             </>
