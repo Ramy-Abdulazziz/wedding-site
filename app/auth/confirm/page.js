@@ -18,7 +18,7 @@ export const metadata = {
     url: "https://ramyandshazia.com/auth/confirm",
     images: [
       {
-        url: "https://www.ramyandshazia.com/weddingInvite.jpg",
+        url: "https://ramyandshazia.com/site-card.png",
         width: 800,
         height: 600,
       },
