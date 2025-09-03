@@ -42,9 +42,8 @@ export async function updateSession(request) {
         error: userError,
     } = await supabase.auth.getUser();
 
-    console.log("user", user);
     const pathname = request.nextUrl.pathname;
-    if (!user || userError) {
+    if ((!user || userError) && authConfig.authConfirmAllowed !== pathname) {
         if (pathname !== authConfig.unAuthedHomeRoute) {
             const url = request.nextUrl.clone();
             url.pathname = authConfig.unAuthedHomeRoute;
@@ -54,24 +53,31 @@ export async function updateSession(request) {
         return supabaseResponse;
     }
 
+    if ((!user || userError) && authConfig.authConfirmAllowed === pathname) {
+        return supabaseResponse;
+    }
+
     const { data: guest, error: guestError } = await supabase
         .from("guests")
         .select("id, email")
         .eq("id", user.id)
         .single();
 
-    console.log("guest", guest);
-
     const verifiedUser = user && guest && !guestError && !userError;
 
     if (!verifiedUser) {
-        console.log("unauthed");
         if (pathname !== authConfig.unAuthedHomeRoute) {
             const url = request.nextUrl.clone();
             url.pathname = authConfig.unAuthedHomeRoute;
             return NextResponse.redirect(url);
         }
         return supabaseResponse;
+    }
+
+    if (user && !userError && authConfig.authConfirmAllowed === pathname) {
+        const url = request.nextUrl.clone();
+        url.pathname = authConfig.authedHomeRoute;
+        return NextResponse.redirect(url);
     }
 
     if (authConfig.unAuthedHomeRoute === pathname) {
@@ -87,7 +93,6 @@ export async function updateSession(request) {
         !user.email.includes(authConfig.noEmailPlaceHolder) &&
         !guest.email.includes(authConfig.noEmailPlaceHolder);
 
-    console.log(userHasEmail);
     if (authConfig.emailOnlyRoutes.includes(pathname)) {
         if (!userHasEmail) {
             const url = request.nextUrl.clone();
@@ -99,7 +104,7 @@ export async function updateSession(request) {
     if (authConfig.noEmailUpdateRoute === pathname) {
         if (userHasEmail) {
             const url = request.nextUrl.clone();
-            url.pathname = '/rsvp';
+            url.pathname = "/rsvp";
             return NextResponse.redirect(url);
         }
     }

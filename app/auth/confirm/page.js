@@ -1,26 +1,33 @@
-"use client";
 
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/theme-toggle";
 import AuthHeader from "@/components/AuthHeader";
-import { useEffect } from "react";
-import { createClient } from "@/utils/supabase/client";
-import { redirect } from "next/navigation";
-import { authConfig } from "@/auth.config";
+// import { useEffect } from "react";
+// import { createClient } from "@/utils/supabase/client";
+// import { redirect } from "next/navigation";
+// import { authConfig } from "@/auth.config";
+
+
+
+export const metadata = {
+  title: "Ramy & Shazia's Wedding 🎉",
+  description: "Tap to RSVP and see details about Ramy & Shazia's wedding!",
+  openGraph: {
+    title: "You're invited to Ramy & Shazia's Wedding 🎉",
+    description: "Tap to RSVP and see details about the wedding!",
+    url: "https://ramyandshazia.com/auth/confirm",
+    images: [
+      {
+        url: "https://www.ramyandshazia.com/weddingInvite.jpg",
+        width: 800,
+        height: 600,
+      },
+    ],
+  },
+};
 
 export default function AuthHome() {
-    useEffect(() => {
-        const redirectToAuthHome = async () => {
-            const supabase = createClient();
-            const { data: user, error: userError } =
-                await supabase.auth.getUser();
-            if (user && !userError) {
-                redirect(authConfig.authedHomeRoute);
-            }
-        };
 
-        redirectToAuthHome();
-    }, []);
     return (
         <>
             <div
