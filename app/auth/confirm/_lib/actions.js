@@ -62,7 +62,7 @@ const sendMagicLinkEmail = async (email) => {
     verificationUrl.searchParams.set("next", "/details");
 
     const magicLink = verificationUrl.toString();
-    console.log(magicLink); 
+    console.log(magicLink);
     const resend = new Resend(process.env.RESEND_API_KEY);
     const name = guests[0].name;
     const { data, error: sendError } = await resend.emails.send({
@@ -150,7 +150,10 @@ const sendMagicLinkTextNoEmail = async (phone) => {
 
     try {
         await client.messages.create({
-            body: `You're invited to Ramy and Shazia's wedding 🎉! Click the link below for details, to RSVP, and more: ${magicLink} `,
+            body: `You're invited to Ramy & Shazia's wedding 🎉 Tap below for details & to RSVP:  
+                
+            ${magicLink} `,
+            mediaUrl: ["https://www.ramyandshazia.com/weddingInvite.jpg"],
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber.formatInternational(),
         });
@@ -169,7 +172,7 @@ const verifyMagicLink = async (data) => {
     const type = data.get("type");
     const next = data.get("next");
 
-    console.log(data); 
+    console.log(data);
     if (token_hash && type) {
         const cookieStore = await cookies();
         const supabase = await createClient(cookieStore);
