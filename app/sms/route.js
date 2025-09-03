@@ -17,7 +17,7 @@ export async function POST(req) {
     );
 
     if (noPhoneError || !guests || guests.length === 0) {
-        return new Response("number not found", { status: 200 });
+        return new Response("", { status: 200 });
     }
     const guest = guests[0];
     const client = twilio(
