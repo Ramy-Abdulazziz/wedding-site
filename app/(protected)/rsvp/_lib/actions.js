@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { Resend } from "resend";
 import { RsvpConfEmail } from "@/emails/rsvpConfEmail";
+import { authConfig } from "@/auth.config";
 
 const getCurrentUser = async () => {
     const supabase = await createClient();
@@ -14,7 +15,7 @@ const getCurrentUser = async () => {
     } = await supabase.auth.getUser();
 
     if (!user || error) {
-        throw new Error("Not authenticated");
+        redirect(authConfig.unAuthedHomeRoute);
     }
 
     return user;
@@ -133,7 +134,8 @@ const loadRsvpData = async () => {
             group: groupInfo,
         };
     } catch (err) {
-        return { error: err.message };
+        console.error("Error loading rsvp data", err);
+        redirect(authConfig.unAuthedHomeRoute);
     }
 };
 
