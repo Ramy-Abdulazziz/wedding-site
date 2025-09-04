@@ -41,6 +41,7 @@ export async function updateSession(request) {
         data: { user },
         error: userError,
     } = await supabase.auth.getUser();
+
     const pathname = request.nextUrl.pathname;
     if ((!user || userError) && !authConfig.authRoutes.includes(pathname)) {
         if (pathname !== authConfig.unAuthedHomeRoute) {
@@ -73,7 +74,7 @@ export async function updateSession(request) {
         return supabaseResponse;
     }
 
-    if (user && !userError && authConfig.authRoutes.includes(pathname)) {
+    if ((verifiedUser) && authConfig.authRoutes.includes(pathname)) {
         const url = request.nextUrl.clone();
         url.pathname = authConfig.authedHomeRoute;
         return NextResponse.redirect(url);
