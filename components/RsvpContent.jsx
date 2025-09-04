@@ -9,7 +9,6 @@ import { toast } from "sonner";
 import { Skeleton } from "./ui/skeleton";
 import { textContainer } from "@/lib/variants";
 
-
 const RsvpContent = () => {
     const [initialData, setInitialData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -19,7 +18,7 @@ const RsvpContent = () => {
             try {
                 const data = await loadRsvpData();
                 if (data.error) {
-                    throw new Error(data.error);
+                    toast.error("Please request a new log in link");
                 }
                 setInitialData(data);
                 toast.info("Your RSVP data has been loaded!");
