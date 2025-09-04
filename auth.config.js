@@ -1,5 +1,5 @@
 export const authConfig = {
-    publicRoutes: ["/", "/auth/confirm", "/error"],
+    publicRoutes: ["/", "/auth/confirm", "/error", "/auth/confirm/email"],
     protectedRoutes: [
         "/details",
         "/rsvp",
