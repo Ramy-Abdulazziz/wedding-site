@@ -15,7 +15,7 @@ const ThemeToggle = () => {
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
     if (!mounted) {
-        return <Skeleton className={cn("h-5 w-10")} />;
+        return <Skeleton className={cn("bg-gray-400/35 dark:bg-muted h-5 w-10")} />;
     }
     const toggleTheme = () => {
         setTheme(isDark ? "light" : "dark");
