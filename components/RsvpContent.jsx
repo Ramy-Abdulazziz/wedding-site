@@ -39,7 +39,7 @@ const RsvpContent = () => {
         populateRsvpInfo();
     }, []);
 
-    if (loading) {
+    if (loading || !initialData) {
         return (
             <Skeleton
                 className={cn(
@@ -49,7 +49,7 @@ const RsvpContent = () => {
         );
     }
     return (
-        !loading && (
+        !loading && initialData && (
             <div className={cn("")}>
                 <section className={cn("mx-auto pb-[5vh]")}>
                     <motion.div
