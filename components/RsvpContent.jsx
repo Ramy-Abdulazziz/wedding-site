@@ -8,7 +8,7 @@ import { loadRsvpData } from "@/app/(protected)/rsvp/_lib/actions";
 import { toast } from "sonner";
 import { Skeleton } from "./ui/skeleton";
 import { textContainer } from "@/lib/variants";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { authConfig } from "@/auth.config";
 
 const RsvpContent = () => {
