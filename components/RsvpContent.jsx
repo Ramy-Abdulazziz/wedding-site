@@ -8,23 +8,29 @@ import { loadRsvpData } from "@/app/(protected)/rsvp/_lib/actions";
 import { toast } from "sonner";
 import { Skeleton } from "./ui/skeleton";
 import { textContainer } from "@/lib/variants";
+import { useRouter } from "next/router";
+import { authConfig } from "@/auth.config";
 
 const RsvpContent = () => {
     const [initialData, setInitialData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const router = useRouter();
 
     useEffect(() => {
         const populateRsvpInfo = async () => {
             try {
                 const data = await loadRsvpData();
-                if (data.error) {
+                if (!data) {
                     toast.error("Please request a new log in link");
+                    router.push(authConfig.unAuthedHomeRoute);
+                    return;
                 }
                 setInitialData(data);
                 toast.info("Your RSVP data has been loaded!");
             } catch (err) {
                 console.error(err);
                 toast.error("Failed to load RSVP data");
+                router.push(authConfig.unAuthedHomeRoute);
             } finally {
                 setLoading(false);
             }

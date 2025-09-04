@@ -15,7 +15,7 @@ const getCurrentUser = async () => {
     } = await supabase.auth.getUser();
 
     if (!user || error) {
-        redirect(authConfig.unAuthedHomeRoute);
+        throw new Error("Unauthenticated");
     }
 
     return user;
@@ -135,7 +135,7 @@ const loadRsvpData = async () => {
         };
     } catch (err) {
         console.error("Error loading rsvp data", err);
-        redirect(authConfig.unAuthedHomeRoute);
+        return null;
     }
 };
 
