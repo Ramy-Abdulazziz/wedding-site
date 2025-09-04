@@ -62,7 +62,6 @@ const sendMagicLinkEmail = async (email) => {
     verificationUrl.searchParams.set("next", "/details");
 
     const magicLink = verificationUrl.toString();
-    console.log(magicLink);
     const resend = new Resend(process.env.RESEND_API_KEY);
     const name = guests[0].name;
     const { data, error: sendError } = await resend.emails.send({
@@ -92,8 +91,6 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         "find_guest_by_phone",
         { guest_phone: phoneNumber.nationalNumber }
     );
-
-    console.log(guests);
 
     if (guestError || !guests || guests.length === 0) {
         console.error(guests);
@@ -172,7 +169,6 @@ const verifyMagicLink = async (data) => {
     const type = data.get("type");
     const next = data.get("next");
 
-    console.log(data);
     if (token_hash && type) {
         const cookieStore = await cookies();
         const supabase = await createClient(cookieStore);
@@ -180,9 +176,6 @@ const verifyMagicLink = async (data) => {
             type,
             token_hash,
         });
-
-        console.log("data", data);
-        console.log("error", error);
 
         if (error) {
             console.error("Error verifying magic link ", error);

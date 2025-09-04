@@ -13,5 +13,5 @@ export const authConfig = {
     emailOnlyRoutes: ["/rsvp"],
     noEmailUpdateRoute: "/complete-profile",
     noEmailPlaceHolder: "guest.ramyandshazia.com",
-    authConfirmAllowed: "/auth/confirm",
+    authRoutes: ["/auth/confirm", "/auth/confirm/email"],
 };
