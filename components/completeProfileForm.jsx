@@ -30,7 +30,6 @@ import {
     sendConfirmationEmail,
 } from "@/app/(protected)/complete-profile/_lib/actions";
 import { AuthContext } from "./AuthContextProvider";
-import { Loader2Icon } from "lucide-react";
 
 
 const schema = z.object({
