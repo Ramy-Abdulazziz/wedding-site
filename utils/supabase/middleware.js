@@ -1,7 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 import { authConfig } from "@/auth.config";
-import { redirect } from "next/dist/server/api-utils";
 
 export async function updateSession(request) {
     let supabaseResponse = NextResponse.next({
@@ -59,7 +58,7 @@ export async function updateSession(request) {
 
     const { data: guest, error: guestError } = await supabase
         .from("guests")
-        .select("id, email")
+        .select("id, email, phone")
         .eq("id", user.id)
         .single();
 
@@ -74,7 +73,7 @@ export async function updateSession(request) {
         return supabaseResponse;
     }
 
-    if ((verifiedUser) && authConfig.authRoutes.includes(pathname)) {
+    if (verifiedUser && authConfig.authRoutes.includes(pathname)) {
         const url = request.nextUrl.clone();
         url.pathname = authConfig.authedHomeRoute;
         return NextResponse.redirect(url);
@@ -87,22 +86,20 @@ export async function updateSession(request) {
     }
 
     const userHasEmail =
-        user.email !== null &&
         guest.email !== null &&
-        user.email === guest.email &&
-        !user.email.includes(authConfig.noEmailPlaceHolder) &&
         !guest.email.includes(authConfig.noEmailPlaceHolder);
 
+    const userHasPhone = guest.phone !== null;
     if (authConfig.emailOnlyRoutes.includes(pathname)) {
-        if (!userHasEmail) {
+        if (!userHasEmail || !userHasPhone) {
             const url = request.nextUrl.clone();
-            url.pathname = authConfig.noEmailUpdateRoute;
+            url.pathname = authConfig.profileCompleteRoute;
             return NextResponse.redirect(url);
         }
     }
 
-    if (authConfig.noEmailUpdateRoute === pathname) {
-        if (userHasEmail) {
+    if (authConfig.profileCompleteRoute === pathname) {
+        if (userHasEmail && userHasPhone) {
             const url = request.nextUrl.clone();
             url.pathname = "/rsvp";
             return NextResponse.redirect(url);

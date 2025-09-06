@@ -31,7 +31,6 @@ export default function AuthSignIn({ token, type, next }) {
         formData.append("token_hash", data.token_hash);
         formData.append("type", data.type);
         formData.append("next", data.next);
-        console.log(formData);
         await verifyMagicLink(formData);
     };
 

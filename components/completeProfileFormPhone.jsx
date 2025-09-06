@@ -26,35 +26,79 @@ import {
 import { useState, useMemo, useReducer, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
+    declinePhoneOptIn,
+    sendConfirmationText,
     updateGuestEmail,
-    sendConfirmationEmail,
+    updateGuestPhone,
 } from "@/app/(protected)/complete-profile/_lib/actions";
+import parsePhoneNumber, { isPossiblePhoneNumber } from "libphonenumber-js";
 
 const schema = z.object({
-    email: z.email("Invalid email address"),
+    phone: z
+        .string()
+        .min(1, "Please enter a phone number")
+        .refine((val) => {
+            try {
+                const possibleNumber = parsePhoneNumber(val, "US");
+                return (
+                    possibleNumber !== undefined &&
+                    possibleNumber.isValid() &&
+                    possibleNumber.country === "US"
+                );
+            } catch {
+                return false;
+            }
+        }, "Please enter a valid US phone number"),
 });
 
-const CompleteProfileForm = () => {
+const CompleteProfileFormPhone = () => {
     const router = useRouter();
     const form = useForm({
         resolver: zodResolver(schema),
-        defaultValues: { email: "" },
+        defaultValues: { phone: "" },
     });
 
     const onSubmit = useCallback(
         async (data) => {
-            const sanitizedEmail = data.email.trim();
-            const updated = await updateGuestEmail(sanitizedEmail);
+            const sanitizedPhone = data.email.trim();
+            const updated = await updateGuestPhone(sanitizedPhone);
             if (updated.success) {
-                toast.success("successfully updated your email!");
                 router.push("/rsvp");
+                toast.success(
+                    "successfully updated your phone! Look out for a confirmation text!"
+                );
             } else {
                 toast.error(updated.error);
             }
         },
-        [router, updateGuestEmail]
+        [updateGuestPhone, router]
     );
 
+    const onError = useCallback(
+        (errors) => {
+            if (errors.phone) {
+                const possiblePhone = form.getValues("phone");
+                const phone = parsePhoneNumber(possiblePhone, "US");
+                if (phone !== undefined && phone.country !== "US") {
+                    toast.error(
+                        "We can only text US numbers at this time. We apologize for the inconvenience"
+                    );
+                }
+            }
+        },
+        [form]
+    );
+
+    const declineInput = useCallback(async () => {
+        const declined = await declinePhoneOptIn();
+        if (declined?.success) {
+            router.push("/rsvp");
+            toast.info("You may update your phone number later");
+        } else {
+            toast.error(declined.error);
+        }
+        router.push("/rsvp");
+    }, [router, declinePhoneOptIn]);
     return (
         <Card
             className={cn(
@@ -63,29 +107,29 @@ const CompleteProfileForm = () => {
         >
             <CardHeader>
                 <CardTitle className={cn("text-xl")}>
-                    <span> We just need a bit more info</span>
+                    <span> Would you like to update your phone number?</span>
                 </CardTitle>
                 <CardDescription>
-                    We need to collect your email address so we can send you a
-                    confirmation of your RSVP response and important updates
-                    about the wedding.
+                    If you wish you can update your phone number so that you can
+                    receive text updates, and log in links via text. US numbers
+                    only.
                 </CardDescription>
             </CardHeader>
             <CardContent>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <form onSubmit={form.handleSubmit(onSubmit, onError)}>
                         <div className="grid gap-4 mt-5">
                             <div className="grid gap-5 space-y-2">
                                 <FormField
                                     control={form.control}
-                                    name="email"
+                                    name="phone"
                                     render={({ field, fieldState }) => (
                                         <FormItem>
-                                            <FormLabel> Email </FormLabel>
+                                            <FormLabel> Phone </FormLabel>
                                             <FormControl>
                                                 <Input
-                                                    type="email"
-                                                    placeholder="foo@bar.com"
+                                                    type="phone"
+                                                    placeholder="123-456-7890"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -123,6 +167,16 @@ const CompleteProfileForm = () => {
                                     ? "Submitting"
                                     : "Submit"}
                             </Button>
+
+                            <Button
+                                type="button"
+                                variant=""
+                                disabled={form.formState.isSubmitting}
+                                className={cn("order-2")}
+                                onClick={declineInput}
+                            >
+                                No Thanks
+                            </Button>
                         </div>
                     </form>
                 </Form>
@@ -131,4 +185,4 @@ const CompleteProfileForm = () => {
     );
 };
 
-export default CompleteProfileForm;
+export default CompleteProfileFormPhone;

@@ -43,10 +43,13 @@ const sendMagicLinkEmail = async (email) => {
         }
     );
 
+    const { data: userData, error: userError } =
+        await supabaseAdmin.auth.admin.getUserById(guests[0].id);
+    const logInEmail = userData.user.email.trim();
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
             type: "magiclink",
-            email: sanitizedEmail,
+            email: logInEmail,
         });
 
     if (linkError) {
@@ -109,21 +112,13 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         }
     );
 
-    let userEmail;
-    if (
-        guest.email !== null &&
-        guest.email !== "" &&
-        !guest.email.includes(authConfig.noEmailPlaceHolder)
-    ) {
-        userEmail = guest.email;
-    } else {
-        userEmail = `${sanitizedPhone}@guest.ramyandshazia.com`;
-    }
-
+    const { data: userData, error: userError } =
+        await supabaseAdmin.auth.admin.getUserById(guest.id);
+    const logInEmail = userData.user.email.trim();
     const { data: linkData, error: linkError } =
         await supabaseAdmin.auth.admin.generateLink({
             type: "magiclink",
-            email: userEmail,
+            email: logInEmail,
         });
 
     if (linkError) {

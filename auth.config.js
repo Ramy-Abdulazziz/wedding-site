@@ -1,3 +1,4 @@
+
 export const authConfig = {
     publicRoutes: ["/", "/auth/confirm", "/error", "/auth/confirm/email"],
     protectedRoutes: [
@@ -11,7 +12,8 @@ export const authConfig = {
     authedHomeRoute: "/details",
     ticketedRoute: ["/rsvp/thanks"],
     emailOnlyRoutes: ["/rsvp"],
-    noEmailUpdateRoute: "/complete-profile",
+    profileCompleteRoute: "/complete-profile",
     noEmailPlaceHolder: "guest.ramyandshazia.com",
+    phoneDeclinedPlaceHolder: "0000000000",
     authRoutes: ["/auth/confirm", "/auth/confirm/email"],
 };
