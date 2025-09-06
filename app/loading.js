@@ -5,23 +5,23 @@ export default function Loading() {
         <div className={cn("pt-10")}>
             <Skeleton
                 className={cn(
-                    "bg-gray-400/35 dark:bg-muted mx-auto h-[35px] mt-10 mmax-w-[45%] lg:max-w-[35%] xl:max-w-[25%] 2xl:max-w-[25%] pb-[5vh] rounded-xl"
+                    "mx-auto h-[35px] mt-10 mmax-w-[45%] lg:max-w-[35%] xl:max-w-[25%] 2xl:max-w-[25%] pb-[5vh] rounded-xl"
                 )}
             />
             <Skeleton
                 className={cn(
-                    "bg-gray-400/35 dark:bg-muted mx-auto h-[250px] mt-5 max-w-[85%] lg:max-w-[75%] xl:max-w-[50%] 2xl:max-w-[50%] pb-[5vh] rounded-xl"
+                    "mx-auto h-[250px] mt-5 max-w-[85%] lg:max-w-[75%] xl:max-w-[50%] 2xl:max-w-[50%] pb-[5vh] rounded-xl"
                 )}
             />
             <div>
                 <Skeleton
                     className={cn(
-                        "bg-gray-400/35 dark:bg-muted mx-auto h-[35px] mt-5 max-w-[45%] lg:max-w-[35%] xl:max-w-[25%] 2xl:max-w-[25%] pb-[5vh] rounded-xl"
+                        "mx-auto h-[35px] mt-5 max-w-[45%] lg:max-w-[35%] xl:max-w-[25%] 2xl:max-w-[25%] pb-[5vh] rounded-xl"
                     )}
                 />
                 <Skeleton
                     className={cn(
-                        "bg-gray-400/35 dark:bg-muted mx-auto h-[35px] mt-5 max-w-[25%] lg:max-w-[12%] xl:max-w-[12%] 2xl:max-w-[12%] pb-[5vh] rounded-2xl"
+                        "mx-auto h-[35px] mt-5 max-w-[25%] lg:max-w-[12%] xl:max-w-[12%] 2xl:max-w-[12%] pb-[5vh] rounded-2xl"
                     )}
                 />
             </div>
