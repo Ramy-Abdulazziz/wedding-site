@@ -6,7 +6,7 @@ import ThemeProvider from "@/components/theme-provider";
 import Footer from "@/components/footer";
 import { headers } from "next/headers";
 import PathNameWrapper from "@/components/PathNameWrapper";
-
+import AuthContextProvider from "@/components/AuthContextProvider";
 const tajawal = Tajawal({
     weight: "400",
     subsets: ["arabic"],
@@ -47,12 +47,14 @@ export default async function RootLayout({ children }) {
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <div className="relative flex min-h-screen flex-col">
-                        <main className="flex-1">{children}</main>
-                        <PathNameWrapper />
-                        <Toaster />
-                        <Footer />
-                    </div>
+                    <AuthContextProvider>
+                        <div className="relative flex min-h-screen flex-col">
+                            <main className="flex-1">{children}</main>
+                            <PathNameWrapper />
+                            <Toaster />
+                            <Footer />
+                        </div>
+                    </AuthContextProvider>
                 </ThemeProvider>
             </body>
         </html>

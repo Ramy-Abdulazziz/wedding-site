@@ -31,6 +31,7 @@ import { MenuIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
+import ProfileDropDown from "./ProfileDropDown";
 
 const Nav = () => {
     return (
@@ -101,14 +102,19 @@ const Nav = () => {
             </NavigationMenu>
             <div
                 className={cn(
-                    "hidden sm:hidden md:hidden lg:flex xl:flex 2xl:flex w-full justify-end pr-2"
+                    "hidden sm:hidden md:hidden lg:flex flex-row-reverse xl:flex 2xl:flex w-full justify-start pr-5"
                 )}
             >
-                <ThemeToggle />
+                <div className={cn("flex order-1 pl-5 pb-2 pt-2")}>
+                    <ProfileDropDown />
+                </div>
+                <div className={cn("flex order-2")}>
+                    <ThemeToggle skelMargin={3}/>
+                </div>
             </div>
             <div
                 className={cn(
-                    "flex sm:flex md:flex lg:hidden xl:hidden 2xl:hidden w-full justify-start pl-2 pt-2 pb-2"
+                    "flex sm:flex md:flex lg:hidden xl:hidden 2xl:hidden w-full justify-between pl-2 pt-2 pb-2"
                 )}
             >
                 <Sheet className={cn("")}>
@@ -218,6 +224,9 @@ const Nav = () => {
                         </div>
                     </SheetContent>
                 </Sheet>
+                <div className={cn('pr-2')}>
+                    <ProfileDropDown />
+                </div>
             </div>
         </div>
     );
