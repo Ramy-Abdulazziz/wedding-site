@@ -13,7 +13,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { toast } from "sonner";
 import {
     sendMagicLinkEmail,
@@ -32,6 +32,13 @@ import {
 } from "@/components/ui/form";
 import parsePhoneNumber from "libphonenumber-js";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AuthContext } from "./AuthContextProvider";
+import {
+    declinePhoneOptIn,
+    sendConfirmationText,
+    updateGuestEmail,
+    updateGuestPhone,
+} from "@/app/(protected)/complete-profile/_lib/actions";
 import { Loader2Icon } from "lucide-react";
 
 const emailSchema = z.object({
@@ -53,7 +60,10 @@ const textSchema = z.object({
     ),
 });
 
-const DialogEmailInput = () => {
+const UpdateContactForm = ({ open, onOpenChange }) => {
+    const { updateGuestEmailContext, updateGuestPhoneContext, guestName } =
+        useContext(AuthContext);
+
     const emailForm = useForm({
         resolver: zodResolver(emailSchema),
         defaultValues: { email: "" },
@@ -64,94 +74,45 @@ const DialogEmailInput = () => {
         defaultValues: { phone: "" },
     });
 
-    const [open, setOpen] = useState(false);
-    const [isCoolingDown, setIsCoolingDown] = useState(false);
-    const [countdown, setCountdown] = useState(120);
-
     useEffect(() => {
-        if (!isCoolingDown) return;
-
-        if (countdown <= 0) {
-            setIsCoolingDown(false);
-            setCountdown(120); // Reset for next time
-            return;
-        }
-
-        const timerId = setInterval(() => {
-            setCountdown((prevCountdown) => prevCountdown - 1);
-        }, 1000);
-
-        // Cleanup interval on component unmount or state change
-        return () => clearInterval(timerId);
-    }, [isCoolingDown, countdown]);
-
-    const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
-    };
-
-    const startCooldown = () => {
-        setIsCoolingDown(true);
-    };
-
-    const onSubmitEmail = async ({ email }) => {
-        const sanitizedEmail = email.trim().toLowerCase();
-        const emailSuccess = await sendMagicLinkEmail(sanitizedEmail);
-        if (emailSuccess?.error) {
-            toast.error("Error sending link", {
-                description: emailSuccess.error,
-                position: "bottom-right",
-            });
-        } else {
-            toast.success("Link Sent", {
-                description: "Check your email!",
-                position: "bottom-right",
-            });
-            startCooldown();
-        }
-    };
-
-    const handleOpenChange = (isOpen) => {
-        setOpen(isOpen);
-        if (!isOpen) {
-            setIsCoolingDown(false);
-            setCountdown(120);
+        if (!open) {
             emailForm.reset();
             textForm.reset();
         }
+    }, [open, emailForm, textForm]);
+
+    const onSubmitEmail = async ({ email }) => {
+        const sanitizedEmail = email.trim();
+        const updated = await updateGuestEmail(sanitizedEmail, guestName);
+        if (updated.success) {
+            updateGuestEmailContext(sanitizedEmail);
+            toast.success("successfully updated your email!");
+        } else {
+            toast.error(updated.error);
+        }
+        emailForm.reset();
+        textForm.reset();
+        onOpenChange(false);
     };
 
     const onSubmitText = async ({ phone }) => {
-        const sanitizedPhone = phone.trim().toLowerCase();
-        const textSuccess = await sendMagicLinkTextNoEmail(sanitizedPhone);
-        if (textSuccess?.error) {
-            toast.error("Error sending link", {
-                description: textSuccess.error,
-                position: "bottom-right",
-            });
+        const sanitizedPhone = phone.trim();
+        const updated = await updateGuestPhone(sanitizedPhone);
+        if (updated.success) {
+            updateGuestPhoneContext(sanitizedPhone);
+            toast.success(
+                "successfully updated your phone! Look out for a confirmation text!"
+            );
         } else {
-            toast.success("Link Sent", {
-                description: "Check your texts!",
-                position: "bottom-right",
-            });
-
-            startCooldown();
+            toast.error(updated.error);
         }
+        emailForm.reset();
+        textForm.reset();
+        onOpenChange(false);
     };
 
     return (
-        <Dialog open={open} onOpenChange={handleOpenChange}>
-            <DialogTrigger asChild>
-                <Button
-                    variant={"outline"}
-                    className={cn(
-                        "mt-3 lg:text-lg xl:text-lg 2xl:text-xl w-20p"
-                    )}
-                >
-                    Get Access & RSVP
-                </Button>
-            </DialogTrigger>
+        <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
                 <Tabs defaultValue="email">
                     <div
@@ -172,14 +133,13 @@ const DialogEmailInput = () => {
                                 <DialogHeader>
                                     <DialogTitle>
                                         {" "}
-                                        Get Access and RSVP
+                                        Update Your Contact Info
                                     </DialogTitle>
                                     <DialogDescription
                                         className={cn("text-justify")}
                                     >
-                                        We are limiting access to invited guests
-                                        only. Please enter your email address
-                                        and a link will be sent to you
+                                        You may update your contact info here. A
+                                        confirmation will be sent to you.
                                     </DialogDescription>
                                 </DialogHeader>
                                 <div className="grid gap-4 mt-5">
@@ -196,7 +156,7 @@ const DialogEmailInput = () => {
                                                     <FormControl>
                                                         <Input
                                                             type="email"
-                                                            placeholder="you@example.com"
+                                                            placeholder="foo@bar.com"
                                                             {...field}
                                                         />
                                                     </FormControl>
@@ -227,8 +187,7 @@ const DialogEmailInput = () => {
                                         type="submit"
                                         variant="secondary"
                                         disabled={
-                                            emailForm.formState.isSubmitting ||
-                                            isCoolingDown
+                                            emailForm.formState.isSubmitting
                                         }
                                     >
                                         {emailForm.formState.isSubmitting && (
@@ -236,11 +195,9 @@ const DialogEmailInput = () => {
                                                 className={cn("animate-spin")}
                                             />
                                         )}
-                                        {isCoolingDown
-                                            ? `Resend in ${formatTime(countdown)}`
-                                            : emailForm.formState.isSubmitting
-                                              ? "Sending..."
-                                              : "Send Link"}
+                                        {emailForm.formState.isSubmitting
+                                            ? "Sending Confirmation"
+                                            : "Update"}
                                     </Button>
                                 </DialogFooter>
                             </form>
@@ -254,15 +211,13 @@ const DialogEmailInput = () => {
                                 <DialogHeader>
                                     <DialogTitle>
                                         {" "}
-                                        Get Access and RSVP
+                                        Update Your Contact Info
                                     </DialogTitle>
                                     <DialogDescription
                                         className={cn("text-justify")}
                                     >
-                                        We are limiting access to invited guests
-                                        only. Please enter your phone number and
-                                        a link to enter will be sent to you via
-                                        text.
+                                        You may update your contact info here. A
+                                        confirmation will be sent to you.
                                     </DialogDescription>
                                 </DialogHeader>
                                 <div className="grid gap-4 mt-5">
@@ -301,38 +256,27 @@ const DialogEmailInput = () => {
                                     </div>
                                 </div>
                                 <DialogFooter className={cn("mt-5")}>
-                                        <DialogClose asChild>
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                            >
-                                                Close
-                                            </Button>
-                                        </DialogClose>
-                                        <Button
-                                            type="submit"
-                                            variant="secondary"
-                                            disabled={
-                                                textForm.formState
-                                                    .isSubmitting ||
-                                                isCoolingDown
-                                            }
-                                        >
-                                            {textForm.formState
-                                                .isSubmitting && (
-                                                <Loader2Icon
-                                                    className={cn(
-                                                        "animate-spin"
-                                                    )}
-                                                />
-                                            )}
-                                            {isCoolingDown
-                                                ? `Resend in ${formatTime(countdown)}`
-                                                : textForm.formState
-                                                        .isSubmitting
-                                                  ? "Sending"
-                                                  : "Send Link"}
+                                    <DialogClose asChild>
+                                        <Button type="button" variant="outline">
+                                            Close
                                         </Button>
+                                    </DialogClose>
+                                    <Button
+                                        type="submit"
+                                        variant="secondary"
+                                        disabled={
+                                            textForm.formState.isSubmitting
+                                        }
+                                    >
+                                        {textForm.formState.isSubmitting && (
+                                            <Loader2Icon
+                                                className={cn("animate-spin")}
+                                            />
+                                        )}
+                                        {textForm.formState.isSubmitting
+                                            ? "Sending Confirmation"
+                                            : "Update"}
+                                    </Button>
                                 </DialogFooter>
                             </form>
                         </Form>
@@ -343,4 +287,4 @@ const DialogEmailInput = () => {
     );
 };
 
-export default DialogEmailInput;
+export default UpdateContactForm;

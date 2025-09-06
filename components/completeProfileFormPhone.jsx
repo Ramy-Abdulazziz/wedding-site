@@ -23,7 +23,7 @@ import {
     CardDescription,
     CardTitle,
 } from "./ui/card";
-import { useState, useMemo, useReducer, useCallback } from "react";
+import { useState, useMemo, useReducer, useCallback, useContext } from "react";
 import { useRouter } from "next/navigation";
 import {
     declinePhoneOptIn,
@@ -32,6 +32,7 @@ import {
     updateGuestPhone,
 } from "@/app/(protected)/complete-profile/_lib/actions";
 import parsePhoneNumber, { isPossiblePhoneNumber } from "libphonenumber-js";
+import { AuthContext } from "./AuthContextProvider";
 
 const schema = z.object({
     phone: z
@@ -53,6 +54,7 @@ const schema = z.object({
 
 const CompleteProfileFormPhone = () => {
     const router = useRouter();
+    const { updateGuestPhoneContext } = useContext(AuthContext);
     const form = useForm({
         resolver: zodResolver(schema),
         defaultValues: { phone: "" },
@@ -63,6 +65,7 @@ const CompleteProfileFormPhone = () => {
             const sanitizedPhone = data.email.trim();
             const updated = await updateGuestPhone(sanitizedPhone);
             if (updated.success) {
+                updateGuestPhoneContext(sanitizedPhone);
                 router.push("/rsvp");
                 toast.success(
                     "successfully updated your phone! Look out for a confirmation text!"

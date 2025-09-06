@@ -17,7 +17,7 @@ import {
     Text,
 } from "@react-email/components";
 
-export const EmailUpdateConfEmail = () => {
+export const EmailUpdateConfEmail = ({ name }) => {
     const previewText = `You've successfully updated your email`;
 
     return (
@@ -44,10 +44,12 @@ export const EmailUpdateConfEmail = () => {
                             Email Has Been Updated
                         </Heading>
                         <Text className="text-[14px] text-black leading-[24px]">
-                           Hi,
+                            Hi {name},
                         </Text>
                         <Text className="text-[14px] text-black leading-[24px]">
-                            You've successfully updated your email!.
+                            You've successfully updated your email! Keep an eye
+                            out for important updates and info from us. We look
+                            forward to celebrating with you 🎉!
                         </Text>
                     </Container>
                 </Body>

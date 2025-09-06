@@ -23,12 +23,15 @@ import {
     CardDescription,
     CardTitle,
 } from "./ui/card";
-import { useState, useMemo, useReducer, useCallback } from "react";
+import { useState, useMemo, useReducer, useCallback, useContext } from "react";
 import { useRouter } from "next/navigation";
 import {
     updateGuestEmail,
     sendConfirmationEmail,
 } from "@/app/(protected)/complete-profile/_lib/actions";
+import { AuthContext } from "./AuthContextProvider";
+import { Loader2Icon } from "lucide-react";
+
 
 const schema = z.object({
     email: z.email("Invalid email address"),
@@ -36,6 +39,7 @@ const schema = z.object({
 
 const CompleteProfileForm = () => {
     const router = useRouter();
+    const { updateGuestEmailContext, guestName } = useContext(AuthContext);
     const form = useForm({
         resolver: zodResolver(schema),
         defaultValues: { email: "" },
@@ -44,8 +48,9 @@ const CompleteProfileForm = () => {
     const onSubmit = useCallback(
         async (data) => {
             const sanitizedEmail = data.email.trim();
-            const updated = await updateGuestEmail(sanitizedEmail);
+            const updated = await updateGuestEmail(sanitizedEmail, guestName);
             if (updated.success) {
+                updateGuestEmailContext(sanitizedEmail);
                 toast.success("successfully updated your email!");
                 router.push("/rsvp");
             } else {

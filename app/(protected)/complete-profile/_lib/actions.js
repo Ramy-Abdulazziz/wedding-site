@@ -26,7 +26,7 @@ const getCurrentUser = async () => {
     return user;
 };
 
-const updateGuestEmail = async (email) => {
+const updateGuestEmail = async (email, name) => {
     try {
         const parseResult = emailSchema.safeParse(email);
         if (!parseResult.success) {
@@ -49,7 +49,7 @@ const updateGuestEmail = async (email) => {
             return { error: "Unable to update email. Please try again" };
         }
 
-        const confEmail = await sendConfirmationEmail(sanitizedEmail);
+        const confEmail = await sendConfirmationEmail(sanitizedEmail, name);
         if (confEmail?.error) {
             console.warn(
                 `Error sendin gconfirmation email for user ${authedUser.id}`,
@@ -80,7 +80,7 @@ const updateGuestPhone = async (phone) => {
         }
         const { data, error } = await supabase
             .from("guests")
-            .update({ phone: phoneNumber.formatNational() })
+            .update({ phone: sanitizedPhone })
             .eq("id", authedUser.id);
 
         if (error) {
@@ -120,7 +120,7 @@ const sendConfirmationText = async (phoneNumberInternational) => {
 
     try {
         await client.messages.create({
-            body: "Thanks for updating your phone number!",
+            body: "Your phone number has been successfully updated! We look forward to celebrating with you 🎉!",
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber.formatInternational(),
         });
@@ -134,7 +134,7 @@ const sendConfirmationText = async (phoneNumberInternational) => {
     return { success: true };
 };
 
-const sendConfirmationEmail = async (email) => {
+const sendConfirmationEmail = async (email, name) => {
     const parseResult = emailSchema.safeParse(email);
     if (!parseResult.success) {
         console.error("invalid email for user in database", user);
@@ -145,7 +145,7 @@ const sendConfirmationEmail = async (email) => {
         from: "Ramy and Shazia <noreply@notifications.ramyandshazia.com>",
         to: email,
         subject: "You've successfully updated your email",
-        react: <EmailUpdateConfEmail />,
+        react: <EmailUpdateConfEmail name={name} />,
     });
 
     if (sendError) {

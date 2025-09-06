@@ -14,6 +14,21 @@ import { getFriendlyErrorCode } from "@/utils/authErrorCodes";
 
 const emailSchema = z.email();
 
+const getGuestData = async (id) => {
+    const supabase = await createClient();
+    const { data: guest, error: guestError } = await supabase
+        .from("guests")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (guestError) {
+        console.error("Error getting guest details");
+        return null;
+    }
+    console.log(guest);
+    return guest;
+};
 const sendMagicLinkEmail = async (email) => {
     const parseResult = emailSchema.safeParse(email);
     if (!parseResult.success) {
@@ -59,7 +74,7 @@ const sendMagicLinkEmail = async (email) => {
     const { hashed_token, verification_type } = linkData.properties;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
-    const verificationUrl = new URL("/auth/confirm/email", siteUrl);
+    const verificationUrl = new URL("/auth/confirm", siteUrl);
     verificationUrl.searchParams.set("token_hash", hashed_token);
     verificationUrl.searchParams.set("type", verification_type);
     verificationUrl.searchParams.set("next", "/details");
@@ -180,11 +195,28 @@ const verifyMagicLink = async (data) => {
             redirect(`/auth/error?code=${message}`);
         }
 
-        redirect(next);
+        const guestData = await getGuestData(data.user.id);
+        return { success: true, guest: guestData };
     }
 
     redirect(
         `/auth/error?code=${encodeURIComponent(getFriendlyErrorCode("default"))}`
     );
 };
-export { sendMagicLinkEmail, sendMagicLinkTextNoEmail, verifyMagicLink };
+
+const logoutSession = async () => {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+        return { error: "Error signing out - please try again" };
+    }
+
+    return { success: true };
+};
+export {
+    sendMagicLinkEmail,
+    sendMagicLinkTextNoEmail,
+    verifyMagicLink,
+    getGuestData,
+    logoutSession,
+};

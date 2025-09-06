@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Count from "@/components/Count";
 import Link from "next/link";
@@ -11,7 +11,9 @@ const TimingDetails = () => {
     return (
         <>
             <motion.p
-                className={cn("text-2xl sm:text-3xl md:text-3xl xl:text-3xl mb-5")}
+                className={cn(
+                    "text-2xl sm:text-3xl md:text-3xl xl:text-3xl mb-5"
+                )}
                 variants={textItem}
             >
                 {" "}
@@ -23,7 +25,7 @@ const TimingDetails = () => {
                 )}
                 variants={textItem}
             >
-                <div id="when" className={cn('scroll-mt-24')}>
+                <div id="when" className={cn("scroll-mt-24")}>
                     <p
                         className={cn(
                             "text-md text-gray-500 lg:text-lg xl:text-lg 2xl:text-xl  mb-2"
@@ -40,6 +42,13 @@ const TimingDetails = () => {
                             )}
                         >
                             November 26th, 2025
+                        </p>
+                        <p
+                            className={cn(
+                                "text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl"
+                            )}
+                        >
+                            7 PM - 12 AM
                         </p>
                         <Count year={2025} month={11} days={26} down={true} />
                     </div>
