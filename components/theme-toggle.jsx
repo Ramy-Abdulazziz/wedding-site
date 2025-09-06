@@ -22,6 +22,7 @@ const ThemeToggle = ({ skelMargin = 0 }) => {
                 )}
             />
         );
+
     }
     const toggleTheme = () => {
         setTheme(isDark ? "light" : "dark");
