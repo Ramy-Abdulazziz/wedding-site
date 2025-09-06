@@ -65,7 +65,7 @@ const Header = () => {
                             </div>
                             <div
                                 className={cn(
-                                    "text-sm sm:text-lg md:text-xl lg:text-xl xl:text-2xl flex justify-center object-scale-down mb-5 mt-2"
+                                    "text-sm sm:text-lg md:text-xl lg:text-xl xl:text-2xl flex justify-center object-scale-down mb-7 mt-0"
                                 )}
                             >
                                 <div
@@ -87,7 +87,7 @@ const Header = () => {
                         <div className={cn("flex  justify-center w-full")}>
                             <DialogEmailInput />
                         </div>
-                        <div className="mt-12 mb-5 flex justify-center">
+                        <div className="mt-5 mb-5 flex justify-center">
                             <div className="w-24 h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent"></div>
                         </div>
                     </CardContent>

@@ -2,10 +2,7 @@
 import { cn } from "@/lib/utils";
 import ThemeToggle from "@/components/theme-toggle";
 import AuthHeader from "@/components/AuthHeader";
-// import { useEffect } from "react";
-// import { createClient } from "@/utils/supabase/client";
-// import { redirect } from "next/navigation";
-// import { authConfig } from "@/auth.config";
+
 
 
 

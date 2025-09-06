@@ -17,8 +17,8 @@ import {
     Text,
 } from "@react-email/components";
 
-export const SmsForwardEmail = ({ name, from, body }) => {
-    const previewText = `You're Invited to Ramy and Shazia's Wedding`;
+export const EmailUpdateConfEmail = ({ name }) => {
+    const previewText = `You've successfully updated your email`;
 
     return (
         <Html>
@@ -41,21 +41,16 @@ export const SmsForwardEmail = ({ name, from, body }) => {
                             />
                         </Section>
                         <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
-                            You received a message
+                            Email Has Been Updated
                         </Heading>
                         <Text className="text-[14px] text-black leading-[24px]">
-                            Message from {name},
+                            Hi {name},
                         </Text>
-
                         <Text className="text-[14px] text-black leading-[24px]">
-                            {body}
+                            You've successfully updated your email! Keep an eye
+                            out for important updates and info from us. We look
+                            forward to celebrating with you 🎉!
                         </Text>
-
-                        <Section className="mt-[32px] mb-[32px] text-center">
-                            <Text className="text-[14px] text-black leading-[24px]">
-                                Respond to : {from}
-                            </Text>
-                        </Section>
                     </Container>
                 </Body>
             </Tailwind>
@@ -63,4 +58,4 @@ export const SmsForwardEmail = ({ name, from, body }) => {
     );
 };
 
-export default SmsForwardEmail;
+export default EmailUpdateConfEmail;

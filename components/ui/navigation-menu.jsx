@@ -55,7 +55,7 @@ const navigationMenuTriggerStyle = cva(
 )
 
 const navigationMenuLinkStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-lg xl:text-lg 2xl:text-xl font-light transition-colors hover:text-accent-foreground darkh:hover:bg-neutral-900 hover:outline-none hover:shadow-xl dark:hover:shadow-white/25 hover:shadow-gray-500/25 active:text-sky-500 focus:text-sky-500 dark:active:text-sky-800 dark:focus:text-sky-800 focus:font-semibold focus:outline-none focus:bg-background/20"
+  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-3 py-2 ml-1  text-lg xl:text-lg 2xl:text-xl font-light transition-colors hover:text-accent-foreground dark:hover:bg-neutral-900 hover:outline-none hover:shadow-xl dark:hover:shadow-2xl dark:hover:shadow-white/25 hover:shadow-gray-500/25 active:text-sky-500 focus:text-sky-500 dark:active:text-sky-800 dark:focus:text-sky-800 focus:font-semibold focus:outline-none focus:bg-background/20"
 )
 
 

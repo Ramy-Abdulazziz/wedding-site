@@ -8,14 +8,21 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Skeleton } from "./ui/skeleton";
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ skelMargin = 0 }) => {
     const { setTheme, resolvedTheme } = useTheme();
     const isDark = resolvedTheme === "dark";
 
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
     if (!mounted) {
-        return <Skeleton className={cn("h-5 w-10")} />;
+        return (
+            <Skeleton
+                className={cn(
+                    `bg-gray-400/35 dark:bg-muted h-5 w-10 mt-${skelMargin}`
+                )}
+            />
+        );
+
     }
     const toggleTheme = () => {
         setTheme(isDark ? "light" : "dark");
