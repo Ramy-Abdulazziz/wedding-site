@@ -15,9 +15,9 @@ const FloatingInvite = () => {
             initial={{ y: 500, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
-            className={cn("relative w-[clamp(200px,75%,400px)]")}
+            className={cn("relative w-[clamp(200px,85%,400px)] xl:w-[clamp(200px,75%,450px)] 2xl:w-[clamp(200px,75%,500px)] h-[clamp(275px, 85%, 675px)] xl:h-[clamp(275px, 85%, 600px)] flex flex-col justify-center")}
         >
-            <div className={cn("relative aspect-[3/4]")}>
+            <div className={cn("relative aspect-[3/4] ")}>
                 <Image
                     src="/weddingInvite.jpg"
                     fill
