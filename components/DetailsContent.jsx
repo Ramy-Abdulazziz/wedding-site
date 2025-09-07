@@ -30,7 +30,7 @@ export default function DetailsContent() {
         <div className={cn("pb-[50vh]")}>
             <section
                 className={cn(
-                    "relative h-screen flex justify-center justify-items-center items-start pt-30 mb-25 md:mb-50 md:pt-20 xl:pt-15"
+                    "relative h-screen flex justify-center-safe w-full"
                 )}
             >
                 <FloatingInvite />
