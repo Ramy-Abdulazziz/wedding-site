@@ -20,8 +20,11 @@ import { useState, useEffect } from "react";
 import { Skeleton } from "./ui/skeleton";
 import { LogOutIcon, UserPenIcon } from "lucide-react";
 import UpdateContactForm from "./UpdateContactForm";
+import { cn } from "@/lib/utils";
+import parsePhoneNumber from "libphonenumber-js";
 const ProfileDropDown = () => {
-    const { getInitials, guestName, logout, loading } = useContext(AuthContext);
+    const { getInitials, guestName, logout, loading, guestEmail, guestPhone } =
+        useContext(AuthContext);
     const [initials, setInitials] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -55,31 +58,46 @@ const ProfileDropDown = () => {
                 >
                     <DropdownMenuTrigger>
                         <Avatar>
-                            <AvatarFallback>{initials}</AvatarFallback>
+                            <AvatarFallback
+                                className={cn(
+                                    "flex h-full w-full items-center justify-center"
+                                )}
+                            >
+                                {initials}
+                            </AvatarFallback>
                         </Avatar>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuLabel>
                             {guestName || "Guest"}
                         </DropdownMenuLabel>
+                        {!guestEmail.includes(
+                            authConfig.noEmailPlaceHolder
+                        ) && (
+                            <DropdownMenuLabel>{guestEmail}</DropdownMenuLabel>
+                        )}
+                        {!(
+                            guestPhone === authConfig.phoneDeclinedPlaceHolder
+                        ) && (
+                            <DropdownMenuLabel>
+                                {parsePhoneNumber(guestPhone, 'US').formatNational()}
+                            </DropdownMenuLabel>
+                        )}
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
+                            className={cn("")}
                             onSelect={() => {
                                 setIsDropdownOpen(false);
                                 setIsDialogOpen(true);
                             }}
                         >
+                            <UserPenIcon />
                             Update Contact Info
-                            <DropdownMenuShortcut>
-                                <UserPenIcon />
-                            </DropdownMenuShortcut>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onSelect={handleLogout}>
+                            <LogOutIcon />
                             Log Out
-                            <DropdownMenuShortcut>
-                                <LogOutIcon />
-                            </DropdownMenuShortcut>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

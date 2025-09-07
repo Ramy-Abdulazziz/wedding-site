@@ -30,7 +30,7 @@ export default function DetailsContent() {
         <div className={cn("pb-[50vh]")}>
             <section
                 className={cn(
-                    "relative h-screen flex justify-center-safe w-full"
+                    "relative h-screen flex justify-center-safe w-full overflow-x-hidden"
                 )}
             >
                 <FloatingInvite />
