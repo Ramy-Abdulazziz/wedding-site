@@ -180,7 +180,7 @@ const Nav = () => {
                                             href="/details#rsvp"
                                             className={cn("text-2xl")}
                                         >
-                                            Details
+                                            Info
                                         </Link>
                                     </SheetClose>
                                     <SheetClose asChild>

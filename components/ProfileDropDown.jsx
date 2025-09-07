@@ -71,18 +71,26 @@ const ProfileDropDown = () => {
                         <DropdownMenuLabel>
                             {guestName || "Guest"}
                         </DropdownMenuLabel>
-                        {!guestEmail.includes(
-                            authConfig.noEmailPlaceHolder
-                        ) && (
-                            <DropdownMenuLabel>{guestEmail}</DropdownMenuLabel>
-                        )}
-                        {!(
-                            guestPhone === authConfig.phoneDeclinedPlaceHolder
-                        ) && (
-                            <DropdownMenuLabel>
-                                {parsePhoneNumber(guestPhone, 'US').formatNational()}
-                            </DropdownMenuLabel>
-                        )}
+                        {guestEmail &&
+                            !guestEmail.includes(
+                                authConfig.noEmailPlaceHolder
+                            ) && (
+                                <DropdownMenuLabel>
+                                    {guestEmail}
+                                </DropdownMenuLabel>
+                            )}
+                        {guestPhone &&
+                            !(
+                                guestPhone ===
+                                authConfig.phoneDeclinedPlaceHolder
+                            ) && (
+                                <DropdownMenuLabel>
+                                    {parsePhoneNumber(
+                                        guestPhone,
+                                        "US"
+                                    ).formatNational()}
+                                </DropdownMenuLabel>
+                            )}
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             className={cn("")}
