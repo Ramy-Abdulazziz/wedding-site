@@ -22,8 +22,8 @@ const FloatingInvite = () => {
                     src="/weddingInvite.jpg"
                     fill
                     priority={true}
-                    sizes="(max-width: 530px) 10vw, (max-width: 750px) 50vw, 300px"
-                    quality={90}
+                    sizes="(max-width: 533px) 75vw, 400px"
+                    quality={100}
                     alt="Picture of wedding invitation"
                     className={cn(
                         "object-cover",
