@@ -73,7 +73,7 @@ const DialogEmailInput = () => {
 
         if (countdown <= 0) {
             setIsCoolingDown(false);
-            setCountdown(120); // Reset for next time
+            setCountdown(120);
             return;
         }
 
@@ -81,7 +81,6 @@ const DialogEmailInput = () => {
             setCountdown((prevCountdown) => prevCountdown - 1);
         }, 1000);
 
-        // Cleanup interval on component unmount or state change
         return () => clearInterval(timerId);
     }, [isCoolingDown, countdown]);
 
@@ -117,8 +116,6 @@ const DialogEmailInput = () => {
         if (!isOpen) {
             setIsCoolingDown(false);
             setCountdown(120);
-            emailForm.reset();
-            textForm.reset();
         }
     };
 
@@ -301,38 +298,30 @@ const DialogEmailInput = () => {
                                     </div>
                                 </div>
                                 <DialogFooter className={cn("mt-5")}>
-                                        <DialogClose asChild>
-                                            <Button
-                                                type="button"
-                                                variant="outline"
-                                            >
-                                                Close
-                                            </Button>
-                                        </DialogClose>
-                                        <Button
-                                            type="submit"
-                                            variant="secondary"
-                                            disabled={
-                                                textForm.formState
-                                                    .isSubmitting ||
-                                                isCoolingDown
-                                            }
-                                        >
-                                            {textForm.formState
-                                                .isSubmitting && (
-                                                <Loader2Icon
-                                                    className={cn(
-                                                        "animate-spin"
-                                                    )}
-                                                />
-                                            )}
-                                            {isCoolingDown
-                                                ? `Resend in ${formatTime(countdown)}`
-                                                : textForm.formState
-                                                        .isSubmitting
-                                                  ? "Sending"
-                                                  : "Send Link"}
+                                    <DialogClose asChild>
+                                        <Button type="button" variant="outline">
+                                            Close
                                         </Button>
+                                    </DialogClose>
+                                    <Button
+                                        type="submit"
+                                        variant="secondary"
+                                        disabled={
+                                            textForm.formState.isSubmitting ||
+                                            isCoolingDown
+                                        }
+                                    >
+                                        {textForm.formState.isSubmitting && (
+                                            <Loader2Icon
+                                                className={cn("animate-spin")}
+                                            />
+                                        )}
+                                        {isCoolingDown
+                                            ? `Resend in ${formatTime(countdown)}`
+                                            : textForm.formState.isSubmitting
+                                              ? "Sending"
+                                              : "Send Link"}
+                                    </Button>
                                 </DialogFooter>
                             </form>
                         </Form>
