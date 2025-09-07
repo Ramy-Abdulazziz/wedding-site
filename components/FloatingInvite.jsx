@@ -1,30 +1,45 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { ChevronsDownIcon } from "lucide-react";
+import { attentionDownItem } from "@/lib/variants";
 
 const FloatingInvite = () => {
+    const { scrollY } = useScroll();
+    const chevronOpacity = useTransform(scrollY, [0, 50], [1, 0]);
+
     return (
         <motion.div
-            initial={{ y: 500 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 2 }}
-            className={cn(
-                "relative w-[80%] sm:w-[70%] md:w-[50%] lg:w-[40%] xl:w-[30%] max-w-[800px] h-screen mx-auto flex justify-center justify-items-center-safe items-center -mt-35"
-            )}
+            initial={{ y: 500, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className={cn("relative w-[clamp(200px,75%,400px)]")}
         >
-            <Image
-                src="/weddingInvite.jpg"
-                layout="responsive"
-                priority={true}
-                width={3}
-                height={4}
-                alt="Picture of wedding invitation"
-                className={cn(
-                    "border-solid shadow-2xl/50 dark:shadow-2xl dark:shadow-white inset-shadow-xs dark:inset-shadow-gray-500"
-                )}
-            />
+            <div className={cn("relative aspect-[3/4]")}>
+                <Image
+                    src="/weddingInvite.jpg"
+                    fill
+                    priority={true}
+                    sizes="(max-width: 530px) 10vw, (max-width: 750px) 50vw, 300px"
+                    quality={90}
+                    alt="Picture of wedding invitation"
+                    className={cn(
+                        "object-cover",
+                        "border-solid shadow-2xl/50 dark:shadow-2xl dark:shadow-white"
+                    )}
+                />
+            </div>
+            <motion.div
+                variants={attentionDownItem}
+                initial="hidden"
+                animate="attention"
+                style={{ opacity: chevronOpacity }}
+                className={cn("flex mt-5 justify-center")}
+            >
+                <ChevronsDownIcon />
+            </motion.div>
         </motion.div>
     );
 };
