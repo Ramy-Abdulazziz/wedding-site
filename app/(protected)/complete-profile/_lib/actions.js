@@ -345,8 +345,14 @@ const setOTP = async (contact, name, type) => {
         console.log(randomOTP);
         const { data: otpData, error: otpError } = await supabase
             .from("update_otps")
-            .update({ code: randomOTP, created_at: new Date().toISOString() })
-            .eq("id", authedUser.id);
+            .upsert(
+                {
+                    id: authedUser.id,
+                    code: randomOTP,
+                    created_at: new Date().toISOString(),
+                },
+                { onConflict: ["id"] }
+            );
 
         if (!otpError) {
             let conf;
