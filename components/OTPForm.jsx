@@ -140,9 +140,9 @@ const OTPForm = ({
         <Form {...otpForm}>
             <form onSubmit={otpForm.handleSubmit(handleOTPSubmit)}>
                 <DialogHeader>
-                    <DialogTitle> Enter Your OTP</DialogTitle>
-                    <DialogDescription className={cn("text-justify")}>
-                        An otp was sent to the email you provided.
+                    <DialogTitle> Enter Your One Time Pin</DialogTitle>
+                    <DialogDescription>
+                        {`A one time pin was sent to the ${emailOrPhone} you provided.`}
                     </DialogDescription>
                 </DialogHeader>
                 <div className={cn("flex flex-row justify-center mt-5")}>
@@ -177,33 +177,31 @@ const OTPForm = ({
                         )}
                     />
                 </div>
-                <DialogFooter>
-                    <div className={cn("flex mt-5 space-x-5")}>
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={handleNewPin}
-                            disabled={
-                                otpForm.formState.isSubmitting || isCoolingDown
-                            }
-                        >
-                            {isCoolingDown
-                                ? `Resend in ${formatTime(countdown)}`
-                                : "Request New Pin"}
-                        </Button>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            disabled={otpForm.formState.isSubmitting}
-                        >
-                            {otpForm.formState.isSubmitting && (
-                                <Loader2Icon className={cn("animate-spin")} />
-                            )}
-                            {otpForm.formState.isSubmitting
-                                ? "Verifying"
-                                : "Verify"}
-                        </Button>
-                    </div>
+                <DialogFooter className={cn("mt-5")}>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleNewPin}
+                        disabled={
+                            otpForm.formState.isSubmitting || isCoolingDown
+                        }
+                    >
+                        {isCoolingDown
+                            ? `Resend in ${formatTime(countdown)}`
+                            : "Request New Pin"}
+                    </Button>
+                    <Button
+                        type="submit"
+                        variant="secondary"
+                        disabled={otpForm.formState.isSubmitting}
+                    >
+                        {otpForm.formState.isSubmitting && (
+                            <Loader2Icon className={cn("animate-spin")} />
+                        )}
+                        {otpForm.formState.isSubmitting
+                            ? "Verifying"
+                            : "Verify"}
+                    </Button>
                 </DialogFooter>
             </form>
         </Form>

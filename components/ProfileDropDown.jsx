@@ -58,7 +58,11 @@ const ProfileDropDown = () => {
                     onOpenChange={setIsDropdownOpen}
                 >
                     <DropdownMenuTrigger>
-                        <Avatar className={cn("inline-flex items-center justify-center align-middle")}>
+                        <Avatar
+                            className={cn(
+                                "inline-flex items-center justify-center align-middle"
+                            )}
+                        >
                             <AvatarFallback
                                 className={cn(
                                     "flex h-full w-full items-center justify-center"
@@ -116,10 +120,12 @@ const ProfileDropDown = () => {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <UpdateContactForm
-                    open={isDialogOpen}
-                    onOpenChange={setIsDialogOpen}
-                />
+                <div className={cn('flex flex-row')}>
+                    <UpdateContactForm
+                        open={isDialogOpen}
+                        onOpenChange={setIsDialogOpen}
+                    />
+                </div>
             </>
         )
     );
