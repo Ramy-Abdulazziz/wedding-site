@@ -35,7 +35,6 @@ const CompleteProfileContent = () => {
                     return;
                 }
                 setInitialData(data);
-                console.log(guestContactCompletion);
                 setHasEmail(guestContactCompletion.email);
                 setHasPhone(guestContactCompletion.phone);
             } catch (err) {

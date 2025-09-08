@@ -111,7 +111,7 @@ const updateGuestPhone = async (phone) => {
         }
         const { data, error } = await supabase
             .from("guests")
-            .update({ phone: sanitizedPhone })
+            .update({ phone: phoneNumber.nationalNumber })
             .eq("id", authedUser.id);
 
         if (error) {
@@ -152,7 +152,7 @@ const updateGuestPhoneOTP = async (phone) => {
         }
         const { data, error } = await supabase
             .from("guests")
-            .update({ phone: sanitizedPhone })
+            .update({ phone: phoneNumber.nationalNumber })
             .eq("id", authedUser.id);
 
         if (error) {
@@ -333,16 +333,12 @@ const declinePhoneOptIn = async () => {
 
 const setOTP = async (contact, name, type) => {
     try {
-        console.log(contact);
-        console.log(name);
-        console.log(type);
         const supabase = await createClient();
         const authedUser = await getCurrentUser();
         if (!authedUser) {
             return { error: "No auth session" };
         }
         const randomOTP = createOTP();
-        console.log(randomOTP);
         const { data: otpData, error: otpError } = await supabase
             .from("update_otps")
             .upsert(
