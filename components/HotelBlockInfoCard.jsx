@@ -11,6 +11,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
+import { NavigationIcon } from "lucide-react";
 
 const HotelBlockInfoCard = () => {
     return (
@@ -104,10 +105,14 @@ const HotelBlockInfoCard = () => {
                                 Address
                             </p>
 
-                            <div>
+                            <div
+                                className={cn(
+                                    "flex flex-row justify-left space-x-5"
+                                )}
+                            >
                                 <p
                                     className={cn(
-                                        "text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl"
+                                        "text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl "
                                     )}
                                 >
                                     215 Sunnyside Blvd, Plainview, NY 11803
@@ -116,14 +121,14 @@ const HotelBlockInfoCard = () => {
                         </div>
                         <div
                             className={cn(
-                                "flex flex-row justify-content-center justify-center w-full mt-15 md:mt-5"
+                                "flex flex-row justify-content-center justify-center w-full space-x-2 mt-15 md:mt-5"
                             )}
                         >
                             <Button
                                 asChild
                                 variant={"secondary"}
                                 className={cn(
-                                    "md:text-md lg:text-xl 2xl:text-xl hidden w-full sm:hidden md:flex lg:flex lg:max-w-lg xl:flex xl:max-w-xl xl:mt-10 2xl:flex 2xl:max-w-xl "
+                                    "md:text-md lg:text-xl 2xl:text-xl hidden grow-7 sm:hidden md:flex lg:flex lg:max-w-lg xl:flex xl:max-w-xl xl:mt-10 2xl:flex 2xl:max-w-xl "
                                 )}
                             >
                                 <Link
@@ -134,6 +139,20 @@ const HotelBlockInfoCard = () => {
                                     Book{" "}
                                 </Link>
                             </Button>
+                            <Button
+                                asChild
+                                variant={"secondary"}
+                                className={cn(
+                                    "md:text-md lg:text-xl 2xl:text-xl hidden grow-1 sm:hidden md:flex lg:flex lg:max-w-lg xl:flex xl:max-w-xl xl:mt-10 2xl:flex 2xl:max-w-xl "
+                                )}
+                            >
+                                <Link
+                                    href="https://maps.app.goo.gl/17xiepbAY9XbyMH58"
+                                    target="_blank"
+                                >
+                                    <NavigationIcon />
+                                </Link>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -141,19 +160,37 @@ const HotelBlockInfoCard = () => {
             <CardFooter
                 className={cn("md:hidden lg:hidden xl:hidden 2xl:hidden")}
             >
-                <Button
-                    asChild
-                    variant={"secondary"}
-                    className={cn("flex w-full -mt-10")}
+                <div
+                    className={cn(
+                        "flex w-full flex-row justify-between space-x-2"
+                    )}
                 >
-                    <Link
-                        href="https://www.ihg.com/holidayinn/hotels/us/en/find-hotels/select-roomrate?fromRedirect=true&qSrt=sBR&qDest=215%20Sunnyside%20Blvd,%20Plainview,%20NY%2011803,%20USA&qErm=false&qSlH=nycpv&qRms=1&qAdlt=1&qChld=0&qCiD=26&qCiMy=102025&qCoD=27&qCoMy=102025&qGrpCd=ABD&setPMCookies=true&qSHBrC=HI&qpMbw=0&qpMn=1&srb_u=1&qRmFltr="
-                        target="_blank"
+                    <Button
+                        asChild
+                        variant={"secondary"}
+                        className={cn("flex -mt-10 grow-7")}
                     >
-                        {" "}
-                        Book{" "}
-                    </Link>
-                </Button>
+                        <Link
+                            href="https://www.ihg.com/holidayinn/hotels/us/en/find-hotels/select-roomrate?fromRedirect=true&qSrt=sBR&qDest=215%20Sunnyside%20Blvd,%20Plainview,%20NY%2011803,%20USA&qErm=false&qSlH=nycpv&qRms=1&qAdlt=1&qChld=0&qCiD=26&qCiMy=102025&qCoD=27&qCoMy=102025&qGrpCd=ABD&setPMCookies=true&qSHBrC=HI&qpMbw=0&qpMn=1&srb_u=1&qRmFltr="
+                            target="_blank"
+                        >
+                            {" "}
+                            Book{" "}
+                        </Link>
+                    </Button>
+                    <Button
+                        asChild
+                        variant={"secondary"}
+                        className={cn("flex grow-1 -mt-10 grow-1")}
+                    >
+                        <Link
+                            href="https://maps.app.goo.gl/17xiepbAY9XbyMH58"
+                            target="_blank"
+                        >
+                            <NavigationIcon />
+                        </Link>
+                    </Button>
+                </div>
             </CardFooter>
         </Card>
     );

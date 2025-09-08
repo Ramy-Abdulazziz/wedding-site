@@ -49,16 +49,18 @@ export default function TravelContent() {
                     viewport={{ once: true }}
                 >
                     <motion.p
-                        id="hotelblock"
                         className={cn(
-                            "text-2xl sm:text-3xl md:text-3xl xl:text-3xl mb-5 scroll-mt-24"
+                            "text-2xl sm:text-3xl md:text-3xl xl:text-3xl mb-5 "
                         )}
                         variants={textItem}
                     >
                         {" "}
                         Hotel Block
                     </motion.p>
-                    <HotelBlockInfoCard />
+                    <HotelBlockInfoCard
+                        id="hotelblock"
+                        className={cn("scroll-mt-24")}
+                    />
                 </motion.div>
             </section>
             <Separator

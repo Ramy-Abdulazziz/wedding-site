@@ -66,6 +66,19 @@ const Faq = () => {
                     <p>We look forward to seeing you there!</p>
                 </AccordionContent>
             </AccordionItem>
+            <AccordionItem value="item-5">
+                <AccordionTrigger>
+                    What if i have questions, need help, or have issues with the
+                    RSVP process?
+                </AccordionTrigger>
+                <AccordionContent className="flex flex-col gap-4 text-balance">
+                    <p>
+                        If you have any issues, questions, or concerns please
+                        reach out to Ramy and Shazia via text at 631-869-7432.
+                    </p>
+                    <p>You can also email Ramy at ramy@ramyandshazia.com</p>
+                </AccordionContent>
+            </AccordionItem>
         </Accordion>
     );
 };

@@ -53,11 +53,12 @@ const ProfileDropDown = () => {
         !loading && (
             <>
                 <DropdownMenu
+                    className={cn("")}
                     open={isDropdownOpen}
                     onOpenChange={setIsDropdownOpen}
                 >
                     <DropdownMenuTrigger>
-                        <Avatar>
+                        <Avatar className={cn("inline-flex items-center justify-center align-middle")}>
                             <AvatarFallback
                                 className={cn(
                                     "flex h-full w-full items-center justify-center"
@@ -68,29 +69,35 @@ const ProfileDropDown = () => {
                         </Avatar>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <DropdownMenuLabel>
-                            {guestName || "Guest"}
-                        </DropdownMenuLabel>
-                        {guestEmail &&
-                            !guestEmail.includes(
-                                authConfig.noEmailPlaceHolder
-                            ) && (
-                                <DropdownMenuLabel>
-                                    {guestEmail}
-                                </DropdownMenuLabel>
+                        <div
+                            className={cn(
+                                "flex flex-col justify-center items-center w-full"
                             )}
-                        {guestPhone &&
-                            !(
-                                guestPhone ===
-                                authConfig.phoneDeclinedPlaceHolder
-                            ) && (
-                                <DropdownMenuLabel>
-                                    {parsePhoneNumber(
-                                        guestPhone,
-                                        "US"
-                                    ).formatNational()}
-                                </DropdownMenuLabel>
-                            )}
+                        >
+                            <DropdownMenuLabel>
+                                {guestName || "Guest"}
+                            </DropdownMenuLabel>
+                            {guestEmail &&
+                                !guestEmail.includes(
+                                    authConfig.noEmailPlaceHolder
+                                ) && (
+                                    <DropdownMenuLabel>
+                                        {guestEmail}
+                                    </DropdownMenuLabel>
+                                )}
+                            {guestPhone &&
+                                !(
+                                    guestPhone ===
+                                    authConfig.phoneDeclinedPlaceHolder
+                                ) && (
+                                    <DropdownMenuLabel>
+                                        {parsePhoneNumber(
+                                            guestPhone,
+                                            "US"
+                                        ).formatNational()}
+                                    </DropdownMenuLabel>
+                                )}
+                        </div>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                             className={cn("")}
