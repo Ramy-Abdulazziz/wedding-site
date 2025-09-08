@@ -10,6 +10,7 @@ import {
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { NavigationIcon } from "lucide-react";
 
 const AlternateBookingCard = ({ hotelDetails }) => {
     console.log(hotelDetails.bookingSite);
@@ -18,6 +19,7 @@ const AlternateBookingCard = ({ hotelDetails }) => {
     const bookingSite = hotelDetails.bookingSite;
     const photoUrl = hotelDetails.url;
     const price = hotelDetails.price;
+    const map = hotelDetails.map;
 
     return (
         <Card
@@ -45,20 +47,35 @@ const AlternateBookingCard = ({ hotelDetails }) => {
                             alt="picture of hotel"
                         />
                     </div>
-                    <div>{address}</div>
+                    <div className={cn("")}>{address} </div>
                 </div>
             </CardContent>
             <CardFooter>
-                <Button
-                    asChild
-                    variant={"secondary"}
-                    className={cn("flex w-full")}
+                <div
+                    className={cn(
+                        "flex w-full flex-row justify-between space-x-2"
+                    )}
                 >
-                    <Link href={bookingSite} target="_blank">
-                        {" "}
-                        Book
-                    </Link>
-                </Button>
+                    <Button
+                        asChild
+                        variant={"secondary"}
+                        className={cn("grow-7")}
+                    >
+                        <Link href={bookingSite} target="_blank">
+                            {" "}
+                            Book
+                        </Link>
+                    </Button>
+                    <Button
+                        asChild
+                        variant={"secondary"}
+                        className={cn("grow-1")}
+                    >
+                        <Link href={map} target="_blank">
+                            <NavigationIcon />
+                        </Link>
+                    </Button>
+                </div>
             </CardFooter>
         </Card>
     );

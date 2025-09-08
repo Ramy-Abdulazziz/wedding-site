@@ -13,7 +13,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import {
     sendMagicLinkEmail,
@@ -67,18 +67,21 @@ const DialogEmailInput = () => {
     const [open, setOpen] = useState(false);
     const [isCoolingDown, setIsCoolingDown] = useState(false);
     const [countdown, setCountdown] = useState(120);
+    let refCountDown = useRef(120);
 
     useEffect(() => {
         if (!isCoolingDown) return;
 
         if (countdown <= 0) {
             setIsCoolingDown(false);
-            setCountdown(120);
+            refCountDown.current = 120;
+            setCountdown(refCountDown.current);
             return;
         }
 
         const timerId = setInterval(() => {
-            setCountdown((prevCountdown) => prevCountdown - 1);
+            refCountDown.current -= 1;
+            setCountdown(refCountDown.current);
         }, 1000);
 
         return () => clearInterval(timerId);
@@ -114,8 +117,8 @@ const DialogEmailInput = () => {
     const handleOpenChange = (isOpen) => {
         setOpen(isOpen);
         if (!isOpen) {
-            setIsCoolingDown(false);
-            setCountdown(120);
+            // setIsCoolingDown(false);
+            // setCountdown(120);
         }
     };
 

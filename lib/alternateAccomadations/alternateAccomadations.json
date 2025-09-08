@@ -4,27 +4,31 @@
         "address": "7755 Jericho Tpke, Woodbury, NY 11797",
         "bookingSite": "https://be.synxis.com/?adult=2&arrive=2025-11-26&chain=14549&child=0&config=meta&currency=USD&depart=2025-11-27&dsclid=72486905821011968&hotel=11937&level=hotel&locale=en-US&productcurrency=USD&rooms=1&src=goog_organic&start=availresults",
         "price": "$$$$",
-        "url": "https://lh3.googleusercontent.com/p/AF1QipP5ElGMGWVj_SUgAEifE2MzHt_yyk4VFyXU-oEq=s597-k-no"
+        "url": "https://lh3.googleusercontent.com/p/AF1QipP5ElGMGWVj_SUgAEifE2MzHt_yyk4VFyXU-oEq=s597-k-no",
+        "map": "https://maps.app.goo.gl/GrAtfMHYYvsCw8yeA"
     },
     "fourPoints": {
         "name": "Four Points by Sheraton Melville Long Island",
         "address": "333 S Service Rd, Plainview, NY 11803",
         "bookingSite": "https://www.marriott.com/en-us/hotels/nycpf-four-points-melville-long-island/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0",
         "price": "$$$",
-        "url": "https://lh3.googleusercontent.com/p/AF1QipN83zmBituf6-0B3cArJfQrFLk_AqLLoaSKIqMa=s480-k-no"
+        "url": "https://lh3.googleusercontent.com/p/AF1QipN83zmBituf6-0B3cArJfQrFLk_AqLLoaSKIqMa=s480-k-no",
+        "map": "https://maps.app.goo.gl/PrZKGQYtGmYdhfGe7"
     },
     "homewood": {
         "name": "Homewood Suites by Hilton Long Island-Melville",
         "address": "1585 Round Swamp Rd, Plainview, NY 11803",
         "bookingSite": "https://www.hilton.com/en/hotels/mlvnyhw-homewood-suites-long-island-melville/?SEO_id=GMB-AMER-HG-MLVNYHW&y_source=1_MjA4MjUzOC03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
         "price": "$$",
-        "url": "https://lh3.googleusercontent.com/p/AF1QipNMP2RZzdIbaxLj3OF5ilpyiqHZO29lmr3bePZm=s870-k-no"
+        "url": "https://lh3.googleusercontent.com/p/AF1QipNMP2RZzdIbaxLj3OF5ilpyiqHZO29lmr3bePZm=s870-k-no",
+        "map": "https://maps.app.goo.gl/DRfunGDUiHfttL9aA"
     },
     "gardenInn": {
         "name": "Hilton Garden Inn Melville",
         "address": "1575 Round Swamp Rd, Plainview, NY 11803",
         "bookingSite": "https://www.hilton.com/en/hotels/jfkmlgi-hilton-garden-inn-melville/?SEO_id=GMB-AMER-GI-JFKMLGI&y_source=1_MjA4MjUzMy03MTUtbG9jYXRpb24ud2Vic2l0ZQ%3D%3D",
         "price": "$$",
-        "url": "https://lh3.googleusercontent.com/p/AF1QipPzJ7wR993VB8M7QuRYU8wgdUO6xZBnba3LNRLw=s870-k-no"
+        "url": "https://lh3.googleusercontent.com/p/AF1QipPzJ7wR993VB8M7QuRYU8wgdUO6xZBnba3LNRLw=s870-k-no",
+        "map": "https://maps.app.goo.gl/4Jt4jSDZbZDZi8kdA"
     }
 }
