@@ -18,7 +18,7 @@ import {
 } from "@react-email/components";
 
 export const OTPEmail = ({ name, otp }) => {
-    const previewText = `Your one time pin`;
+    const previewText = `Your one time pin is ${otp}`;
 
     return (
         <Html>
@@ -47,10 +47,7 @@ export const OTPEmail = ({ name, otp }) => {
                             Hi {name},
                         </Text>
                         <Text className="text-[14px] text-black leading-[24px]">
-                            Your one time pin is:
-                        </Text>
-                        <Text className="flex flex-row justify-center w-full text-center text-[14px] text-black text-bf leading-[24px]">
-                            {otp}
+                            Your requested one time pin is {otp}
                         </Text>
                     </Container>
                 </Body>
