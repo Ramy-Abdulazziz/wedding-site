@@ -369,10 +369,10 @@ const RsvpForm = ({ initialData }) => {
                                         {group.plus_ones === 0 && (
                                             <div
                                                 className={cn(
-                                                    "w-full flex justify-center"
+                                                    "w-full flex justify-center text-muted-foreground"
                                                 )}
                                             >
-                                                You have no plus ones available
+                                                You have no plus ones available - submit to continue
                                             </div>
                                         )}
                                     </div>
