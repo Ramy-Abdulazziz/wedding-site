@@ -13,7 +13,6 @@ import Link from "next/link";
 import { NavigationIcon } from "lucide-react";
 
 const AlternateBookingCard = ({ hotelDetails }) => {
-    console.log(hotelDetails.bookingSite);
     const name = hotelDetails.name;
     const address = hotelDetails.address;
     const bookingSite = hotelDetails.bookingSite;

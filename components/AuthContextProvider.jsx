@@ -79,9 +79,7 @@ const AuthContextProvider = ({ children }) => {
     }, [guestData]);
 
     const getInitials = useCallback(() => {
-        console.log(guestName);
         if (!guestName) return "";
-        console.log("name is", guestName);
         const splitName = guestName.trim().split(" ");
         const first = splitName[0]?.[0] || "";
         const last = splitName[splitName.length - 1]?.[0] || "";
