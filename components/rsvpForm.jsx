@@ -37,7 +37,7 @@ import {
     submitRsvpAndSendEmail,
 } from "@/app/(protected)/rsvp/_lib/actions";
 import { Label } from "@/components/ui/label";
-import { useState, useMemo, useReducer, useCallback } from "react";
+import { useState, useMemo, useReducer, useCallback, useEffect } from "react";
 import { X, Plus } from "lucide-react";
 import { redirect } from "next/navigation";
 
@@ -91,6 +91,11 @@ const RsvpForm = ({ initialData }) => {
 
     const { guest, guests, plusOnes, rsvps, group } = initialData;
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    
     const schema = useMemo(() => genSchema(guests), [guests]);
     const defaultFormValues = useMemo(() => ({
         namedGuests: guests.reduce((acc, guest) => {
@@ -372,7 +377,8 @@ const RsvpForm = ({ initialData }) => {
                                                     "w-full flex justify-center text-muted-foreground"
                                                 )}
                                             >
-                                                You have no plus ones available - submit to continue
+                                                You have no plus ones available
+                                                - submit to continue
                                             </div>
                                         )}
                                     </div>

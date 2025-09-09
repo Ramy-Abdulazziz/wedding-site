@@ -153,12 +153,12 @@ const OTPForm = ({
                             <FormItem>
                                 <FormControl>
                                     <InputOTP maxLength={6} {...field}>
-                                        <InputOTPGroup>
-                                            <InputOTPSlot index={0} />
-                                            <InputOTPSlot index={1} />
+                                        <InputOTPGroup  >
+                                            <InputOTPSlot index={0} className={cn()}/>
+                                            <InputOTPSlot index={1} className={cn('')}/>
                                             <InputOTPSlot index={2} />
                                         </InputOTPGroup>
-                                        <InputOTPSeparator />
+                                        <InputOTPSeparator/>
                                         <InputOTPGroup>
                                             <InputOTPSlot index={3} />
                                             <InputOTPSlot index={4} />

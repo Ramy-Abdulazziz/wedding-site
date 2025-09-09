@@ -160,7 +160,6 @@ const sendMagicLinkTextNoEmail = async (phone) => {
             body: `You're invited to Ramy & Shazia's wedding 🎉 Tap below for details & to RSVP:  
                 
 ${magicLink} `,
-            mediaUrl: ["https://www.ramyandshazia.com/weddingInvite.jpg"],
             from: process.env.TWILIO_PHONE_NUMBER,
             to: phoneNumber.formatInternational(),
         });

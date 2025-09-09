@@ -11,7 +11,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
-import { NavigationIcon } from "lucide-react";
+import { NavigationIcon, BedDoubleIcon } from "lucide-react";
 
 const HotelBlockInfoCard = () => {
     return (
@@ -135,15 +135,14 @@ const HotelBlockInfoCard = () => {
                                     href="https://www.ihg.com/holidayinn/hotels/us/en/find-hotels/select-roomrate?fromRedirect=true&qSrt=sBR&qDest=215%20Sunnyside%20Blvd,%20Plainview,%20NY%2011803,%20USA&qErm=false&qSlH=nycpv&qRms=1&qAdlt=1&qChld=0&qCiD=26&qCiMy=102025&qCoD=27&qCoMy=102025&qGrpCd=ABD&setPMCookies=true&qSHBrC=HI&qpMbw=0&qpMn=1&srb_u=1&qRmFltr="
                                     target="_blank"
                                 >
-                                    {" "}
-                                    Book{" "}
+                                    <BedDoubleIcon />
                                 </Link>
                             </Button>
                             <Button
                                 asChild
                                 variant={"secondary"}
                                 className={cn(
-                                    "md:text-md lg:text-xl 2xl:text-xl hidden grow-1 sm:hidden md:flex lg:flex lg:max-w-lg xl:flex xl:max-w-xl xl:mt-10 2xl:flex 2xl:max-w-xl "
+                                    "md:text-md lg:text-xl 2xl:text-xl hidden grow-7 sm:hidden md:flex lg:flex lg:max-w-lg xl:flex xl:max-w-xl xl:mt-10 2xl:flex 2xl:max-w-xl "
                                 )}
                             >
                                 <Link
@@ -174,14 +173,13 @@ const HotelBlockInfoCard = () => {
                             href="https://www.ihg.com/holidayinn/hotels/us/en/find-hotels/select-roomrate?fromRedirect=true&qSrt=sBR&qDest=215%20Sunnyside%20Blvd,%20Plainview,%20NY%2011803,%20USA&qErm=false&qSlH=nycpv&qRms=1&qAdlt=1&qChld=0&qCiD=26&qCiMy=102025&qCoD=27&qCoMy=102025&qGrpCd=ABD&setPMCookies=true&qSHBrC=HI&qpMbw=0&qpMn=1&srb_u=1&qRmFltr="
                             target="_blank"
                         >
-                            {" "}
-                            Book{" "}
+                            <BedDoubleIcon />
                         </Link>
                     </Button>
                     <Button
                         asChild
                         variant={"secondary"}
-                        className={cn("flex grow-1 -mt-10 grow-1")}
+                        className={cn("flex grow-1 -mt-10 grow-7")}
                     >
                         <Link
                             href="https://maps.app.goo.gl/17xiepbAY9XbyMH58"

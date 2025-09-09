@@ -18,10 +18,41 @@ import { toast } from "sonner";
 import { authConfig } from "@/auth.config";
 import { useState, useEffect } from "react";
 import { Skeleton } from "./ui/skeleton";
-import { LogOutIcon, UserPenIcon } from "lucide-react";
+import { LogOutIcon, PhoneIcon, UserPenIcon } from "lucide-react";
 import UpdateContactForm from "./UpdateContactForm";
 import { cn } from "@/lib/utils";
 import parsePhoneNumber from "libphonenumber-js";
+
+const EmailSection = ({ guestEmail }) => {
+    return (
+        guestEmail &&
+        !guestEmail.includes(authConfig.noEmailPlaceHolder) && (
+            <DropdownMenuLabel>
+                <div
+                    className={cn("flex flex-row justify-left")}
+                >
+                    {guestEmail}
+                </div>
+            </DropdownMenuLabel>
+        )
+    );
+};
+
+const PhoneSection = ({ guestPhone }) => {
+    return (
+        guestPhone &&
+        !(guestPhone === authConfig.phoneDeclinedPlaceHolder) && (
+            <DropdownMenuLabel>
+                <div
+                    className={cn("flex flex-row justify-left")}
+                >
+                    {parsePhoneNumber(guestPhone, "US").formatNational()}
+                </div>
+            </DropdownMenuLabel>
+        )
+    );
+};
+
 const ProfileDropDown = () => {
     const { getInitials, guestName, logout, loading, guestEmail, guestPhone } =
         useContext(AuthContext);
@@ -75,32 +106,18 @@ const ProfileDropDown = () => {
                     <DropdownMenuContent>
                         <div
                             className={cn(
-                                "flex flex-col justify-center items-center w-full"
+                                "flex flex-col justify-left w-full"
                             )}
                         >
-                            <DropdownMenuLabel>
+                            <DropdownMenuLabel className={cn("")}>
                                 {guestName || "Guest"}
                             </DropdownMenuLabel>
-                            {guestEmail &&
-                                !guestEmail.includes(
-                                    authConfig.noEmailPlaceHolder
-                                ) && (
-                                    <DropdownMenuLabel>
-                                        {guestEmail}
-                                    </DropdownMenuLabel>
-                                )}
-                            {guestPhone &&
-                                !(
-                                    guestPhone ===
-                                    authConfig.phoneDeclinedPlaceHolder
-                                ) && (
-                                    <DropdownMenuLabel>
-                                        {parsePhoneNumber(
-                                            guestPhone,
-                                            "US"
-                                        ).formatNational()}
-                                    </DropdownMenuLabel>
-                                )}
+                            <div>
+                                <EmailSection guestEmail={guestEmail} />
+                            </div>
+                            <div>
+                                <PhoneSection guestPhone={guestPhone} />
+                            </div>
                         </div>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
@@ -120,7 +137,7 @@ const ProfileDropDown = () => {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <div className={cn('flex flex-row')}>
+                <div className={cn("flex flex-row")}>
                     <UpdateContactForm
                         open={isDialogOpen}
                         onOpenChange={setIsDialogOpen}

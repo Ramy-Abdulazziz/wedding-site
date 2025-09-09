@@ -10,12 +10,16 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const ThanksCard = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    });
     return (
         <Card
             className={cn(
-                "flex flex-shrink max-w-[80%] sm:max-w-[85%] md:max-w-[70%] lg:max-w-[70%] xl:max-w-[60%] 2xl:max-w-[60%] mx-auto mt-20 sm:mt-15 md:mt-15 lg:mt-13 xl:mt-13 2xl:mt-30 shadow-2xl/50 inset-shadow-xs dark:inset-shadow-gray-500 dark:shadow-2xl/50 dark:shadow-white/25"
+                "flex flex-shrink max-w-[80%] sm:max-w-[85%] md:max-w-[70%] lg:max-w-[70%] xl:max-w-[60%] 2xl:max-w-[60%] mx-auto mt-15 sm:mt-15 md:mt-10 lg:mt-10 xl:mt-10 2xl:mt-25 shadow-2xl/50 inset-shadow-xs dark:inset-shadow-gray-500 dark:shadow-2xl/50 dark:shadow-white/25"
             )}
         >
             <CardHeader>
