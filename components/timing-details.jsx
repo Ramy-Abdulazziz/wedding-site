@@ -6,6 +6,7 @@ import Count from "@/components/Count";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { textContainer, textItem } from "@/lib/variants";
+import AddToCalendar from "@/components/AddToCalendar";
 
 const TimingDetails = () => {
     return (
@@ -52,18 +53,14 @@ const TimingDetails = () => {
                         </p>
                         <Count year={2025} month={11} days={26} down={true} />
                     </div>
-                    <Button
-                        asChild
-                        variant={"secondary"}
-                        className={cn(
-                            "mt-3 lg:text-lg xl:text-lg 2xl:text-xl "
-                        )}
-                    >
-                        <Link href="https://calendar.google.com/calendar/event?action=TEMPLATE&amp;tmeid=MDltazNuZmhoaDg5M24ycGFmMmltZ2plMzggYWJkdWxhenppei5uYWRlcmkuYWNjdHNAbQ&amp;tmsrc=abdulazziz.naderi.accts%40gmail.com">
-                            {" "}
-                            Add to Calendar{" "}
-                        </Link>
-                    </Button>
+                    <div  className={cn('')}>
+                        <AddToCalendar
+                            googleUrl={
+                                "https://calendar.google.com/calendar/event?action=TEMPLATE&amp;tmeid=MDltazNuZmhoaDg5M24ycGFmMmltZ2plMzggYWJkdWxhenppei5uYWRlcmkuYWNjdHNAbQ&amp;tmsrc=abdulazziz.naderi.accts%40gmail.com"
+                            }
+                            icalUrl={"/wedding.ics"}
+                        />
+                    </div>
                 </div>
                 <div id="where" className={cn("flex-grow scroll-mt-24")}>
                     <p
