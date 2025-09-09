@@ -37,10 +37,11 @@ const AddToCalendar = ({ event, icalUrl }) => {
                 <Button
                     variant={"secondary"}
                     className={cn(
-                        "mt-3 flex items-center gap-2 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer "
+                        "mt-3 gap-2 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer "
                     )}
                 >
-                    <span className="">Add To Calendar</span>
+                    <CalendarPlus />
+                    Add To Calendar
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className={cn("")}>
@@ -49,24 +50,20 @@ const AddToCalendar = ({ event, icalUrl }) => {
                         href={googleCalendarUrl.toString()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex justify-center items-baseline gap-2 cursor-pointer"
+                        className=" gap-2 cursor-pointer"
                     >
-                        <span className={cn("")}> Google</span>
+                        <FaGoogle className={cn("")} />
+                        Google
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <a
                         href={icalUrl}
-                        className={cn("flex justify-center items-baseline gap-2 cursor-pointer")}
+                        className={cn("gap-2 cursor-pointer")}
                     >
-                        <span
-                            className={cn(
-                                "leading-none flex"
-                            )}
-                        >
-                            iCal
-                        </span>
+                        <CalendarIcon className={cn("")} />
+                        <span>iCal</span>
                     </a>
                 </DropdownMenuItem>
             </DropdownMenuContent>
