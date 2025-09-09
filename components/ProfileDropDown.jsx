@@ -28,9 +28,7 @@ const EmailSection = ({ guestEmail }) => {
         guestEmail &&
         !guestEmail.includes(authConfig.noEmailPlaceHolder) && (
             <DropdownMenuLabel>
-                <div
-                    className={cn("flex flex-row justify-left")}
-                >
+                <div className={cn("flex flex-row justify-left")}>
                     {guestEmail}
                 </div>
             </DropdownMenuLabel>
@@ -43,9 +41,7 @@ const PhoneSection = ({ guestPhone }) => {
         guestPhone &&
         !(guestPhone === authConfig.phoneDeclinedPlaceHolder) && (
             <DropdownMenuLabel>
-                <div
-                    className={cn("flex flex-row justify-left")}
-                >
+                <div className={cn("flex flex-row justify-left")}>
                     {parsePhoneNumber(guestPhone, "US").formatNational()}
                 </div>
             </DropdownMenuLabel>
@@ -91,12 +87,12 @@ const ProfileDropDown = () => {
                     <DropdownMenuTrigger>
                         <Avatar
                             className={cn(
-                                "inline-flex items-center justify-center align-middle"
+                                "inline-flex items-baseline align-middle"
                             )}
                         >
                             <AvatarFallback
                                 className={cn(
-                                    "flex h-full w-full items-center justify-center"
+                                    "inline-flex h-full w-full items-center justify-center"
                                 )}
                             >
                                 {initials}
@@ -105,9 +101,7 @@ const ProfileDropDown = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <div
-                            className={cn(
-                                "flex flex-col justify-left w-full"
-                            )}
+                            className={cn("flex flex-col justify-left w-full")}
                         >
                             <DropdownMenuLabel className={cn("")}>
                                 {guestName || "Guest"}
@@ -121,19 +115,27 @@ const ProfileDropDown = () => {
                         </div>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            className={cn("")}
+                            className={cn("inline-flex items-baseline ")}
                             onSelect={() => {
                                 setIsDropdownOpen(false);
                                 setIsDialogOpen(true);
                             }}
                         >
-                            <UserPenIcon />
-                            Update Contact Info
+                            <div className={cn("inline-flex space-x-2")}>
+                                <UserPenIcon
+                                    className={cn("w-5 h-5 shrink-0")}
+                                />
+                                <span>Update Contact Info</span>
+                            </div>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onSelect={handleLogout}>
-                            <LogOutIcon />
-                            Log Out
+                            <div className={cn("inline-flex space-x-2")}>
+                                <LogOutIcon
+                                    className={cn("w-5 h-5 shrink-0")}
+                                />
+                                <span>Log Out</span>
+                            </div>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
