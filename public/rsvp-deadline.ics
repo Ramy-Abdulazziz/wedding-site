@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//RSVP for Ramy and Shazia's Wedding//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:rsvp-deadline-2025-ramy-shazia@example.com
+SUMMARY:RSVP Deadline: Ramy and Shazia's Wedding
+DESCRIPTION:Please submit your RSVP for our wedding by the end of today.
+DTSTAMP:20250909T032342Z
+DTSTART;VALUE=DATE:20251026
+DTEND;VALUE=DATE:20251027
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
