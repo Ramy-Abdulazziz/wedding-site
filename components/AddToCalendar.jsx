@@ -12,6 +12,12 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, CalendarPlus } from "lucide-react";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+    weight: "400",
+    subsets: ["latin"],
+});
 
 const AddToCalendar = ({ event, icalUrl }) => {
     const formatGoogleCalendarDate = (dateString) => {
@@ -32,18 +38,14 @@ const AddToCalendar = ({ event, icalUrl }) => {
     googleCalendarUrl.searchParams.append("ctz", "America/New_York");
 
     return (
-        <DropdownMenu>
+        <DropdownMenu className={cn("inline-flex items-center justify-center")}>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant={"secondary"}
-                    className={cn(
-                        "inline-flex items-baseline mt-3 gap-2 text-base lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer lg:items-center"
-                    )}
+                    className="mt-3 inline-flex items-center lg:text-lg xl:text-lg 2xl:text-xl justify-center gap-2 px-4 py-2 text-base leading-none"
                 >
-                    <div className={cn("inline-flex space-x-2 lg:items-center")}>
-                        <CalendarPlus className={cn("w-5 h-3 shrink-0")} />
-                        <span className={cn("")}>Add To Calendar</span>
-                    </div>
+                    <CalendarPlus className="w-5 h-5 shrink-0" />
+                    <span className={cn(inter.className)}>Add To Calendar</span>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className={cn("")}>
@@ -52,11 +54,13 @@ const AddToCalendar = ({ event, icalUrl }) => {
                         href={googleCalendarUrl.toString()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={cn("flex text-base items-center gap-2 cursor-pointer leading-normal")}
+                        className={cn(
+                            "flex text-base items-center gap-2 cursor-pointer leading-normal"
+                        )}
                     >
-                        <div className={cn("inline-flex space-x-2")}>
+                        <div className={cn("inline-flex items-center justify-center space-x-2")}>
                             <FaGoogle className={cn("w-5 h-5 shrink-0")} />
-                            <span>Google</span>
+                            <span className={cn(inter.className)}>Google</span>
                         </div>
                     </Link>
                 </DropdownMenuItem>
@@ -65,12 +69,12 @@ const AddToCalendar = ({ event, icalUrl }) => {
                     <a
                         href={icalUrl}
                         className={cn(
-                            "flex text-base items-center gap-2 cursor-pointer leading-normal "
+                            "inline-flex text-base items-center gap-2 cursor-pointer leading-normal "
                         )}
                     >
-                        <div className={cn("inline-flex space-x-2")}>
+                        <div className={cn("inline-flex items-center justify-center space-x-2")}>
                             <CalendarIcon className={cn("w-5 h-5 shrink-0")} />
-                            <span>iCal</span>
+                            <span className={cn(inter.className)}>iCal</span>
                         </div>
                     </a>
                 </DropdownMenuItem>
