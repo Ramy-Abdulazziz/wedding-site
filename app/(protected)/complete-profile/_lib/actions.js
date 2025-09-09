@@ -296,11 +296,16 @@ const getGuestContactCompletion = async () => {
         .eq("id", user.id)
         .single();
 
+    const hasPhone =
+        guest?.phone !== null &&
+        guest?.phone !== authConfig.phoneDeclinedPlaceHolder;
+    const hasEmail =
+        guest?.email !== null &&
+        !guest?.email.includes(authConfig.noEmailPlaceHolder);
+
     const contactCompletionData = {
-        phone: guest?.phone ? true : false,
-        email: guest?.email.includes(authConfig.noEmailPlaceHolder)
-            ? false
-            : true,
+        phone: hasPhone,
+        email: hasEmail,
     };
 
     return contactCompletionData;

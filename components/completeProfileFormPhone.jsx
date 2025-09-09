@@ -62,7 +62,7 @@ const CompleteProfileFormPhone = () => {
 
     const onSubmit = useCallback(
         async (data) => {
-            const sanitizedPhone = data.email.trim();
+            const sanitizedPhone = data.phone.trim();
             const updated = await updateGuestPhone(sanitizedPhone);
             if (updated.success) {
                 updateGuestPhoneContext(sanitizedPhone);
