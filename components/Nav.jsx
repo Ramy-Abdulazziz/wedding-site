@@ -83,13 +83,11 @@ const Nav = () => {
                     <NavigationMenuItem>
                         <NavigationMenuLink
                             asChild
-                            className={cn(
-                                navigationMenuLinkStyle()
-                            )}
+                            className={cn(navigationMenuLinkStyle())}
                         >
                             <Link
                                 href="https://www.myregistry.com/wedding-registry/shazia-naderi-and-ramy-abdulazziz-bethpage-ny/4985604"
-                                target="_blank"                           
+                                target="_blank"
                             >
                                 Registry
                             </Link>
@@ -159,6 +157,7 @@ const Nav = () => {
                                     <SheetClose asChild>
                                         <Link
                                             href="https://www.myregistry.com/wedding-registry/shazia-naderi-and-ramy-abdulazziz-bethpage-ny/4985604"
+                                            target="_blank"
                                             className={cn("text-2xl")}
                                         >
                                             Registry
