@@ -36,7 +36,9 @@ const AddToCalendar = ({ event, icalUrl }) => {
             <DropdownMenuTrigger asChild>
                 <Button
                     variant={"secondary"}
-                    className={cn("mt-3 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer")}
+                    className={cn(
+                        "mt-3 flex items-center justify-center  gap-2 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer "
+                    )}
                 >
                     <CalendarPlus />
                     Add To Calendar
@@ -44,33 +46,24 @@ const AddToCalendar = ({ event, icalUrl }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent className={cn("")}>
                 <DropdownMenuItem asChild>
-                    <div
-                        className={cn(
-                            "flex flex-row justify-left w-full text-center cursor-pointer "
-                        )}
+                    <Link
+                        href={googleCalendarUrl.toString()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 cursor-pointer"
                     >
                         <FaGoogle className={cn("h-4 w-4")} />
-                        <Link
-                            href={googleCalendarUrl.toString()}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {" "}
-                            Google{" "}
-                        </Link>
-                    </div>
+                        <span> Google</span>
+                    </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <a href={icalUrl}>
-                        <div
-                            className={cn(
-                                "flex items-center gap-2 cursor-pointer"
-                            )}
-                        >
-                            <CalendarIcon className={cn("h-4 w-4")} />
-                            <span>iCal</span>
-                        </div>
+                    <a
+                        href={icalUrl}
+                        className={cn("flex items-center gap-2 cursor-pointer")}
+                    >
+                        <CalendarIcon className={cn("h-4 w-4")} />
+                        <span>iCal</span>
                     </a>
                 </DropdownMenuItem>
             </DropdownMenuContent>

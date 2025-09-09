@@ -84,20 +84,17 @@ const RsvpDetails = () => {
                     <Button
                         asChild
                         variant={"secondary"}
-                        className={cn("mt-3 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer")}
+                        className={cn(
+                            "mt-3  lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer"
+                        )}
                     >
-                        <div
-                            className={cn(
-                                "flex flex-row justify-left text-center"
-                            )}
+                        <Link
+                            href="/rsvp"
+                            className="flex items-center justify-center gap-2"
                         >
-                            {" "}
                             <UserSearchIcon />
-                            <Link href="/rsvp">
-                                {" "}
-                                <span>Find Your Invite</span>
-                            </Link>
-                        </div>
+                            <span>Find Your Invite</span>
+                        </Link>
                     </Button>
                 </div>
             </motion.div>
