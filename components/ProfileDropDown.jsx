@@ -22,6 +22,12 @@ import { LogOutIcon, PhoneIcon, UserPenIcon } from "lucide-react";
 import UpdateContactForm from "./UpdateContactForm";
 import { cn } from "@/lib/utils";
 import parsePhoneNumber from "libphonenumber-js";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+    weight: "400",
+    subsets: ["latin"],
+});
 
 const EmailSection = ({ guestEmail }) => {
     return (
@@ -87,15 +93,17 @@ const ProfileDropDown = () => {
                     <DropdownMenuTrigger>
                         <Avatar
                             className={cn(
-                                "inline-flex items-baseline align-middle"
+                                "flexj ustify-center items-center"
                             )}
                         >
                             <AvatarFallback
                                 className={cn(
-                                    "inline-flex h-full w-full items-center justify-center"
+                                    "flex items-center justify-center"
                                 )}
                             >
-                                {initials}
+                                <span className={cn("text-sm ",inter.className)}>
+                                    {initials}
+                                </span>
                             </AvatarFallback>
                         </Avatar>
                     </DropdownMenuTrigger>
@@ -121,7 +129,11 @@ const ProfileDropDown = () => {
                                 setIsDialogOpen(true);
                             }}
                         >
-                            <div className={cn("inline-flex space-x-2 lg:items-center")}>
+                            <div
+                                className={cn(
+                                    "inline-flex  items-center justify-center text-xs space-x-2",inter.className
+                                )}
+                            >
                                 <UserPenIcon
                                     className={cn("w-5 h-5 shrink-0")}
                                 />
@@ -130,7 +142,11 @@ const ProfileDropDown = () => {
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onSelect={handleLogout}>
-                            <div className={cn("inline-flex space-x-2 lg:items-center")}>
+                            <div
+                                className={cn(
+                                    "inline-flex  items-center justify-center text-xs space-x-2",inter.className
+                                )}
+                            >
                                 <LogOutIcon
                                     className={cn("w-5 h-5 shrink-0")}
                                 />
