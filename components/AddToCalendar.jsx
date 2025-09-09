@@ -37,10 +37,10 @@ const AddToCalendar = ({ event, icalUrl }) => {
                 <Button
                     variant={"secondary"}
                     className={cn(
-                        "mt-3 gap-2 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer "
+                        "mt-3 gap-2 text-base lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer "
                     )}
                 >
-                    <CalendarPlus />
+                    <CalendarPlus className={cn('w-5 h-5 shrink-0')}/>
                     Add To Calendar
                 </Button>
             </DropdownMenuTrigger>
@@ -50,19 +50,21 @@ const AddToCalendar = ({ event, icalUrl }) => {
                         href={googleCalendarUrl.toString()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className=" gap-2 cursor-pointer"
+                        className=" flex text-base items-center gap-2 cursor-pointer leading-normal"
                     >
-                        <FaGoogle className={cn("")} />
-                        Google
+                        <FaGoogle className={cn("w-5 h-5 shrink-0")} />
+                        <span>Google</span>
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <a
                         href={icalUrl}
-                        className={cn("gap-2 cursor-pointer")}
+                        className={cn(
+                            "flex text-base items-center gap-2 cursor-pointer leading-normal "
+                        )}
                     >
-                        <CalendarIcon className={cn("")} />
+                        <CalendarIcon className={cn("w-5 h-5 shrink-0")} />
                         <span>iCal</span>
                     </a>
                 </DropdownMenuItem>

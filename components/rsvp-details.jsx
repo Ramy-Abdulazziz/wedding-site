@@ -85,15 +85,14 @@ const RsvpDetails = () => {
                         asChild
                         variant={"secondary"}
                         className={cn(
-                            "mt-3  lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer"
+                            "mt-3 text-base lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer leading-normal"
                         )}
                     >
-                        <Link
-                            href="/rsvp"
-                            className="gap-2"
-                        >
-                            <UserSearchIcon />
-                            Find Your Invite
+                        <Link href="/rsvp" className="flex items-center gap-2">
+                            <UserSearchIcon
+                                className={cn("w-5 h-5 shrink-0")}
+                            />
+                            <span>Find Your Invite</span>
                         </Link>
                     </Button>
                 </div>
