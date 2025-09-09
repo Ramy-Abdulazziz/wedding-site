@@ -7,6 +7,9 @@ import Count from "@/components/Count";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import AddToCalendar from "@/components/AddToCalendar";
+import rsvpEvent from "@/lib/events/rsvp/rsvp-deadline.json";
+import { RadarIcon, UserSearchIcon } from "lucide-react";
+
 const RsvpDetails = () => {
     return (
         <>
@@ -47,9 +50,7 @@ const RsvpDetails = () => {
                     </div>
                     <div className={cn("")}>
                         <AddToCalendar
-                            googleUrl={
-                                "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NzJqcGlvZTE0NHVwMDZtNTJudjRoMGFvdnAgYWJkdWxhenppei5uYWRlcmkuYWNjdHNAbQ&tmsrc=abdulazziz.naderi.accts%40gmail.com"
-                            }
+                            event={rsvpEvent}
                             icalUrl={"/rsvp-deadline.ics"}
                         />
                     </div>
@@ -83,9 +84,20 @@ const RsvpDetails = () => {
                     <Button
                         asChild
                         variant={"secondary"}
-                        className={cn("mt-3 lg:text-lg xl:text-lg 2xl:text-xl")}
+                        className={cn("mt-3 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer")}
                     >
-                        <Link href="/rsvp"> Find Your Invite </Link>
+                        <div
+                            className={cn(
+                                "flex flex-row justify-left text-center"
+                            )}
+                        >
+                            {" "}
+                            <UserSearchIcon />
+                            <Link href="/rsvp">
+                                {" "}
+                                <span>Find Your Invite</span>
+                            </Link>
+                        </div>
                     </Button>
                 </div>
             </motion.div>
