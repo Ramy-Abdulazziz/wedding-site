@@ -9,6 +9,12 @@ import { Button } from "@/components/ui/button";
 import AddToCalendar from "@/components/AddToCalendar";
 import rsvpEvent from "@/lib/events/rsvp/rsvp-deadline.json";
 import { RadarIcon, UserSearchIcon } from "lucide-react";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+    weight: "400",
+    subsets: ["latin"],
+});
 
 const RsvpDetails = () => {
     return (
@@ -94,11 +100,11 @@ const RsvpDetails = () => {
                                 "inline-flex text-base items-center gap-2 cursor-pointer leading-normal "
                             )}
                         >
-                            <div className={cn("inline-flex space-x-2 lg:items-center")}>
+                            <div className={cn("inline-flex items-center justify-center space-x-2 lg:items-center")}>
                                 <UserSearchIcon
                                     className={cn("w-5 h-5 shrink-0")}
                                 />
-                                <span>Find Your Invite</span>
+                                <span className={cn(inter.className)}>Find Your Invite</span>
                             </div>
                         </Link>
                     </Button>
