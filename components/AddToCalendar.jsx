@@ -37,11 +37,10 @@ const AddToCalendar = ({ event, icalUrl }) => {
                 <Button
                     variant={"secondary"}
                     className={cn(
-                        "mt-3 flex items-center justify-center  gap-2 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer "
+                        "mt-3 flex items-center gap-2 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer "
                     )}
                 >
-                    <CalendarPlus />
-                    Add To Calendar
+                    <span className="">Add To Calendar</span>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className={cn("")}>
@@ -50,20 +49,24 @@ const AddToCalendar = ({ event, icalUrl }) => {
                         href={googleCalendarUrl.toString()}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 cursor-pointer"
+                        className="flex justify-center items-baseline gap-2 cursor-pointer"
                     >
-                        <FaGoogle className={cn("h-4 w-4")} />
-                        <span> Google</span>
+                        <span className={cn("")}> Google</span>
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                     <a
                         href={icalUrl}
-                        className={cn("flex items-center gap-2 cursor-pointer")}
+                        className={cn("flex justify-center items-baseline gap-2 cursor-pointer")}
                     >
-                        <CalendarIcon className={cn("h-4 w-4")} />
-                        <span>iCal</span>
+                        <span
+                            className={cn(
+                                "leading-none flex"
+                            )}
+                        >
+                            iCal
+                        </span>
                     </a>
                 </DropdownMenuItem>
             </DropdownMenuContent>
