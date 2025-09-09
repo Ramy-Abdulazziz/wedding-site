@@ -1,16 +1,17 @@
 "use client";
 
 import { textContainer, textItem } from "@/lib/variants";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Count from "@/components/Count";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
+import AddToCalendar from "@/components/AddToCalendar";
 const RsvpDetails = () => {
     return (
         <>
-            <motion.p id='rsvp'
+            <motion.p
+                id="rsvp"
                 className={cn(
                     "text-2xl sm:text-3xl md:text-3xl xl:text-3xl mb-5 scroll-mt-24"
                 )}
@@ -44,16 +45,14 @@ const RsvpDetails = () => {
                         </p>
                         <Count year={2025} month={10} days={26} down={false} />
                     </div>
-                    <Button
-                        asChild
-                        variant={"secondary"}
-                        className={cn("mt-3 lg:text-lg xl:text-lg 2xl:text-xl")}
-                    >
-                        <Link href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NzJqcGlvZTE0NHVwMDZtNTJudjRoMGFvdnAgYWJkdWxhenppei5uYWRlcmkuYWNjdHNAbQ&tmsrc=abdulazziz.naderi.accts%40gmail.com">
-                            {" "}
-                            Add to Calendar{" "}
-                        </Link>
-                    </Button>
+                    <div className={cn("")}>
+                        <AddToCalendar
+                            googleUrl={
+                                "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=NzJqcGlvZTE0NHVwMDZtNTJudjRoMGFvdnAgYWJkdWxhenppei5uYWRlcmkuYWNjdHNAbQ&tmsrc=abdulazziz.naderi.accts%40gmail.com"
+                            }
+                            icalUrl={"/rsvp-deadline.ics"}
+                        />
+                    </div>
                 </div>
 
                 <div>
