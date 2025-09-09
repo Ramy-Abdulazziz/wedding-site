@@ -37,10 +37,10 @@ const AddToCalendar = ({ event, icalUrl }) => {
                 <Button
                     variant={"secondary"}
                     className={cn(
-                        "inline-flex items-baseline mt-3 gap-2 text-base lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer "
+                        "inline-flex items-baseline mt-3 gap-2 text-base lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer lg:items-center"
                     )}
                 >
-                    <div className={cn("inline-flex space-x-2")}>
+                    <div className={cn("inline-flex space-x-2 lg:items-center")}>
                         <CalendarPlus className={cn("w-5 h-3 shrink-0")} />
                         <span className={cn("")}>Add To Calendar</span>
                     </div>

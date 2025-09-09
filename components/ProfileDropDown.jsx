@@ -121,7 +121,7 @@ const ProfileDropDown = () => {
                                 setIsDialogOpen(true);
                             }}
                         >
-                            <div className={cn("inline-flex space-x-2")}>
+                            <div className={cn("inline-flex space-x-2 lg:items-center")}>
                                 <UserPenIcon
                                     className={cn("w-5 h-5 shrink-0")}
                                 />
@@ -130,7 +130,7 @@ const ProfileDropDown = () => {
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onSelect={handleLogout}>
-                            <div className={cn("inline-flex space-x-2")}>
+                            <div className={cn("inline-flex space-x-2 lg:items-center")}>
                                 <LogOutIcon
                                     className={cn("w-5 h-5 shrink-0")}
                                 />
