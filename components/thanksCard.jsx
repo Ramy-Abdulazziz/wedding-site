@@ -36,22 +36,21 @@ const ThanksCard = () => {
                 >
                     <div
                         className={cn(
-                            "relative w-[50%] sm:w-[35%] md:w-[40%] lg:w-[30%] xl:w-[28%] 2xl:w-[30%] max-w-[800px] mx-auto flex justify-center justify-items-center-safe items-center"
+                            "relative w-[50%] aspect-[3/5] sm:w-[35%] md:w-[40%] lg:w-[30%] xl:w-[28%] 2xl:w-[30%] max-w-[800px] mx-auto flex justify-center justify-items-center-safe items-center"
                         )}
                     >
                         <Image
                             src="/us.png"
-                            layout="responsive"
-                            width={3}
-                            height={4}
-                            alt="Picture of wedding invitation"
-                            className={cn()}
+                            fill
+                            alt="Picture of us as a cartoon"
+                            className={cn("object-contain")}
+                            sizes="(min-width: 1536px) 30vw, (min-width: 1280px) 28vw, (min-width: 1024px) 30vw, (min-width: 768px) 40vw, (min-width: 640px) 35vw, 50vw"
                         />
                     </div>
 
                     <div
                         className={cn(
-                            " mx-auto max-w-md flex justify-center mt-5 ttext-justify hyphens-auto"
+                            " mx-auto max-w-md flex justify-center mt-5 text-justify hyphens-auto"
                         )}
                     >
                         <p>
