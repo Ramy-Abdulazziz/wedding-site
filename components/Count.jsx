@@ -7,7 +7,8 @@ const Count = ({ year, month, days, down = false }) => {
     const getDaysLeft = () => {
         const day = 24 * 60 * 60 * 1000;
         const currentDay = new Date();
-        const countDownDate = new Date(year, month, days);
+        const zIndexMonth = month - 1; 
+        const countDownDate = new Date(year, zIndexMonth, days);
 
         return Math.round((countDownDate - currentDay) / day);
     };
