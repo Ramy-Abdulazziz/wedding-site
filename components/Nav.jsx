@@ -109,7 +109,7 @@ const Nav = () => {
                     <ProfileDropDown />
                 </div>
                 <div className={cn("flex order-2")}>
-                    <ThemeToggle skelMargin={3}/>
+                    <ThemeToggle skelMargin={3} />
                 </div>
             </div>
             <div
@@ -124,6 +124,10 @@ const Nav = () => {
                     <SheetContent side="left">
                         <SheetHeader>
                             <SheetTitle>Ramy and Shazia's Wedding</SheetTitle>
+                            <SheetDescription className="sr-only">
+                                Navigation links for Ramy and Shazia's wedding
+                                website.
+                            </SheetDescription>
                         </SheetHeader>
                         <div className={cn("flex flex-col h-full")}>
                             <div className={cn("pl-5")}>
@@ -224,7 +228,7 @@ const Nav = () => {
                         </div>
                     </SheetContent>
                 </Sheet>
-                <div className={cn('pr-2')}>
+                <div className={cn("pr-2")}>
                     <ProfileDropDown />
                 </div>
             </div>

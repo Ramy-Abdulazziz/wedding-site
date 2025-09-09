@@ -33,6 +33,7 @@ import {
 } from "@/app/(protected)/complete-profile/_lib/actions";
 import parsePhoneNumber, { isPossiblePhoneNumber } from "libphonenumber-js";
 import { AuthContext } from "./AuthContextProvider";
+import { authConfig } from "@/auth.config";
 
 const schema = z.object({
     phone: z
@@ -95,6 +96,7 @@ const CompleteProfileFormPhone = () => {
     const declineInput = useCallback(async () => {
         const declined = await declinePhoneOptIn();
         if (declined?.success) {
+            updateGuestPhoneContext(authConfig.declinePhoneOptIn);
             router.push("/rsvp");
             toast.info("You may update your phone number later");
         } else {
