@@ -85,14 +85,15 @@ const RsvpDetails = () => {
                         asChild
                         variant={"secondary"}
                         className={cn(
-                            "mt-3  lg:text-lg xl:text-lg  items-baseline 2xl:text-xl cursor-pointer"
+                            "mt-3  lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer"
                         )}
                     >
                         <Link
                             href="/rsvp"
-                            className="flex items-baseline justify-center gap-2"
+                            className="gap-2"
                         >
-                            <span className="">Find Your Invite</span>
+                            <UserSearchIcon />
+                            Find Your Invite
                         </Link>
                     </Button>
                 </div>
