@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { textContainer, textItem } from "@/lib/variants";
 import AddToCalendar from "@/components/AddToCalendar";
+import weddingEvent from "@/lib/events/wedding/wedding-day.json";
 
 const TimingDetails = () => {
     return (
@@ -53,11 +54,9 @@ const TimingDetails = () => {
                         </p>
                         <Count year={2025} month={11} days={26} down={true} />
                     </div>
-                    <div  className={cn('')}>
+                    <div className={cn("")}>
                         <AddToCalendar
-                            googleUrl={
-                                "https://calendar.google.com/calendar/event?action=TEMPLATE&amp;tmeid=MDltazNuZmhoaDg5M24ycGFmMmltZ2plMzggYWJkdWxhenppei5uYWRlcmkuYWNjdHNAbQ&amp;tmsrc=abdulazziz.naderi.accts%40gmail.com"
-                            }
+                            event={weddingEvent}
                             icalUrl={"/wedding.ics"}
                         />
                     </div>

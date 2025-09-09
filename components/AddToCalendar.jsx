@@ -13,13 +13,30 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, CalendarPlus } from "lucide-react";
 
-const AddToCalendar = ({ googleUrl, icalUrl }) => {
+const AddToCalendar = ({ event, icalUrl }) => {
+    const formatGoogleCalendarDate = (dateString) => {
+        return new Date(dateString).toISOString().replace(/-|:|\.\d+/g, "");
+    };
+
+    const googleCalendarUrl = new URL("https://www.google.com/calendar/render");
+    googleCalendarUrl.searchParams.append("action", "TEMPLATE");
+    googleCalendarUrl.searchParams.append("text", event.title);
+    googleCalendarUrl.searchParams.append(
+        "dates",
+        `${formatGoogleCalendarDate(event.startTime)}/${formatGoogleCalendarDate(event.endTime)}`
+    );
+    googleCalendarUrl.searchParams.append("details", event.description);
+    if (event?.location) {
+        googleCalendarUrl.searchParams.append("location", event.location);
+    }
+    googleCalendarUrl.searchParams.append("ctz", "America/New_York");
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
                     variant={"secondary"}
-                    className={cn("mt-3 lg:text-lg xl:text-lg 2xl:text-xl ")}
+                    className={cn("mt-3 lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer")}
                 >
                     <CalendarPlus />
                     Add To Calendar
@@ -29,22 +46,29 @@ const AddToCalendar = ({ googleUrl, icalUrl }) => {
                 <DropdownMenuItem asChild>
                     <div
                         className={cn(
-                            "flex flex-row justify-left w-full text-center"
+                            "flex flex-row justify-left w-full text-center cursor-pointer "
                         )}
                     >
-                        <FaGoogle/>
-                        <Link href={googleUrl}> Google </Link>
+                        <FaGoogle className={cn("h-4 w-4")} />
+                        <Link
+                            href={googleCalendarUrl.toString()}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {" "}
+                            Google{" "}
+                        </Link>
                     </div>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                    <a href={icalUrl} download>
+                    <a href={icalUrl}>
                         <div
                             className={cn(
                                 "flex items-center gap-2 cursor-pointer"
                             )}
                         >
-                            <CalendarIcon/>
+                            <CalendarIcon className={cn("h-4 w-4")} />
                             <span>iCal</span>
                         </div>
                     </a>
