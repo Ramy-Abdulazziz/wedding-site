@@ -81,22 +81,19 @@ const Nav = () => {
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Tooltip>
-                            <TooltipTrigger>
-                                <NavigationMenuLink
-                                    asChild
-                                    className={cn(
-                                        navigationMenuLinkStyle(),
-                                        "pointer-events-none text-gray-500"
-                                    )}
-                                >
-                                    <Link href="/details#rsvp">Registry</Link>
-                                </NavigationMenuLink>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>Coming Soon!</p>
-                            </TooltipContent>
-                        </Tooltip>
+                        <NavigationMenuLink
+                            asChild
+                            className={cn(
+                                navigationMenuLinkStyle()
+                            )}
+                        >
+                            <Link
+                                href="https://www.myregistry.com/wedding-registry/shazia-naderi-and-ramy-abdulazziz-bethpage-ny/4985604"
+                                target="_blank"                           
+                            >
+                                Registry
+                            </Link>
+                        </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
@@ -160,21 +157,12 @@ const Nav = () => {
                                         </Link>
                                     </SheetClose>
                                     <SheetClose asChild>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <Link
-                                                    href="/details#faq"
-                                                    className={cn(
-                                                        "text-2xl pointer-events-none text-gray-500"
-                                                    )}
-                                                >
-                                                    Registry
-                                                </Link>
-                                            </TooltipTrigger>
-                                            <TooltipContent>
-                                                <p>Coming Soon!</p>
-                                            </TooltipContent>
-                                        </Tooltip>
+                                        <Link
+                                            href="https://www.myregistry.com/wedding-registry/shazia-naderi-and-ramy-abdulazziz-bethpage-ny/4985604"
+                                            className={cn("text-2xl")}
+                                        >
+                                            Registry
+                                        </Link>
                                     </SheetClose>
                                 </div>
                                 <div className={cn("flex flex-col mb-2")}>
