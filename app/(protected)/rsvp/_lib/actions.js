@@ -229,7 +229,19 @@ const submitRsvpAndSendEmail = async (namedGuests, plusOnes, guestInfo) => {
         httpOnly: true, // More secure, client-side JS can't access it
         maxAge: 120, // Expires after 60 seconds
     });
-    const sanitizedEmail = guestInfo.email.trim().toLowerCase();
+
+    const user = await getCurrentUser();
+    if (!user) {
+        return { error: "No auth session active" };
+    }
+
+    const { data: guestData, error: guestError } = await supabase
+        .from("guests")
+        .select("email")
+        .eq("id", user.id)
+        .single();
+
+    const sanitizedEmail = guestData.email.trim().toLowerCase();
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { data, error: sendError } = await resend.emails.send({
         from: "Ramy and Shazia <noreply@notifications.ramyandshazia.com>",

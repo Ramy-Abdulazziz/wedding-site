@@ -10,7 +10,7 @@ import {
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { NavigationIcon } from "lucide-react";
+import { NavigationIcon, BedDoubleIcon } from "lucide-react";
 
 const AlternateBookingCard = ({ hotelDetails }) => {
     const name = hotelDetails.name;
@@ -28,7 +28,7 @@ const AlternateBookingCard = ({ hotelDetails }) => {
         >
             <CardHeader
                 className={cn(
-                    "flex flex-row justify-between items-center gap-2 md:min-h-12 lg:min-h-12 xl:min-h-5 2xl:min-h-5"
+                    "flex flex-row justify-between items-center gap-2 min-h-10 md:min-h-12 lg:min-h-12 xl:min-h-5 2xl:min-h-5"
                 )}
             >
                 <CardTitle className={cn("")}>{name}</CardTitle>
@@ -37,13 +37,13 @@ const AlternateBookingCard = ({ hotelDetails }) => {
                 </CardAction>
             </CardHeader>
             <CardContent>
-                <div className={cn("flex flex-col space-y-5 ")}>
-                    <div className={cn("relative w-full aspect-[4/3]")}>
+                <div className={cn("flex flex-col space-y-5")}>
+                    <div className={cn("relative w-full aspect-[4/3] h-full")}>
                         <Image
                             src={photoUrl}
                             fill={true}
                             objectFit="contain"
-                            alt="picture of hotel"
+                            alt={`picture of hotel ${name}`}
                         />
                     </div>
                     <div className={cn("")}>{address} </div>
@@ -52,23 +52,23 @@ const AlternateBookingCard = ({ hotelDetails }) => {
             <CardFooter>
                 <div
                     className={cn(
-                        "flex w-full flex-row justify-between space-x-2"
+                        "flex w-full flex-row justify-center space-x-2"
                     )}
                 >
                     <Button
                         asChild
                         variant={"secondary"}
-                        className={cn("grow-7")}
+                        className={cn("grow-3")}
                     >
                         <Link href={bookingSite} target="_blank">
                             {" "}
-                            Book
+                            <BedDoubleIcon />
                         </Link>
                     </Button>
                     <Button
                         asChild
                         variant={"secondary"}
-                        className={cn("grow-1")}
+                        className={cn("grow-3")}
                     >
                         <Link href={map} target="_blank">
                             <NavigationIcon />
