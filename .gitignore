@@ -40,7 +40,7 @@ yarn-error.log*
 .vercel
 
 #csv
-.csv
+*.csv
 
 # typescript
 *.tsbuildinfo
