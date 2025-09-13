@@ -19,7 +19,6 @@ const AuthContextProvider = ({ children }) => {
     const [guestName, setGuestName] = useState(null);
     const [guestEmail, setGuestEmail] = useState(null);
     const [guestPhone, setGuestPhone] = useState(null);
-    const [isAdmin, setIsAdmin] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const setCurrentGuest = useCallback(
@@ -28,7 +27,6 @@ const AuthContextProvider = ({ children }) => {
             setGuestName(guest?.name || null);
             setGuestEmail(guest?.email || null);
             setGuestPhone(guest?.phone || null);
-            setIsAdmin(guest?.groups.name === "Admin" ? true : false);
         },
         [guestData]
     );
@@ -106,7 +104,7 @@ const AuthContextProvider = ({ children }) => {
                 }
                 const { data: guestInfo, error: guestError } = await supabase
                     .from("guests")
-                    .select("*, groups(name)")
+                    .select("*")
                     .eq("id", user.id)
                     .single();
 
@@ -139,7 +137,6 @@ const AuthContextProvider = ({ children }) => {
             reloadGuestInfo,
             updateGuestEmailContext,
             updateGuestPhoneContext,
-            isAdmin,
         }),
         [
             guestData,
@@ -153,7 +150,6 @@ const AuthContextProvider = ({ children }) => {
             reloadGuestInfo,
             updateGuestEmailContext,
             updateGuestPhoneContext,
-            isAdmin,
         ]
     );
 
