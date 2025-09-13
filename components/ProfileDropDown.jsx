@@ -18,12 +18,7 @@ import { toast } from "sonner";
 import { authConfig } from "@/auth.config";
 import { useState, useEffect } from "react";
 import { Skeleton } from "./ui/skeleton";
-import {
-    LogOutIcon,
-    PhoneIcon,
-    UserPenIcon,
-    ShieldUserIcon,
-} from "lucide-react";
+import { LogOutIcon, PhoneIcon, UserPenIcon } from "lucide-react";
 import UpdateContactForm from "./UpdateContactForm";
 import { cn } from "@/lib/utils";
 import parsePhoneNumber from "libphonenumber-js";
@@ -61,15 +56,8 @@ const PhoneSection = ({ guestPhone }) => {
 };
 
 const ProfileDropDown = () => {
-    const {
-        getInitials,
-        guestName,
-        logout,
-        loading,
-        guestEmail,
-        guestPhone,
-        isAdmin,
-    } = useContext(AuthContext);
+    const { getInitials, guestName, logout, loading, guestEmail, guestPhone } =
+        useContext(AuthContext);
     const [initials, setInitials] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -104,16 +92,16 @@ const ProfileDropDown = () => {
                 >
                     <DropdownMenuTrigger>
                         <Avatar
-                            className={cn("flexj ustify-center items-center")}
+                            className={cn(
+                                "flexj ustify-center items-center"
+                            )}
                         >
                             <AvatarFallback
                                 className={cn(
                                     "flex items-center justify-center"
                                 )}
                             >
-                                <span
-                                    className={cn("text-sm ", inter.className)}
-                                >
+                                <span className={cn("text-sm ",inter.className)}>
                                     {initials}
                                 </span>
                             </AvatarFallback>
@@ -143,8 +131,7 @@ const ProfileDropDown = () => {
                         >
                             <div
                                 className={cn(
-                                    "inline-flex  items-center justify-center text-xs space-x-2",
-                                    inter.className
+                                    "inline-flex  items-center justify-center text-xs space-x-2",inter.className
                                 )}
                             >
                                 <UserPenIcon
@@ -157,8 +144,7 @@ const ProfileDropDown = () => {
                         <DropdownMenuItem onSelect={handleLogout}>
                             <div
                                 className={cn(
-                                    "inline-flex  items-center justify-center text-xs space-x-2",
-                                    inter.className
+                                    "inline-flex  items-center justify-center text-xs space-x-2",inter.className
                                 )}
                             >
                                 <LogOutIcon
@@ -167,24 +153,6 @@ const ProfileDropDown = () => {
                                 <span>Log Out</span>
                             </div>
                         </DropdownMenuItem>
-                        {isAdmin && (
-                            <>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem onSelect={() => router.push('/admin/status')}>
-                                    <div
-                                        className={cn(
-                                            "inline-flex  items-center justify-center text-xs space-x-2",
-                                            inter.className
-                                        )}
-                                    >
-                                        <ShieldUserIcon
-                                            className={cn("w-5 h-5 shrink-0")}
-                                        />
-                                        <span>Admin Panel</span>
-                                    </div>
-                                </DropdownMenuItem>
-                            </>
-                        )}
                     </DropdownMenuContent>
                 </DropdownMenu>
                 <div className={cn("flex flex-row")}>
