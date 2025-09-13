@@ -16,4 +16,5 @@ export const authConfig = {
     noEmailPlaceHolder: "guest.ramyandshazia.com",
     phoneDeclinedPlaceHolder: "0000000000",
     authRoutes: ["/auth/confirm", "/auth/confirm/email"],
+    adminRoutes:["/admin/status"]
 };
