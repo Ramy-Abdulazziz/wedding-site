@@ -7,10 +7,11 @@ import { Separator } from "@/components/ui/separator";
 import TimingDetails from "@/components/timing-details";
 import RsvpDetails from "@/components/rsvp-details";
 import FaqDetails from "@/components/faq-details";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { textContainer } from "@/lib/variants";
 
 export default function DetailsContent() {
+    const scrollRef = useRef(null);
     useEffect(() => {
         const hash = window.location.hash;
 
@@ -33,9 +34,9 @@ export default function DetailsContent() {
                     "relative h-screen flex justify-center-safe w-full overflow-x-hidden"
                 )}
             >
-                <FloatingInvite />
+                <FloatingInvite ref={scrollRef} />
             </section>
-            <section className={cn("xl:ml-20")}>
+            <section ref={scrollRef} className={cn("scroll-mt-25 xl:ml-20 ")}>
                 <motion.div
                     className={cn("container mx-auto pl-5 sm:pl-7 pt-5")}
                     variants={textContainer}
