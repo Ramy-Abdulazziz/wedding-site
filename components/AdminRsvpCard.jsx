@@ -8,7 +8,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import RsvpStatus from "./RsvpStatus";
+import RsvpStatus from "@/components/RsvpStatus";
 
 const AdminRsvpCard = () => {
     return (
