@@ -18,7 +18,7 @@ const getGuestData = async (id) => {
     const supabase = await createClient();
     const { data: guest, error: guestError } = await supabase
         .from("guests")
-        .select("*")
+        .select("*, groups(name)")
         .eq("id", id)
         .single();
 
