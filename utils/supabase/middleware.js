@@ -58,12 +58,12 @@ export async function updateSession(request) {
 
     const { data: guest, error: guestError } = await supabase
         .from("guests")
-        .select("id, email, phone")
+        .select("id, email, phone, groups(name)")
         .eq("id", user.id)
         .single();
 
     const verifiedUser = user && guest && !guestError && !userError;
-
+    const isAdmin = guest.groups.name === "Admin";
     if (!verifiedUser) {
         if (pathname !== authConfig.unAuthedHomeRoute) {
             const url = request.nextUrl.clone();
@@ -118,6 +118,16 @@ export async function updateSession(request) {
         const response = NextResponse.next();
         response.cookies.delete(`${ticketName}_submitted`);
         return response;
+    }
+
+    if (authConfig.adminRoutes.includes(pathname)) {
+        if (!isAdmin) {
+            const url = request.nextUrl.clone();
+            url.pathName = authConfig.authedHomeRoute;
+            return NextResponse.redirect(url);
+        }
+
+        return supabaseResponse;
     }
 
     return supabaseResponse;
