@@ -35,9 +35,12 @@ export default function DetailsContent() {
                     "relative h-screen flex justify-center-safe w-full overflow-x-hidden"
                 )}
             >
-                <FloatingInvite ref={scrollRef}/>
+                <FloatingInvite scrollTargetRef={scrollRef} />
             </section>
-            <section className={cn("scroll-mt-25 xl:ml-20 scroll-mt-25")} ref={scrollRef}>
+            <section
+                className={cn("scroll-mt-25 xl:ml-20 scroll-mt-25")}
+                ref={scrollRef}
+            >
                 <motion.div
                     className={cn("container mx-auto pl-5 sm:pl-7 pt-5")}
                     variants={textContainer}

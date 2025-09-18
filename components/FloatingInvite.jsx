@@ -6,14 +6,14 @@ import Image from "next/image";
 import { ChevronsDownIcon } from "lucide-react";
 import { attentionDownItem } from "@/lib/variants";
 import { Button } from "./ui/button";
+import weddingInvite from "@/public/weddingInvite.jpg";
 
-
-const FloatingInvite = ({ ref }) => {
+const FloatingInvite = ({ scrollTargetRef  }) => {
     const { scrollY } = useScroll();
     const chevronOpacity = useTransform(scrollY, [0, 50], [1, 0]);
 
     const onScrollClick = () => {
-        ref.current?.scrollIntoView({ behavior: "smooth" });
+        scrollTargetRef.current?.scrollIntoView({ behavior: "smooth" });
     };
     return (
         <motion.div
@@ -26,16 +26,15 @@ const FloatingInvite = ({ ref }) => {
         >
             <div className={cn("relative w-full h-auto")}>
                 <Image
-                    src="/weddingInvite.jpg"
-                    width={600}
-                    height={800}
+                    src={weddingInvite}
                     priority={true}
+                    placeholder="blur"
                     sizes="(max-width: 533px) 85vw, 400px"
                     quality={100}
                     alt="Picture of wedding invitation"
                     className={cn(
                         "object-cover",
-                        "border-solid shadow-2xl/50 dark:shadow-2xl dark:shadow-white"
+                        "w-full h-auto border-solid shadow-2xl/50 dark:shadow-2xl dark:shadow-white"
                     )}
                 />
             </div>
