@@ -318,7 +318,7 @@ const declinePhoneOptIn = async () => {
         const authedUser = await getCurrentUser();
         if (!authedUser) {
             return { error: "No auth session" };
-        }
+        }   
         const { data, error } = await supabase
             .from("guests")
             .update({ phone: sanitizedPhone })
