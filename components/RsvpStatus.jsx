@@ -26,6 +26,13 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DownloadIcon } from "lucide-react";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+    weight: "400",
+    subsets: ["latin"],
+});
 
 const RsvpStatus = () => {
     const [allRsvps, setAllRsvps] = useState([]);
@@ -94,7 +101,8 @@ const RsvpStatus = () => {
 
         const filteredNoResponse = noResponse.filter((r) => {
             const nameMatch = r.name.toLowerCase().includes(value);
-            const statusMatch = value === "no response" && r.responded === false;
+            const statusMatch =
+                value === "no response" && r.responded === false;
 
             return nameMatch || statusMatch;
         });
@@ -121,6 +129,33 @@ const RsvpStatus = () => {
         setFilteredView(noResponse);
         setViewLabel(`${numNotResponded} Not Responded`);
     };
+
+    const downloadCSV = () => {
+        if (!allRsvps.length) return;
+
+        const headers = ["Name", "RSVP Status"];
+
+        const rows = allRsvps.map((r) => [
+            r.name,
+            r.attending === true ? "Attending" : "Not Attending",
+        ]);
+
+        const csvContent = [headers, ...rows]
+            .map((e) => e.map((v) => `"${v}"`).join(","))
+            .join("\n");
+
+        const blob = new Blob([csvContent], {
+            type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "rsvps.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     const formatDateTime = (isoString) => {
         return new Date(isoString).toLocaleString("en-US", {
             weekday: "short",
@@ -146,11 +181,11 @@ const RsvpStatus = () => {
             <div>
                 <div
                     className={cn(
-                        "flex flex-row space-y-2 justify-center space-x-5 mb-5"
+                        "flex flex-col space-y-2 justify-center space-x-5 mb-5 md:flex-row"
                     )}
                 >
                     <Input
-                        className={cn("max-w-md")}
+                        className={cn("w-full mb-5")}
                         placeholder="Filter name or status..."
                         value={filter}
                         onChange={handleFilterChange}
@@ -165,11 +200,18 @@ const RsvpStatus = () => {
                         <Button variant="secondary" onClick={showNoResponse}>
                             {numNotResponded} Not Responded
                         </Button>
+                        <Button variant="secondary" onClick={downloadCSV}>
+                            <DownloadIcon />
+                        </Button>
                     </div>
-                    <div className={cn("md:hidden")}>
-                        <DropdownMenu>
+                    <div
+                        className={cn(
+                            "flex flex-row w-full space-x-5 md:hidden"
+                        )}
+                    >
+                        <DropdownMenu className={cn('w-full')}>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="secondary">
+                                <Button variant="secondary" className={cn('grow-3')}>
                                     {" "}
                                     {viewLabel}
                                 </Button>
@@ -190,6 +232,9 @@ const RsvpStatus = () => {
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
+                        <Button variant="secondary" onClick={downloadCSV} className={cn('grow-2')}>
+                            <DownloadIcon />
+                        </Button>
                     </div>
                 </div>
 
