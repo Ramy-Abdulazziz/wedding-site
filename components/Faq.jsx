@@ -67,6 +67,14 @@ const Faq = () => {
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
+                <AccordionTrigger>What is the dress code?</AccordionTrigger>
+                <AccordionContent className="flex flex-col gap-4 text-balance">
+                    <p>
+                        We kindly ask all guests to observe a formal dress code.
+                    </p>
+                </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-6">
                 <AccordionTrigger>
                     What if i have questions, need help, or have issues with the
                     RSVP process?
