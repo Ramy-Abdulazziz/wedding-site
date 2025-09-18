@@ -120,5 +120,15 @@ export async function updateSession(request) {
         return response;
     }
 
+    if (authConfig.adminRoutes.includes(pathname)) {
+        if (!isAdmin) {
+            const url = request.nextUrl.clone();
+            url.pathName = authConfig.authedHomeRoute;
+            return NextResponse.redirect(url);
+        }
+
+        return supabaseResponse;
+    }
+
     return supabaseResponse;
 }

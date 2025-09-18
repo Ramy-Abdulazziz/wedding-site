@@ -16,16 +16,26 @@ import { Skeleton } from "./ui/skeleton";
 import { cn } from "@/lib/utils";
 
 const RsvpStatus = () => {
-    const [rsvps, setRsvps] = useState(null);
+    const [rsvps, setRsvps] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [numAttending, setNumAttending] = useState(0);
+    const [numNotAttending, setNumNotAttending] = useState(0);
+    const [numNotResponded, setNumNotResponded] = useState(0);
 
     useEffect(() => {
         const loadRsvpData = async () => {
             try {
                 setLoading(true);
                 const rsvpData = await getAllRsvps();
-                if (rsvpData) {
-                    setRsvps(rsvpData);
+                if (rsvpData.rsvpData) {
+                    setRsvps(rsvpData.rsvpData);
+                    setNumAttending(
+                        rsvpData.rsvpData.filter((r) => r.attending === true).length
+                    );
+                    setNumNotAttending(
+                        rsvpData.rsvpData.filter((r) => r.attending === false).length
+                    );
+                    setNumNotResponded(rsvpData.noRsvpData.length);
                     toast.success("Successfully loaded all guest rsvp data");
                 } else {
                     toast.error("Unable to load rsvp data");
@@ -62,33 +72,42 @@ const RsvpStatus = () => {
     return (
         !loading &&
         rsvps && (
-            <Table>
-                <TableCaption>
-                    A summary of all guest rsvp responses
-                </TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead> Name</TableHead>
-                        <TableHead> Rsvp Status</TableHead>
-                        <TableHead className={cn("text-right")}>
-                            Last Edit
-                        </TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {rsvps.map((rsvp) => (
-                        <TableRow key={rsvp.name}>
-                            <TableCell> {rsvp.name}</TableCell>
-                            <TableCell>
-                                {rsvp.attending ? "Attending" : "Not Attending"}
-                            </TableCell>
-                            <TableCell className={cn("text-right")}>
-                                {formatDateTime(rsvp.last_edit)}
-                            </TableCell>
+            <div>
+                <div className={cn("flex flex-row justify-left space-x-5")}>
+                    <span>{numAttending} Attending</span>
+                    <span>{numNotAttending} Not Attending</span>
+                    <span>{numNotResponded} Not Responded</span>
+                </div>
+                <Table className={cn("")}>
+                    <TableCaption>
+                        A summary of all guest rsvp responses
+                    </TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead> Name</TableHead>
+                            <TableHead> Rsvp Status</TableHead>
+                            <TableHead className={cn("text-right")}>
+                                Last Edit
+                            </TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                        {rsvps.map((rsvp) => (
+                            <TableRow key={rsvp.name}>
+                                <TableCell> {rsvp.name}</TableCell>
+                                <TableCell>
+                                    {rsvp.attending
+                                        ? "Attending"
+                                        : "Not Attending"}
+                                </TableCell>
+                                <TableCell className={cn("text-right")}>
+                                    {formatDateTime(rsvp.last_edit)}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
         )
     );
 };
