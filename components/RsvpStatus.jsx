@@ -83,7 +83,7 @@ const RsvpStatus = () => {
             return;
         }
 
-        const filtered = currentView.filter((r) => {
+        const filteredRsvp = allRsvps.filter((r) => {
             const nameMatch = r.name.toLowerCase().includes(value);
             const statusMatch =
                 (value === "attending" && r.attending === true) ||
@@ -91,7 +91,15 @@ const RsvpStatus = () => {
 
             return nameMatch || statusMatch;
         });
-        setFilteredView(filtered);
+
+        const filteredNoResponse = noResponse.filter((r) => {
+            const nameMatch = r.name.toLowerCase().includes(value);
+            const statusMatch = value === "no response" && r.responded === false;
+
+            return nameMatch || statusMatch;
+        });
+
+        setFilteredView([...filteredRsvp, ...filteredNoResponse]);
     };
 
     const showAttending = () => {
@@ -215,11 +223,17 @@ const RsvpStatus = () => {
                                 <TableRow key={rsvp.name}>
                                     <TableCell> {rsvp.name}</TableCell>
                                     <TableCell>
-                                        {rsvp.attending
+                                        {rsvp.responded && rsvp.attending
                                             ? "Attending"
-                                            : "Not Attending"}
+                                            : rsvp.responded
+                                              ? "Not Attending"
+                                              : "No Response"}
                                     </TableCell>
-                                    <TableCell className={cn("text-right hidden md:table-cell")}>
+                                    <TableCell
+                                        className={cn(
+                                            "text-right hidden md:table-cell"
+                                        )}
+                                    >
                                         {formatDateTime(rsvp.last_edit)}
                                     </TableCell>
                                 </TableRow>

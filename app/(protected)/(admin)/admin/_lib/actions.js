@@ -21,6 +21,7 @@ const getAllRsvps = async () => {
     const rsvpMap = rsvps.map((d) => ({
         id: d.guest_id,
         attending: d.attending,
+        responded: true,
         name: d.guest_name,
         last_edit: d.last_edit,
     }));
@@ -30,6 +31,7 @@ const getAllRsvps = async () => {
     const noRsvpmap = guests.map((d) => ({
         id: d.id,
         attending: false,
+        responded: false,
         name: d.name,
         last_edit: now.toISOString(),
     }));
