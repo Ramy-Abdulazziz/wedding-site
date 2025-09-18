@@ -25,7 +25,16 @@ const getAllRsvps = async () => {
         last_edit: d.last_edit,
     }));
 
-    return { rsvpData: rsvpMap, noRsvpData: guests };
+    const now = new Date();
+
+    const noRsvpmap = guests.map((d) => ({
+        id: d.id,
+        attending: false,
+        name: d.name,
+        last_edit: now.toISOString(),
+    }));
+
+    return { rsvpData: rsvpMap, noRsvpData: noRsvpmap };
 };
 
 export default getAllRsvps;
