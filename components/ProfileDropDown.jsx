@@ -121,7 +121,7 @@ const ProfileDropDown = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <div
-                            className={cn("flex flex-col justify-left w-full")}
+                            className={cn("flex flex-col justify-center items-center w-full")}
                         >
                             <DropdownMenuLabel className={cn("")}>
                                 {guestName || "Guest"}
@@ -135,7 +135,7 @@ const ProfileDropDown = () => {
                         </div>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            className={cn("inline-flex items-baseline ")}
+                            className={cn("")}
                             onSelect={() => {
                                 setIsDropdownOpen(false);
                                 setIsDialogOpen(true);

@@ -6,8 +6,7 @@ import Image from "next/image";
 import { ChevronsDownIcon } from "lucide-react";
 import { attentionDownItem } from "@/lib/variants";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+
 
 const FloatingInvite = ({ ref }) => {
     const { scrollY } = useScroll();
