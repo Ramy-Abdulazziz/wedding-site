@@ -57,7 +57,7 @@ const AuthContextProvider = ({ children }) => {
             }
             const { data: guestInfo, error: guestError } = await supabase
                 .from("guests")
-                .select("*")
+                .select("*, groups(name)")
                 .eq("id", user.id)
                 .single();
 
