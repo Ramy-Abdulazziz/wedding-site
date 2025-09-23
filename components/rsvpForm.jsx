@@ -95,7 +95,6 @@ const RsvpForm = ({ initialData }) => {
         window.scrollTo(0, 0);
     }, []);
 
-    
     const schema = useMemo(() => genSchema(guests), [guests]);
     const defaultFormValues = useMemo(() => ({
         namedGuests: guests.reduce((acc, guest) => {
@@ -397,7 +396,6 @@ const RsvpForm = ({ initialData }) => {
                                 {formStep.step === 1 && (
                                     <Button
                                         type="submit"
-                                        variant="secondary"
                                         disabled={form.formState.isSubmitting}
                                         className={cn("order-1")}
                                     >
@@ -414,6 +412,7 @@ const RsvpForm = ({ initialData }) => {
                                 {formStep.step >= 1 && (
                                     <Button
                                         type="button"
+                                        variant="secondary"
                                         disabled={form.formState.isSubmitting}
                                         onClick={handlePrev}
                                         className={cn("order-2")}

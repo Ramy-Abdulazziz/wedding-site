@@ -31,16 +31,7 @@ const RsvpInstructionsDialog = () => {
                 </DialogHeader>
                 <DialogFooter className={cn("mt-5")}>
                     <DialogClose asChild>
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={cancelRsvp}
-                        >
-                            Cancel
-                        </Button>
-                    </DialogClose>
-                    <DialogClose asChild>
-                        <Button type="submit" varian="secondary">
+                        <Button type="submit">
                             Continue and RSVP
                         </Button>
                     </DialogClose>
