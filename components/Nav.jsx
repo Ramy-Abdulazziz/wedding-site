@@ -1,11 +1,5 @@
 "use client";
 import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from "@/components/ui/tooltip";
-
-import {
     Sheet,
     SheetContent,
     SheetDescription,
@@ -80,19 +74,6 @@ const Nav = () => {
                             <Link href="/travel">Travel</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <NavigationMenuLink
-                            asChild
-                            className={cn(navigationMenuLinkStyle())}
-                        >
-                            <Link
-                                href="https://www.myregistry.com/wedding-registry/shazia-naderi-and-ramy-abdulazziz-bethpage-ny/4985604"
-                                target="_blank"
-                            >
-                                Registry
-                            </Link>
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
             <div
@@ -152,15 +133,6 @@ const Nav = () => {
                                             className={cn("text-2xl")}
                                         >
                                             FAQ
-                                        </Link>
-                                    </SheetClose>
-                                    <SheetClose asChild>
-                                        <Link
-                                            href="https://www.myregistry.com/wedding-registry/shazia-naderi-and-ramy-abdulazziz-bethpage-ny/4985604"
-                                            target="_blank"
-                                            className={cn("text-2xl")}
-                                        >
-                                            Registry
                                         </Link>
                                     </SheetClose>
                                 </div>
