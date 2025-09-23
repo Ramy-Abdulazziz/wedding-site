@@ -29,11 +29,10 @@ const Faq = () => {
                 <AccordionContent className="flex flex-col gap-4 text-balance">
                     <p>
                         We adore your little ones, but we kindly ask that our
-                        celebration remain adults-only. The only exception will
-                        be for the children of our immediate family.
+                        celebration remain adults-only. Therefore, no children are allowed.
                     </p>
                     <p>
-                        We truly appreciate your understanding and can’t wait to
+                        We truly appreciate your understanding and can't wait to
                         celebrate with you!
                     </p>
                 </AccordionContent>
