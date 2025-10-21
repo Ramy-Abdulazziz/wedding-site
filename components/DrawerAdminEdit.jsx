@@ -34,6 +34,7 @@ const DrawerAdminEdit = ({ rsvpData, onStatusChange }) => {
             toast.success("Successfully updated rsvp status");
             onStatusChange(rsvpData.id, attendingStatus);
         } catch (err) {
+            console.error("error updating status", err);
             toast.error("Unexpected error - please try again");
         } finally {
             setSubmitting(false);

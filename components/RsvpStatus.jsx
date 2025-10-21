@@ -95,30 +95,76 @@ const RsvpStatus = () => {
     }, []);
 
     const handleRsvpUpdate = (guestId, newStatus) => {
-        const now = new Date();
+        setAllRsvps((prevAll) => {
+            const now = new Date().toISOString();
+            const hadNoResponse = noResponse.some((r) => r.id === guestId);
+            let updatedGuest;
 
-        setAllRsvps((prev) =>
-            prev.map((r) =>
+            if (hadNoResponse) {
+                const [unupdatedResponse] = noResponse.filter(
+                    (r) => r.id === guestId
+                );
+
+                updatedGuest = {
+                    ...unupdatedResponse,
+                    attending: newStatus,
+                    responded: true,
+                    last_edit: now,
+                };
+                console.log(updatedGuest);
+                setNoResponse((prev) => prev.filter((r) => r.id !== guestId));
+                setNumNotResponded((n) => n - 1);
+            }
+            const updatedAll = prevAll.map((r) =>
                 r.id === guestId
                     ? {
                           ...r,
                           attending: newStatus,
-                          last_edit: now.toISOString(),
+                          responded: true,
+                          last_edit: now,
                       }
                     : r
-            )
-        );
-        setFilteredView((prev) =>
-            prev.map((r) =>
-                r.id === guestId
-                    ? {
-                          ...r,
-                          attending: newStatus,
-                          last_edit: now.toISOString(),
-                      }
-                    : r
-            )
-        );
+            );
+
+            const prevResponse = prevAll.find((r) => r.id === guestId);
+
+            setFilteredView((prevFiltered) =>
+                prevFiltered.filter((r) => r.id !== guestId)
+            );
+
+            setCurrentView((prevCurrent) =>
+                prevCurrent.filter((r) => r.id !== guestId)
+            );
+
+            setNumAttending((prev) => {
+                if (hadNoResponse && newStatus === true) return prev + 1;
+                if (prevResponse?.attending === false && newStatus === true)
+                    return prev + 1;
+                if (prevResponse?.attending === true && newStatus === false)
+                    return prev - 1;
+                return prev;
+            });
+
+            setNumNotAttending((prev) => {
+                if (hadNoResponse && newStatus === false) return prev + 1;
+                if (prevResponse?.attending === true && newStatus === false)
+                    return prev + 1;
+                if (prevResponse?.attending === false && newStatus === true)
+                    return prev - 1;
+                return prev;
+            });
+
+            let updatedGuestResponse;
+            if (hadNoResponse) {
+                updatedGuestResponse = [updatedGuest, ...updatedAll];
+            } else {
+                updatedGuestResponse = updatedAll;
+            }
+
+            return updatedGuestResponse.sort(
+                (a, b) => new Date(a.last_edit) - new Date(b.last_edit)
+            );
+        });
     };
 
     const handleFilterChange = (e) => {
