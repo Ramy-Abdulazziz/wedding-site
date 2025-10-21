@@ -1,7 +1,7 @@
 "use server";
 import { createClient } from "@/utils/supabase/server";
 
-const getAllRsvps = async () => {
+export const getAllRsvps = async () => {
     const supabase = await createClient();
     const { data: rsvps, error: rsvpError } = await supabase.rpc("get_rsvps");
 
@@ -24,6 +24,7 @@ const getAllRsvps = async () => {
         responded: true,
         name: d.guest_name,
         last_edit: d.last_edit,
+        group_id: d.group_id,
     }));
 
     const now = new Date();
@@ -33,10 +34,31 @@ const getAllRsvps = async () => {
         attending: false,
         responded: false,
         name: d.name,
+        group_id: d.group_id,
         last_edit: now.toISOString(),
     }));
 
     return { rsvpData: rsvpMap, noRsvpData: noRsvpmap };
 };
 
-export default getAllRsvps;
+export const adminUpdateGuestRsvp = async (
+    guestId,
+    attendingStatus,
+    groupId
+) => {
+    const supabase = await createClient();
+    const { error } = await supabase.rpc("admin_update_rsvp", {
+        update_id: guestId,
+        update_group_id: groupId,
+        attending_status: attendingStatus,
+    });
+
+    if (error) {
+        console.error("Unable to update guest rsvp from admin console", error);
+        return {
+            error: "Unable to update guest rsvp from admin console - try again",
+        };
+    }
+
+    return { success: true };
+};

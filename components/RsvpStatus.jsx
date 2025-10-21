@@ -1,6 +1,6 @@
 "use client";
 
-import getAllRsvps from "@/app/(protected)/(admin)/admin/_lib/actions";
+import { getAllRsvps } from "@/app/(protected)/(admin)/admin/_lib/actions";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -28,6 +28,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DownloadIcon } from "lucide-react";
 import { Inter } from "next/font/google";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer";
+import DrawerAdminEdit from "./DrawerAdminEdit";
 
 const inter = Inter({
     weight: "400",
@@ -45,6 +56,8 @@ const RsvpStatus = () => {
     const [noResponse, setNoResponse] = useState([]);
     const [filter, setFilter] = useState("");
     const [viewLabel, setViewLabel] = useState("");
+
+    const [showDrawer, setShowDrawer] = useState(false);
 
     useEffect(() => {
         const loadRsvpData = async () => {
@@ -80,6 +93,33 @@ const RsvpStatus = () => {
 
         loadRsvpData();
     }, []);
+
+    const handleRsvpUpdate = (guestId, newStatus) => {
+        const now = new Date();
+
+        setAllRsvps((prev) =>
+            prev.map((r) =>
+                r.id === guestId
+                    ? {
+                          ...r,
+                          attending: newStatus,
+                          last_edit: now.toISOString(),
+                      }
+                    : r
+            )
+        );
+        setFilteredView((prev) =>
+            prev.map((r) =>
+                r.id === guestId
+                    ? {
+                          ...r,
+                          attending: newStatus,
+                          last_edit: now.toISOString(),
+                      }
+                    : r
+            )
+        );
+    };
 
     const handleFilterChange = (e) => {
         const value = e.target.value.toLowerCase();
@@ -209,9 +249,12 @@ const RsvpStatus = () => {
                             "flex flex-row w-full space-x-5 md:hidden"
                         )}
                     >
-                        <DropdownMenu className={cn('w-full')}>
+                        <DropdownMenu className={cn("w-full")}>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="secondary" className={cn('grow-3')}>
+                                <Button
+                                    variant="secondary"
+                                    className={cn("grow-3")}
+                                >
                                     {" "}
                                     {viewLabel}
                                 </Button>
@@ -232,7 +275,11 @@ const RsvpStatus = () => {
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
-                        <Button variant="secondary" onClick={downloadCSV} className={cn('grow-2')}>
+                        <Button
+                            variant="secondary"
+                            onClick={downloadCSV}
+                            className={cn("grow-2")}
+                        >
                             <DownloadIcon />
                         </Button>
                     </div>
@@ -265,23 +312,36 @@ const RsvpStatus = () => {
 
                         <TableBody>
                             {filteredView.map((rsvp) => (
-                                <TableRow key={rsvp.name}>
-                                    <TableCell> {rsvp.name}</TableCell>
-                                    <TableCell>
-                                        {rsvp.responded && rsvp.attending
-                                            ? "Attending"
-                                            : rsvp.responded
-                                              ? "Not Attending"
-                                              : "No Response"}
-                                    </TableCell>
-                                    <TableCell
-                                        className={cn(
-                                            "text-right hidden md:table-cell"
-                                        )}
-                                    >
-                                        {formatDateTime(rsvp.last_edit)}
-                                    </TableCell>
-                                </TableRow>
+                                <Drawer key={rsvp.name}>
+                                    <DrawerTrigger asChild>
+                                        <TableRow
+                                            onClick={() => setShowDrawer(true)}
+                                        >
+                                            <TableCell> {rsvp.name}</TableCell>
+                                            <TableCell>
+                                                {rsvp.responded &&
+                                                rsvp.attending
+                                                    ? "Attending"
+                                                    : rsvp.responded
+                                                      ? "Not Attending"
+                                                      : "No Response"}
+                                            </TableCell>
+                                            <TableCell
+                                                className={cn(
+                                                    "text-right hidden md:table-cell"
+                                                )}
+                                            >
+                                                {formatDateTime(rsvp.last_edit)}
+                                            </TableCell>
+                                        </TableRow>
+                                    </DrawerTrigger>
+                                    {showDrawer && (
+                                        <DrawerAdminEdit
+                                            rsvpData={rsvp}
+                                            onStatusChange={handleRsvpUpdate}
+                                        />
+                                    )}
+                                </Drawer>
                             ))}
                         </TableBody>
                     </Table>
