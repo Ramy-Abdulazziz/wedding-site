@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
 import ProfileDropDown from "./ProfileDropDown";
+import ProfileDrawer from "./ProfileDrawer";
 
 const Nav = () => {
     return (
@@ -84,6 +85,7 @@ const Nav = () => {
                 <div className={cn("flex order-1 pl-5 pb-2 pt-2")}>
                     <ProfileDropDown />
                 </div>
+
                 <div className={cn("flex order-2")}>
                     <ThemeToggle skelMargin={3} />
                 </div>
@@ -187,8 +189,9 @@ const Nav = () => {
                         </div>
                     </SheetContent>
                 </Sheet>
+               
                 <div className={cn("pr-2")}>
-                    <ProfileDropDown />
+                    <ProfileDrawer />
                 </div>
             </div>
         </div>
