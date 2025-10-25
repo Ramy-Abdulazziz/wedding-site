@@ -9,8 +9,8 @@ const Count = ({ year, month, days, down = false }) => {
         const currentDay = new Date();
         const zIndexMonth = month - 1; 
         const countDownDate = new Date(year, zIndexMonth, days);
-
-        return Math.ceil((countDownDate - currentDay) / day);
+        const roundedDate = Math.ceil((countDownDate - currentDay) / day); 
+        return roundedDate < 0 ? 0 : roundedDate;
     };
 
     const [daysLeft, setDaysLeft] = useState(getDaysLeft());
