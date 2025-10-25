@@ -7,6 +7,8 @@ import Footer from "@/components/footer";
 import { headers } from "next/headers";
 import PathNameWrapper from "@/components/PathNameWrapper";
 import AuthContextProvider from "@/components/AuthContextProvider";
+import { Analytics } from "@vercel/analytics/next";
+
 const tajawal = Tajawal({
     weight: "400",
     subsets: ["arabic"],
@@ -49,7 +51,10 @@ export default async function RootLayout({ children }) {
                 >
                     <AuthContextProvider>
                         <div className="relative flex min-h-screen flex-col">
-                            <main className="flex-1">{children}</main>
+                            <main className="flex-1">
+                                {children} 
+                                <Analytics />
+                            </main>
                             <PathNameWrapper />
                             <Toaster />
                             <Footer />
