@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { textContainer, textItem } from "@/lib/variants";
 import AddToCalendar from "@/components/AddToCalendar";
 import weddingEvent from "@/lib/events/wedding/wedding-day.json";
+import CalendarDrawer from "./CalendarDrawer";
 
 const TimingDetails = () => {
     return (
@@ -54,8 +55,14 @@ const TimingDetails = () => {
                         </p>
                         <Count year={2025} month={11} days={26} down={true} />
                     </div>
-                    <div className={cn("")}>
+                    <div className={cn("hidden md:flex")}>
                         <AddToCalendar
+                            event={weddingEvent}
+                            icalUrl={"/wedding.ics"}
+                        />
+                    </div>
+                      <div className={cn("flex md:hidden")}>
+                        <CalendarDrawer
                             event={weddingEvent}
                             icalUrl={"/wedding.ics"}
                         />
