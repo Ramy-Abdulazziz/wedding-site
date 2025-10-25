@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        remotePatterns: [new URL("https://lh3.googleusercontent.com/p/**")],
+        remotePatterns: [new URL("https://lh3.googleusercontent.com/p/**"), new URL("https://lh3.googleusercontent.com/gps-cs-s/**")],
         qualities: [50, 80, 100],
     },
     async headers() {
