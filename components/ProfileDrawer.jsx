@@ -182,6 +182,35 @@ const ProfileDrawer = () => {
                                     </div>
                                 </div>
                             </DrawerClose>
+                            {isAdmin && (
+                                <DrawerClose>
+                                    <div
+                                        className={cn(
+                                            "flex justify-center items-center border-1 max-w-35  min-w-30 h-25 mb-10 bg-card rounded-sm"
+                                        )}
+                                        onClick={() =>
+                                            router.push("/admin/status")
+                                        }
+                                    >
+                                        <div
+                                            className={cn(
+                                                "flex flex-col items-center justify-center gap-2"
+                                            )}
+                                        >
+                                            <ShieldUserIcon
+                                                className={cn(
+                                                    "w-10 h-10 shrink-0"
+                                                )}
+                                            />
+                                            <span
+                                                className={cn(inter.className)}
+                                            >
+                                                Admin Panel
+                                            </span>
+                                        </div>
+                                    </div>
+                                </DrawerClose>
+                            )}
                         </div>
                     </DrawerContent>
                 </Drawer>
