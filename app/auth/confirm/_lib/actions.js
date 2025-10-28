@@ -97,6 +97,23 @@ const sendMagicLinkEmail = async (email) => {
     return { success: true };
 };
 
+const getRandomMessageVariant = (guestName, link) => {
+    const variants = [
+        `Hi ${guestName}! 🎉 You're invited to Ramy & Shazia's wedding — view details & RSVP here:\r\r\n${link}`,
+
+        `Hey ${guestName}! Ramy & Shazia can't wait to celebrate with you ❤️ RSVP & event info:\r\r\n${link}`,
+
+        `${guestName}, you're invited! 🎊 View the wedding details & RSVP below:\r\r\n${link}`,
+
+        `Ramy & Shazia's wedding 🎉 Don't miss it! RSVP link:\r\r\n${link}`,
+
+        `It's official 🎊 Ramy & Shazia are getting married! Tap to RSVP:\r\r\n${link}`,
+    ];
+
+    const randomIndex = Math.floor(Math.random() * variants.length);
+    return variants[randomIndex];
+};
+
 const sendMagicLinkTextNoEmail = async (phone) => {
     const sanitizedPhone = phone.trim();
     const phoneNumber = parsePhoneNumber(sanitizedPhone, "US");
@@ -155,13 +172,17 @@ const sendMagicLinkTextNoEmail = async (phone) => {
         process.env.TWILIO_AUTH_TOKEN
     );
 
+    const splitName = guest.name.split(" ");
+    const nameForMessage =
+        splitName.length > 2 ? `${splitName[0]} ${splitName[1]}` : splitName[0];
+    const messageVariant = getRandomMessageVariant(nameForMessage, magicLink);
+
     try {
         await client.messages.create({
-            body: `You're invited to Ramy & Shazia's wedding 🎉 Tap below for details & to RSVP:  
-                
-${magicLink} `,
-            from: process.env.TWILIO_PHONE_NUMBER,
+            body: messageVariant,
+            messagingServiceSid: process.env.TWILIO_MESSAGE_SERVICE_SID,
             to: phoneNumber.formatInternational(),
+            shortenUrls: true,
         });
     } catch (textError) {
         console.error("Error sending text", textError);
