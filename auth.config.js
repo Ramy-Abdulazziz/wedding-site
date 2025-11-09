@@ -16,4 +16,5 @@ export const authConfig = {
     phoneDeclinedPlaceHolder: "0000000000",
     authRoutes: ["/auth/confirm", "/auth/confirm/email"],
     adminRoutes: ["/admin/status"],
+    unallowedRoutes:["/rsvp", "/thanks"],
 };

@@ -27,8 +27,12 @@ import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
 import ProfileDropDown from "./ProfileDropDown";
 import ProfileDrawer from "./ProfileDrawer";
-
+import { Button } from "./ui/button";
+import { toast } from "sonner";
 const Nav = () => {
+    const handleRSVPNav = (e) => { 
+        toast.error("We are no longer accepting RSVP's"); 
+    }
     return (
         <div
             className={cn(
@@ -149,12 +153,15 @@ const Nav = () => {
                                         </Link>
                                     </SheetClose>
                                     <SheetClose asChild>
-                                        <Link
-                                            href="/rsvp"
-                                            className={cn("text-2xl")}
+                                        <Button
+                                            variant="link"
+                                            onClick={handleRSVPNav}
+                                            className={cn(
+                                                "text-2xl opacity-25 w-39 -mt-1"
+                                            )}
                                         >
                                             Find Your Invite
-                                        </Link>
+                                        </Button>
                                     </SheetClose>
                                 </div>
                                 <div className={cn("flex flex-col mb-2")}>
@@ -189,7 +196,7 @@ const Nav = () => {
                         </div>
                     </SheetContent>
                 </Sheet>
-               
+
                 <div className={cn("pr-2")}>
                     <ProfileDrawer />
                 </div>

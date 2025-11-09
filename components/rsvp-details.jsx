@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Count from "@/components/Count";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import AddToCalendar from "@/components/AddToCalendar";
 import rsvpEvent from "@/lib/events/rsvp/rsvp-deadline.json";
 import { RadarIcon, UserSearchIcon } from "lucide-react";
@@ -17,6 +18,9 @@ const inter = Inter({
     subsets: ["latin"],
 });
 
+const handleRSVPAttempt = (e) => {
+    toast.error("RSVP has closed");
+};
 const RsvpDetails = () => {
     return (
         <>
@@ -84,7 +88,7 @@ const RsvpDetails = () => {
                         )}
                     >
                         {" "}
-                        RSVP Open
+                        RSVP Closed
                     </p>
                     <p
                         className={cn(
@@ -92,34 +96,28 @@ const RsvpDetails = () => {
                         )}
                     >
                         {" "}
-                        Please RSVP below
+                        We are no longer accepting RSVP's
                     </p>
+
                     <Button
-                        asChild
                         variant={"secondary"}
+                        onClick={handleRSVPAttempt}
                         className={cn(
-                            "mt-3 text-base flex lg:text-lg xl:text-lg 2xl:text-xl cursor-pointer leading-normal "
+                            "mt-3 opacity-25 text-base flex lg:text-lg xl:text-lg 2xl:text-xl leading-normal "
                         )}
                     >
-                        <Link
-                            href="/rsvp"
+                        <div
                             className={cn(
-                                "inline-flex text-base items-center gap-2 cursor-pointer leading-normal "
+                                "inline-flex items-center justify-center space-x-2 lg:items-center"
                             )}
                         >
-                            <div
-                                className={cn(
-                                    "inline-flex items-center justify-center space-x-2 lg:items-center"
-                                )}
-                            >
-                                <UserSearchIcon
-                                    className={cn("w-5 h-5 shrink-0")}
-                                />
-                                <span className={cn(inter.className)}>
-                                    Find Your Invite
-                                </span>
-                            </div>
-                        </Link>
+                            <UserSearchIcon
+                                className={cn("w-5 h-5 shrink-0")}
+                            />
+                            <span className={cn(inter.className)}>
+                                Find Your Invite
+                            </span>
+                        </div>
                     </Button>
                 </div>
             </motion.div>

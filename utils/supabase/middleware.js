@@ -90,6 +90,12 @@ export async function updateSession(request) {
         !guest.email.includes(authConfig.noEmailPlaceHolder);
 
     const userHasPhone = guest.phone !== null;
+    if (authConfig.unallowedRoutes.includes(pathname)) {
+        const url = request.nextUrl.clone();
+        url.pathname = authConfig.authedHomeRoute;
+        return NextResponse.redirect(url);
+    }
+    
     if (authConfig.emailOnlyRoutes.includes(pathname)) {
         if (!userHasEmail || !userHasPhone) {
             const url = request.nextUrl.clone();
