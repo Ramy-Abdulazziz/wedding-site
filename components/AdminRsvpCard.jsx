@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import RsvpStatus from "@/components/RsvpStatus";
 
-const AdminRsvpCard = () => {
+const AdminRsvpCard = ({ rsvpData, loading }) => {
     return (
         <Card
             className={cn(
@@ -25,7 +25,7 @@ const AdminRsvpCard = () => {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <RsvpStatus />
+                <RsvpStatus rsvpData={rsvpData} loading={loading} />
             </CardContent>
         </Card>
     );

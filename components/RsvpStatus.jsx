@@ -45,11 +45,10 @@ const inter = Inter({
     subsets: ["latin"],
 });
 
-const RsvpStatus = () => {
+const RsvpStatus = ({rsvpData, loading}) => {
     const [allRsvps, setAllRsvps] = useState([]);
     const [currentView, setCurrentView] = useState([]);
     const [filteredView, setFilteredView] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [numAttending, setNumAttending] = useState(0);
     const [numNotAttending, setNumNotAttending] = useState(0);
     const [numNotResponded, setNumNotResponded] = useState(0);
@@ -62,8 +61,6 @@ const RsvpStatus = () => {
     useEffect(() => {
         const loadRsvpData = async () => {
             try {
-                setLoading(true);
-                const rsvpData = await getAllRsvps();
                 if (rsvpData.rsvpData) {
                     setAllRsvps(rsvpData.rsvpData);
                     setCurrentView(rsvpData.rsvpData);
@@ -87,7 +84,6 @@ const RsvpStatus = () => {
             } finally {
                 setViewLabel(`Set Guest View`);
 
-                setLoading(false);
             }
         };
 

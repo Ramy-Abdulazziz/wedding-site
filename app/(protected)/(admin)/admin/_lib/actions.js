@@ -62,3 +62,93 @@ export const adminUpdateGuestRsvp = async (
 
     return { success: true };
 };
+
+const adminSendUserLogin = async (userId) => {
+    const supabase = await createClient();
+    const { data: userData, error } =
+        await supabase.auth.admin.getUserById(userId);
+
+    const logInEmail = userData.user.email.trim();
+    const { data: linkData, error: linkError } =
+        await supabaseAdmin.auth.admin.generateLink({
+            type: "magiclink",
+            email: logInEmail,
+        });
+
+    if (linkError) {
+        console.error("Error generating magic link:", linkError);
+        return { error: "❌ Failed to create magic link. Please try again." };
+    }
+    const { hashed_token, verification_type } = linkData.properties;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+    const verificationUrl = new URL("/auth/confirm", siteUrl);
+    verificationUrl.searchParams.set("token_hash", hashed_token);
+    verificationUrl.searchParams.set("type", verification_type);
+    verificationUrl.searchParams.set("next", "/details");
+
+    const magicLink = verificationUrl.toString();
+};
+
+const sendBatch = async (batch) => {
+    const supabase = await createClient();
+    const { data: userData, error } =
+        await supabase.auth.admin.getUserById(userId);
+
+    const logInEmail = userData.user.email.trim();
+    const { data: linkData, error: linkError } =
+        await supabaseAdmin.auth.admin.generateLink({
+            type: "magiclink",
+            email: logInEmail,
+        });
+
+    if (linkError) {
+        console.error("Error generating magic link:", linkError);
+        return { error: "❌ Failed to create magic link. Please try again." };
+    }
+    const { hashed_token, verification_type } = linkData.properties;
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+    const verificationUrl = new URL("/auth/confirm", siteUrl);
+    verificationUrl.searchParams.set("token_hash", hashed_token);
+    verificationUrl.searchParams.set("type", verification_type);
+    verificationUrl.searchParams.set("next", "/details");
+
+    const magicLink = verificationUrl.toString();
+};
+
+const randomReminderMessage = ({ guestName, link }) => {
+    const variants = [
+        `Hi ${guestName}! 🎉 You're invited to Ramy & Shazia's wedding — view details & RSVP here:\r\r\n${link}`,
+
+        `Hey ${guestName}! Ramy & Shazia can't wait to celebrate with you ❤️ RSVP & event info:\r\r\n${link}`,
+
+        `${guestName}, you're invited! 🎊 View the wedding details & RSVP below:\r\r\n${link}`,
+
+        `Ramy & Shazia's wedding 🎉 Don't miss it! RSVP link:\r\r\n${link}`,
+
+        `It's official 🎊 Ramy & Shazia are getting married! Tap to RSVP:\r\r\n${link}`,
+    ];
+
+    const randomIndex = Math.floor(Math.random() * variants.length);
+    return variants[randomIndex];
+};
+
+const adminBatchSend = async (userIds) => {
+    const supabase = await supabase.createClient();
+
+    const { guestData, error } = await supabase
+        .from("guests")
+        .select("*")
+        .neq("is_plus_one", true);
+
+    const guestQueue = [];
+    for (let guest of guestData) {
+        guestQueue.push(guest.id);
+    }
+
+    while (guestQueue.length > 0) {
+        const sendQueue = guestQueue.slice(0, 5);
+        setTimeout(() => sendBatch(sendQueue), Math.random() * 10 + 5);
+    }
+};
