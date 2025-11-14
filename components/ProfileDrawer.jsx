@@ -116,20 +116,18 @@ const ProfileDrawer = () => {
                                 {" "}
                                 {guestName || "Guest"}
                             </DrawerTitle>
-                            <DrawerDescription className={cn("text-lg")}>
-                                <div
-                                    className={cn(
-                                        "flex flex-col justify-center items-center"
-                                    )}
-                                >
-                                    <div>
-                                        <EmailSection guestEmail={guestEmail} />
-                                    </div>
-                                    <div>
-                                        <PhoneSection guestPhone={guestPhone} />
-                                    </div>
+                            <div
+                                className={cn(
+                                    "flex flex-col justify-center items-center"
+                                )}
+                            >
+                                <div>
+                                    <EmailSection guestEmail={guestEmail} />
                                 </div>
-                            </DrawerDescription>
+                                <div>
+                                    <PhoneSection guestPhone={guestPhone} />
+                                </div>
+                            </div>
                         </DrawerHeader>
                         <div
                             className={cn(
