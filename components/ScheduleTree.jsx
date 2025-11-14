@@ -31,7 +31,7 @@ const events = [
         description: "Dinner, dancing, and festivities to celebrate together.",
         time_start: "8:00",
         time_end: "12:00",
-        duration: "1 Hour",
+        duration: "4 Hours",
         location: "Crest Hollow County Club",
     },
 ];
