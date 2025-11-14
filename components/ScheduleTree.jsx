@@ -10,16 +10,16 @@ const events = [
     {
         name: "Ceremony",
         id: "nikkah",
-        description: "Join us as we perform our Nikkah ceremony.",
+        description: "Join us for our Nikkah ceremony.",
         time_start: "6:15",
         time_end: "7:00",
         duration: "45 Minutes",
         location: "Crest Hollow County Club",
     },
     {
-        name: "Cocktail Hour",
+        name: "Cocktail",
         id: "cocktail",
-        description: "Enjoy drinks and snacks while we capture photos.",
+        description: "Enjoy food and drinks while you mingle.",
         time_start: "7:00",
         time_end: "8:00",
         duration: "1 Hour",
@@ -43,11 +43,11 @@ const ScheduleTree = () => {
                 <div className={cn("max-w-5xl mx-auto")}>
                     <div className={cn("mt-2 md:mb-5 md:ml-5")}>
                         <h2 className={cn("text-5xl font-bold mb-2")}>
-                            Schedule
+                            Event Schedule
                         </h2>
-                        <p className={cn("text-lg text-neutral-500")}>
+                        <p className={cn("text-xl text-neutral-500")}>
                             {" "}
-                            Three Events. One Great Day.
+                            A timeline of our day.
                         </p>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ const ScheduleTree = () => {
                                                     )}
                                                 </span>
                                             </div>
-                                            <p className="text-neutral-400 leading-relaxed max-w-xl">
+                                            <p className="text-neutral-400 leading-relaxed max-w-xl md:text-lg">
                                                 {event.description}
                                             </p>
                                         </div>
@@ -100,31 +100,31 @@ const ScheduleTree = () => {
 
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-neutral-800/50">
                                         <div className="space-y-1">
-                                            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-wider mb-2">
+                                            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-wider mb-2 md:text-lg">
                                                 <Clock className="w-3 h-3" />
                                                 <span>Time</span>
                                             </div>
-                                            <div className="text-base font-medium">
+                                            <div className="text-base font-medium md:text-lg">
                                                 {event.time_start} PM
                                             </div>
                                         </div>
 
                                         <div className="space-y-1">
-                                            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-wider mb-2">
+                                            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-wider mb-2 md:text-lg">
                                                 <Calendar className="w-3 h-3" />
                                                 <span>Duration</span>
                                             </div>
-                                            <div className="text-base font-medium">
+                                            <div className="text-base font-medium md:text-lg">
                                                 {event.duration}
                                             </div>
                                         </div>
 
                                         <div className="space-y-1">
-                                            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-wider mb-2">
+                                            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 uppercase tracking-wider mb-2 md:text-lg">
                                                 <MapPin className="w-3 h-3" />
                                                 <span>Location</span>
                                             </div>
-                                            <div className="text-base font-medium">
+                                            <div className="text-base font-medium md:text-lg">
                                                 {event.location}
                                             </div>
                                         </div>
