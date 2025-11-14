@@ -51,7 +51,7 @@ const TimingDetails = () => {
                                 "text-lg lg:text-2xl xl:text-2xl 2xl:text-2xl"
                             )}
                         >
-                            7 PM - 12 AM
+                            6:15 PM - 12 AM
                         </p>
                         <Count year={2025} month={11} days={26} down={true} />
                     </div>
