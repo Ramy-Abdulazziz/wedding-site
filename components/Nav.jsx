@@ -30,9 +30,9 @@ import ProfileDrawer from "./ProfileDrawer";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 const Nav = () => {
-    const handleRSVPNav = (e) => { 
-        toast.error("We are no longer accepting RSVP's"); 
-    }
+    const handleRSVPNav = (e) => {
+        toast.error("We are no longer accepting RSVP's");
+    };
     return (
         <div
             className={cn(
@@ -59,7 +59,7 @@ const Nav = () => {
                             asChild
                             className={cn(navigationMenuLinkStyle())}
                         >
-                            <Link href="/details#rsvp">RSVP</Link>
+                            <Link href="/schedule">Schedule</Link>
                         </NavigationMenuLink>
                     </NavigationMenuItem>
 
@@ -139,6 +139,14 @@ const Nav = () => {
                                             className={cn("text-2xl")}
                                         >
                                             FAQ
+                                        </Link>
+                                    </SheetClose>
+                                    <SheetClose asChild>
+                                        <Link
+                                            href="/schedule"
+                                            className={cn("text-2xl")}
+                                        >
+                                            Schedule
                                         </Link>
                                     </SheetClose>
                                 </div>
