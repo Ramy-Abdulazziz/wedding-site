@@ -75,7 +75,11 @@ export async function updateSession(request) {
 
     if (verifiedUser && authConfig.authRoutes.includes(pathname)) {
         const url = request.nextUrl.clone();
-        url.pathname = authConfig.authedHomeRoute;
+        const nextParam = request.nextUrl.searchParams.get("next");
+
+        url.pathname = nextParam || authConfig.authedHomeRoute;
+        url.search='';
+
         return NextResponse.redirect(url);
     }
 
@@ -95,7 +99,7 @@ export async function updateSession(request) {
         url.pathname = authConfig.authedHomeRoute;
         return NextResponse.redirect(url);
     }
-    
+
     if (authConfig.emailOnlyRoutes.includes(pathname)) {
         if (!userHasEmail || !userHasPhone) {
             const url = request.nextUrl.clone();
